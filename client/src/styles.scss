@@ -1,12 +1,32 @@
 @use "sass:math";
 
+// Use material design colors: https://material.io/design/color/the-color-system.html#tools-for-picking-colors (at the bottom of the page under "2014 Material Design color palettes")
+
+// Colors:
+$color-very-light: #e3f2fd; // #100 Blue
+$color-light: #90caf9; // #200 Blue
+$color-mid: #42a5f5; // #400 Blue
+$color-dark: #1976d2; // #700 Blue
+$color-very-dark: #0d47a1; // #900 Blue
+// Grey-scale:
+$color-white: #ffffff;
+$color-gray-very-light: #eeeeee; // #200
+$color-gray-light: #e0e0e0; // #300
+$color-gray-mid: #9e9e9e; // #400
+$color-gray-dark: #616161; // #700
+
+// Spacings:
 $space-base: 1rem;
 $space-small: math.div($space-base, 2);
 $space-large: $space-base * 2;
 $space-huge: $space-base * 3.5;
 
+$border-radius-small: 0.25rem;
+$border-radius: 0.5rem;
+
 * {
   font-family: DejaVu Sans, sans-serif;
+  color: $color-gray-dark;
 }
 
 body {
@@ -14,4 +34,24 @@ body {
   margin: 0;
 }
 
-$border-radius: 0.5rem;
+button {
+  height: $space-large;
+  padding-left: $space-base;
+  padding-right: $space-base;
+  background-color: $color-very-light;
+  border: 1px solid $color-light;
+
+  &:hover {
+    border: 1px solid $color-mid;
+  }
+
+  &::-moz-focus-inner { // remove dotted line in Firefox
+    border: 0
+  }
+
+  &:disabled {
+    background-color: $color-gray-very-light;
+    border-color: $color-gray-light;
+    color: $color-gray-mid;
+  }
+}

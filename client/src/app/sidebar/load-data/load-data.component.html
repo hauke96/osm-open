@@ -1,1 +1,2 @@
-{{canLoadData}}
+<button [disabled]="!canLoadData" (click)="onLoadDataClicked()" class="load-data-button">{{"load-data.load-data" | translate}}</button>
+<span *ngIf="!canLoadData">{{"load-data.zoom" | translate}}</span>
