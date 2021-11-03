@@ -20,10 +20,6 @@ describe(AppComponent.name, () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should have as title 'osm-open'`, () => {
-    expect(component.title).toEqual('osm-open');
-  });
-
   it('should render title', () => {
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('.content span')?.textContent).toContain('osm-open app is running!');
