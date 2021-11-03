@@ -7,13 +7,15 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { MapComponent } from './map/map/map.component';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 import { LoadDataComponent } from './sidebar/load-data/load-data.component';
+import { PoiLayerComponent } from './map/poi-layer/poi-layer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
     SidebarComponent,
-    LoadDataComponent
+    LoadDataComponent,
+    PoiLayerComponent
   ],
   imports: [
     BrowserModule,
