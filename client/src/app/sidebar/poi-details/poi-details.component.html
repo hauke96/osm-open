@@ -1,2 +1,5 @@
-<h2>{{name}}</h2>
-<p>{{openingHours}}</p>
+<div *ngIf="!!openingHoursString">
+  <h2>{{name}}</h2>
+  <p>{{openingHoursString}}</p>
+  <p>{{"poi-details.open-notice" | translate}} {{isNowOpen ? "yes" : "no" | translate}}</p>
+</div>

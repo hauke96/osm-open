@@ -3,5 +3,10 @@
   "load-data": {
     "load-data": "Load data",
     "zoom": "Zoom further in to load data"
-  }
+  },
+  "poi-details": {
+    "open-notice": "Is now open:"
+  },
+  "yes": "yes",
+  "no": "no"
 }
