@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {MapService} from "../../map/map.service";
 
 @Component({
@@ -7,13 +7,9 @@ import {MapService} from "../../map/map.service";
   styleUrls: ['./load-data.component.scss']
 })
 export class LoadDataComponent {
-  zoomLevel: number = 0;
+  canLoadData: boolean = false;
 
   constructor(mapService: MapService) {
-    mapService.currentZoomLevelChanged.subscribe(newZoomLevel => this.zoomLevel = newZoomLevel)
-  }
-
-  get zoom(): number {
-    return this.zoomLevel;
+    mapService.currentZoomLevelChanged.subscribe(newZoomLevel => this.canLoadData = newZoomLevel > 16)
   }
 }
