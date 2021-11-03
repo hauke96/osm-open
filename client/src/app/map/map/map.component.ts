@@ -31,7 +31,7 @@ export class MapComponent implements AfterViewInit, LayerService {
       view: new View({
         center: [1110161, 7085688],
         projection: 'EPSG:3857',
-        zoom: 14,
+        zoom: 17,
         minZoom: 0,
         maxZoom: 19
       })
@@ -41,7 +41,10 @@ export class MapComponent implements AfterViewInit, LayerService {
   ngAfterViewInit(): void {
     this.map.setTarget("map");
 
-    this.map.on('moveend', () => this.mapService.zoomLevelChanged(this.map.getView().getZoom() ?? 0));
+    this.map.on('moveend', () => this.mapService.mapViewChanged(
+      this.map.getView().getZoom() ?? 0,
+      this.map.getView().calculateExtent()
+    ));
   }
 
   addLayer(layer: BaseLayer): void {

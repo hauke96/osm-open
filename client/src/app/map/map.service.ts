@@ -1,17 +1,18 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from "rxjs";
+import {Extent} from "ol/extent";
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapService {
-  private $currentZoomLevelChanges: Subject<number> = new Subject<number>();
+  private $currentMapViewChanges: Subject<[number, Extent]> = new Subject<[number, Extent]>();
 
-  get currentZoomLevelChanged(): Observable<number> {
-    return this.$currentZoomLevelChanges.asObservable();
+  get currentMapViewChanged(): Observable<[number, Extent]> {
+    return this.$currentMapViewChanges.asObservable();
   }
 
-  zoomLevelChanged(newZoomLevel: number): void {
-    this.$currentZoomLevelChanges.next(newZoomLevel);
+  mapViewChanged(zoomLevel: number, extent: Extent): void {
+    this.$currentMapViewChanges.next([zoomLevel, extent]);
   }
 }
