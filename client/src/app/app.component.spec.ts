@@ -2,7 +2,7 @@ import {AppComponent} from './app.component';
 import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
 import {AppModule} from "./app.module";
 
-describe('AppComponent', () => {
+describe(AppComponent.name, () => {
   let component: AppComponent;
   let fixture: MockedComponentFixture<AppComponent>;
 
