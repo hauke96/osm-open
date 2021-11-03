@@ -1,20 +1,22 @@
-import {AfterViewInit, Component, forwardRef} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {Map, View} from "ol";
 import {Attribution} from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import {OSM} from "ol/source";
+import {Unsubscriber} from "../../common/ubsunscriber";
 import {MapService} from "../map.service";
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss'],
-  providers: [
-    { provide: MapService, useExisting: forwardRef(() => MapComponent) }
-  ]
+  styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements AfterViewInit {
+export class MapComponent extends Unsubscriber implements AfterViewInit {
   map: Map;
+
+  constructor(private mapService: MapService) {
+    super();
+  }
 
   ngAfterViewInit(): void {
     this.map = new Map({
@@ -35,5 +37,7 @@ export class MapComponent implements AfterViewInit {
         maxZoom: 19
       })
     });
+
+    this.map.on('moveend', () => this.mapService.zoomLevelChanged(this.map.getView().getZoom() ?? 0));
   }
 }

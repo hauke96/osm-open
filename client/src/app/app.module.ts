@@ -6,12 +6,14 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { MapComponent } from './map/map/map.component';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
+import { LoadDataComponent } from './sidebar/load-data/load-data.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    SidebarComponent
+    SidebarComponent,
+    LoadDataComponent
   ],
   imports: [
     BrowserModule,
