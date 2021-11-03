@@ -31,10 +31,22 @@ export class PoiService {
 
     this.httpClient.get(url).subscribe((data: any) => {
       console.log(data);
-      let features = data.elements.map((element:any) => {
+      let features = data.elements.map((element: any) => {
         const feature = new Feature<Point>();
         feature.setProperties(element.tags)
-        feature.setGeometry(new Point(fromLonLat([element.lon, element.lat])))
+
+        let lon: number;
+        let lat: number;
+
+        if (!!element.center) {
+          lon = element.center.lon;
+          lat = element.center.lat;
+        } else {
+          lon = element.lon;
+          lat = element.lat;
+        }
+
+        feature.setGeometry(new Point(fromLonLat([lon, lat])))
         return feature;
       });
       this.dataChangedSubject.next(features);
