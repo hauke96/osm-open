@@ -5,11 +5,13 @@ import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import { MapComponent } from './map/map/map.component';
+import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,17 @@
+@import "src/styles";
+
+:host {
+  position: absolute;
+  left: $space-base;
+  top: $space-base;
+
+  width: 20%;
+  min-width: 250px;
+  max-width: 350px;
+
+  background-color: white;
+  border-radius: $border-radius;
+  padding: $space-base;
+
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.25);
+}

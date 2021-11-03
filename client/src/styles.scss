@@ -1,3 +1,8 @@
+$space-base: 1rem;
+$space-small: $space-base / 2;
+$space-large: $space-base * 2;
+$space-huge: $space-base * 3.5;
+
 * {
   font-family: DejaVu Sans, sans-serif;
 }
@@ -6,3 +11,5 @@ body {
   height: 100vh;
   margin: 0;
 }
+
+$border-radius: 0.5rem;
