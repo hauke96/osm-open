@@ -1,13 +1,17 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, forwardRef} from '@angular/core';
 import {Map, View} from "ol";
 import {Attribution} from "ol/control";
 import TileLayer from "ol/layer/Tile";
 import {OSM} from "ol/source";
+import {MapService} from "../map.service";
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  styleUrls: ['./map.component.scss'],
+  providers: [
+    { provide: MapService, useExisting: forwardRef(() => MapComponent) }
+  ]
 })
 export class MapComponent implements AfterViewInit {
   map: Map;

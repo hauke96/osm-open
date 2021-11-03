@@ -1,5 +1,7 @@
+@use "sass:math";
+
 $space-base: 1rem;
-$space-small: $space-base / 2;
+$space-small: math.div($space-base, 2);
 $space-large: $space-base * 2;
 $space-huge: $space-base * 3.5;
 
