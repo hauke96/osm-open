@@ -6,6 +6,7 @@ import {OSM} from "ol/source";
 import {MapService} from "../map.service";
 import {LayerService} from "../layer.service";
 import BaseLayer from "ol/layer/Base";
+import {Interaction} from "ol/interaction";
 
 @Component({
   selector: 'app-map',
@@ -49,5 +50,9 @@ export class MapComponent implements AfterViewInit, LayerService {
 
   addLayer(layer: BaseLayer): void {
     this.map.addLayer(layer);
+  }
+
+  addInteraction(interaction: Interaction) {
+    this.map.addInteraction(interaction);
   }
 }

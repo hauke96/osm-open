@@ -11,12 +11,17 @@ import {fromLonLat, toLonLat} from "ol/proj";
 })
 export class PoiService {
   private dataChangedSubject: Subject<Feature<Point>[]> = new Subject<Feature<Point>[]>();
+  private poiSelectedSubject: Subject<Feature<Point>> = new Subject<Feature<Point>>();
 
   constructor(private httpClient: HttpClient) {
   }
 
   get dataChanged(): Observable<Feature<Point>[]> {
     return this.dataChangedSubject.asObservable();
+  }
+
+  get poiSelected(): Observable<Feature<Point>> {
+    return this.poiSelectedSubject.asObservable();
   }
 
   loadData(extent: Extent): void {
@@ -51,5 +56,9 @@ export class PoiService {
       });
       this.dataChangedSubject.next(features);
     })
+  }
+
+  selectPoi(feature: Feature<Point>): void {
+    this.poiSelectedSubject.next(feature);
   }
 }

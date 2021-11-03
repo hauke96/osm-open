@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LayerService} from "../layer.service";
 import VectorLayer from "ol/layer/Vector";
 import VectorSource from "ol/source/Vector";
 import {Point} from "ol/geom";
-import {Feature} from "ol";
 import {PoiService} from "../poi.service";
+import {Select} from "ol/interaction";
+import {SelectEvent} from "ol/interaction/Select";
 
 @Component({
   selector: 'app-poi-layer',
@@ -25,6 +26,12 @@ export class PoiLayerComponent implements OnInit {
       this.source.clear();
       this.source.addFeatures(newFeatures);
     });
+
+    let select = new Select();
+    select.on('select', (event:SelectEvent) => {
+      this.poiService.selectPoi(event.selected[0]);
+    });
+    this.layerService.addInteraction(select);
   }
 
   ngOnInit(): void {
