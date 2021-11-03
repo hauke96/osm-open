@@ -22,12 +22,12 @@ export class PoiService {
   loadData(extent: Extent): void {
     const bottomLeft = toLonLat([extent[0], extent[1]]);
     const topRight = toLonLat([extent[2], extent[3]]);
+    const bbox = "(" + bottomLeft[1] + "," + bottomLeft[0] + "," + topRight[1] + "," + topRight[0] + ")";
 
     let url = "https://overpass-api.de/api/interpreter?data=[out:json][timeout:25];(" +
-      "node[\"opening_hours\"](" + bottomLeft[1] + "," + bottomLeft[0] + "," + topRight[1] + "," + topRight[0] + ");" +
-      "way[\"opening_hours\"](" + bottomLeft[1] + "," + bottomLeft[0] + "," + topRight[1] + "," + topRight[0] + ");" +
-      ");" +
-      "out center;";
+      "node[\"opening_hours\"]" + bbox + ";" +
+      "way[\"opening_hours\"]" + bbox + ";" +
+      ");out center;";
 
     this.httpClient.get(url).subscribe((data: any) => {
       console.log(data);
