@@ -1,1 +1,1 @@
-# osm-open
+# OSM Open
