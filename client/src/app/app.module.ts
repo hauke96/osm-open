@@ -8,6 +8,7 @@ import { MapComponent } from './map/map/map.component';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 import { LoadDataComponent } from './sidebar/load-data/load-data.component';
 import { PoiLayerComponent } from './map/poi-layer/poi-layer.component';
+import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PoiLayerComponent } from './map/poi-layer/poi-layer.component';
     MapComponent,
     SidebarComponent,
     LoadDataComponent,
-    PoiLayerComponent
+    PoiLayerComponent,
+    PoiDetailsComponent
   ],
   imports: [
     BrowserModule,
