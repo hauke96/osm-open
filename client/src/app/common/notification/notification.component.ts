@@ -9,7 +9,6 @@ import {NotificationService} from "../notification.service";
 export class NotificationComponent {
 
   constructor(private notificationService: NotificationService) {
-    notificationService.addError("Test error");
   }
 
   hasError(): boolean {

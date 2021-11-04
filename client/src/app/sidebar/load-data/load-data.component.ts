@@ -3,6 +3,7 @@ import {MapService} from "../../map/map.service";
 import {Unsubscriber} from "../../common/ubsunscriber";
 import {PoiService} from "../../map/poi.service";
 import {Extent} from "ol/extent";
+import {NotificationService} from "../../common/notification.service";
 
 @Component({
   selector: 'app-load-data',
@@ -15,7 +16,7 @@ export class LoadDataComponent extends Unsubscriber {
 
   private extent: Extent;
 
-  constructor(private poiService: PoiService, mapService: MapService) {
+  constructor(private poiService: PoiService, private notificationService: NotificationService, mapService: MapService) {
     super();
 
     this.unsubscribeLater(mapService.currentMapViewChanged.subscribe(([zoomLevel, extent]: [number, Extent]) => {
@@ -26,6 +27,15 @@ export class LoadDataComponent extends Unsubscriber {
 
   onLoadDataClicked() {
     this.isLoading = true;
-    this.poiService.loadData(this.extent).subscribe(() => this.isLoading = false);
+    this.poiService
+      .loadData(this.extent)
+      .subscribe(
+        () => this.isLoading = false,
+        err => {
+          this.notificationService.addError(err.message)
+          this.isLoading = false
+          throw err;
+        }
+      );
   }
 }

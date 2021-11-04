@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Geometry} from "ol/geom";
 import {Feature} from "ol";
-import opening_hours, {optional_conf_param} from "opening_hours";
+import opening_hours, {nominatim_object, optional_conf_param} from "opening_hours";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class OpeningHoursService {
   getOpeningHours(feature: Feature<Geometry>): (opening_hours | undefined) {
     // TODO use locale of country the POI is in
     try {
-      return new opening_hours(this.getOpeningHoursString(feature), null, {locale: "de"} as optional_conf_param);
+      return new opening_hours(this.getOpeningHoursString(feature), {} as nominatim_object, {locale: navigator.language} as optional_conf_param);
     } catch (e) {
       console.error(`Error on feature ${feature.get("@id")} with name '${feature.get("name")}' and opening_hours '${this.getOpeningHoursString(feature)}'`)
       console.error(e);

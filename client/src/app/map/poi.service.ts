@@ -30,7 +30,7 @@ export class PoiService {
     const topRight = toLonLat([extent[2], extent[3]]);
     const bbox = "(" + bottomLeft[1] + "," + bottomLeft[0] + "," + topRight[1] + "," + topRight[0] + ")";
 
-    let url = "https://overpass-api.de/api/interpreter?data=[out:json][timeout:25];(" +
+    let url = "https://overpass-api.de/api/interpreter?data=[out:json][timeout:30];(" +
       "node[\"opening_hours\"]" + bbox + ";" +
       "way[\"opening_hours\"]" + bbox + ";" +
       ");out center;";
