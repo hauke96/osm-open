@@ -32,7 +32,7 @@ import { NotificationComponent } from './common/notification/notification.compon
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient),
+                useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient, "/osm-open/assets/i18n/"),
                 deps: [HttpClient]
             }
         }),
