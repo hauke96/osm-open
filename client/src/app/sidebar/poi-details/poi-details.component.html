@@ -1,5 +1,8 @@
-<div *ngIf="!!openingHoursString">
-  <h2>{{name}}</h2>
-  <p>{{openingHoursString}}</p>
-  <p>{{"poi-details.open-notice" | translate}} {{isNowOpen ? "yes" : "no" | translate}}</p>
+<div *ngIf="!!openingHoursString" class="details-container">
+  <div class="opening-bar" [ngClass]="{'green' : isNowOpen, 'red': !isNowOpen}"></div>
+  <div>
+    <h2>{{name}}</h2>
+    <p>{{openingHoursString}}</p>
+    <p>{{"poi-details.open-notice" | translate}} {{isNowOpen ? "yes" : "no" | translate}}</p>
+  </div>
 </div>

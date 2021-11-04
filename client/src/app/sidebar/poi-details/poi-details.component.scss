@@ -1,0 +1,25 @@
+@import "src/styles";
+
+h2 {
+  margin-top: $space-small;
+}
+
+.details-container {
+  margin-top: $space-base;
+  display: flex;
+  flex-direction: row;
+}
+
+.opening-bar {
+  width: 3.5 * $border-radius-small;
+  margin-right: $space-base;
+  border-radius: 1.75 * $border-radius;
+}
+
+.red {
+  background-color: #f44336d8;
+}
+
+.green {
+  background-color: #4caf50d8;
+}

@@ -16,7 +16,7 @@ $color-gray-mid: #9e9e9e; // #400
 $color-gray-dark: #616161; // #700
 
 // Spacings:
-$space-base: 1rem;
+$space-base: 1.25rem;
 $space-small: math.div($space-base, 2);
 $space-large: $space-base * 2;
 $space-huge: $space-base * 3.5;
@@ -34,12 +34,20 @@ body {
   margin: 0;
 }
 
+span,
+p,
+button,
+input {
+  font-size: 1rem;
+}
+
 button {
   height: $space-large;
   padding-left: $space-base;
   padding-right: $space-base;
   background-color: $color-very-light;
   border: 1px solid $color-light;
+  border-radius: $border-radius-small;
 
   &:hover {
     border: 1px solid $color-mid;
