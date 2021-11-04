@@ -15,6 +15,7 @@ export class PoiDetailsComponent extends Unsubscriber {
   name: string;
   openingHoursString: string;
   website: string;
+  osmWebsite: string;
   isNowOpen: boolean;
 
   private selectedFeature: Feature<Point>;
@@ -41,10 +42,13 @@ export class PoiDetailsComponent extends Unsubscriber {
     if (!this.selectedFeature) {
       this.name = "";
       this.openingHoursString = "";
+      this.website = "";
+      this.osmWebsite = "";
       this.isNowOpen = false;
     } else {
       this.name = this.selectedFeature.get("name");
       this.website = this.getWebsite(this.selectedFeature);
+      this.osmWebsite = this.getOsmWebsite(this.selectedFeature);
       this.openingHoursString = this.openingHoursService.getOpeningHoursString(this.selectedFeature);
       this.isNowOpen = this.openingHoursService.isOpen(this.selectedFeature, this.selectedDateTime);
     }
@@ -60,5 +64,9 @@ export class PoiDetailsComponent extends Unsubscriber {
     }
 
     return websiteString;
+  }
+
+  private getOsmWebsite(feature: Feature<Point>): string {
+    return "https://openstreetmap.org/" + feature.get("@type") + "/" + feature.get("@id");
   }
 }

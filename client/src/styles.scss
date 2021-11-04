@@ -65,4 +65,8 @@ input {
 
 button {
   background-color: $color-very-light;
+
+  &:active {
+    background-color: $color-light;
+  }
 }

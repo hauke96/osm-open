@@ -43,6 +43,7 @@ export class PoiService {
             const feature = new Feature<Point>();
             feature.setProperties(element.tags);
             feature.set("@id", element.id);
+            feature.set("@type", element.type);
 
             let lon: number;
             let lat: number;
