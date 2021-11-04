@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  sourceRepoUrl: "https://github.com/hauke96/osm-open"
 };

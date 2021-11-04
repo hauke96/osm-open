@@ -23,3 +23,12 @@ app-load-data,
 app-date-time-selection {
   margin-bottom: $space-base;
 }
+
+.footer {
+  margin-bottom: $space-small;
+
+  span {
+    color: $color-gray-mid;
+    font-size: $font-size-small;
+  }
+}
