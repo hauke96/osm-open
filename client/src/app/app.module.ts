@@ -11,6 +11,7 @@ import { PoiLayerComponent } from './map/poi-layer/poi-layer.component';
 import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component';
 import { DateTimeSelectionComponent } from './sidebar/date-time-selection/date-time-selection.component';
 import {FormsModule} from "@angular/forms";
+import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {FormsModule} from "@angular/forms";
     LoadDataComponent,
     PoiLayerComponent,
     PoiDetailsComponent,
-    DateTimeSelectionComponent
+    DateTimeSelectionComponent,
+    LoadingSpinnerComponent
   ],
     imports: [
         BrowserModule,

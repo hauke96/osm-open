@@ -11,6 +11,7 @@ import {Extent} from "ol/extent";
 })
 export class LoadDataComponent extends Unsubscriber {
   canLoadData: boolean = false;
+  isLoading: boolean = false;
 
   private extent: Extent;
 
@@ -24,6 +25,7 @@ export class LoadDataComponent extends Unsubscriber {
   }
 
   onLoadDataClicked() {
-    this.poiService.loadData(this.extent);
+    this.isLoading = true;
+    this.poiService.loadData(this.extent).subscribe(() => this.isLoading = false);
   }
 }

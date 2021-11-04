@@ -7,12 +7,13 @@ h2 {
 .details-container {
   display: flex;
   flex-direction: row;
+  margin-bottom: $space-base;
 }
 
 .opening-bar {
-  width: 3.5 * $border-radius-small;
+  width: 2.5 * $border-radius-small;
   margin-right: $space-base;
-  border-radius: 1.75 * $border-radius;
+  border-radius: 1.25 * $border-radius;
 }
 
 .red {

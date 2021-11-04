@@ -1,2 +1,3 @@
 <button [disabled]="!canLoadData" (click)="onLoadDataClicked()" class="load-data-button">{{"load-data.load-data" | translate}}</button>
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 <span *ngIf="!canLoadData">{{"load-data.zoom" | translate}}</span>
