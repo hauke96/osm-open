@@ -1,2 +1,2 @@
-<input type="date" class="date-picker">
-<input type="time">
+<input type="date" class="date-picker" [(ngModel)]="date" (change)="onInputChanged()">
+<input type="time" [(ngModel)]="time" (change)="onInputChanged()">

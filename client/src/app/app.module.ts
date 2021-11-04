@@ -10,6 +10,7 @@ import { LoadDataComponent } from './sidebar/load-data/load-data.component';
 import { PoiLayerComponent } from './map/poi-layer/poi-layer.component';
 import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component';
 import { DateTimeSelectionComponent } from './sidebar/date-time-selection/date-time-selection.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -21,17 +22,18 @@ import { DateTimeSelectionComponent } from './sidebar/date-time-selection/date-t
     PoiDetailsComponent,
     DateTimeSelectionComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    TranslateModule.forRoot({
-      loader: {
-        provide: TranslateLoader,
-        useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient),
-        deps: [HttpClient]
-      }
-    })
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient),
+                deps: [HttpClient]
+            }
+        }),
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
