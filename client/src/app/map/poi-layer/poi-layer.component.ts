@@ -9,17 +9,21 @@ import {SelectEvent} from "ol/interaction/Select";
 import {Feature} from "ol";
 import {Circle, Fill, Stroke, Style} from "ol/style";
 import {OpeningHoursService} from "../../common/opening-hours.service";
+import {DateTimeSelectionService} from "../../common/date-time-selection.service";
+import {Unsubscriber} from "../../common/ubsunscriber";
 
 @Component({
   selector: 'app-poi-layer',
   templateUrl: './poi-layer.component.html',
   styleUrls: ['./poi-layer.component.scss']
 })
-export class PoiLayerComponent implements OnInit {
+export class PoiLayerComponent extends Unsubscriber implements OnInit {
   private layer: VectorLayer<VectorSource<Point>>;
   private source: VectorSource<Point>;
 
   private selectedFeature: Feature<Geometry>;
+  private selectedDateTime: Date | undefined;
+
   private redTransparent = 'rgba(244,67,54,0.25)';
   private redSemiTransparent = 'rgba(244,67,54,0.85)';
   private red = 'rgb(244,67,54)';
@@ -27,17 +31,18 @@ export class PoiLayerComponent implements OnInit {
   private greenSemiTransparent = 'rgba(76,175,80,0.85)';
   private green = 'rgb(76,175,80)';
 
-  constructor(private layerService: LayerService, private poiService: PoiService, private openingHoursService: OpeningHoursService) {
+  constructor(private layerService: LayerService,
+              private poiService: PoiService,
+              private openingHoursService: OpeningHoursService,
+              private dateTimeSelectionService: DateTimeSelectionService
+  ) {
+    super();
+
     this.source = new VectorSource<Point>();
     this.layer = new VectorLayer<VectorSource<Point>>({
       source: this.source,
       style: (feature) => feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, false) : []
     })
-
-    this.poiService.dataChanged.subscribe(newFeatures => {
-      this.source.clear();
-      this.source.addFeatures(newFeatures);
-    });
 
     let select = new Select({
       style: (feature) => feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, true) : []
@@ -47,6 +52,17 @@ export class PoiLayerComponent implements OnInit {
       this.poiService.selectPoi(event.selected[0]);
     });
     this.layerService.addInteraction(select);
+
+    this.unsubscribeLater(
+      this.poiService.dataChanged.subscribe(newFeatures => {
+        this.source.clear();
+        this.source.addFeatures(newFeatures);
+      }),
+      this.dateTimeSelectionService.dateTimeSelected.subscribe((selectedDateTime: (Date | undefined)) => {
+        this.selectedDateTime = selectedDateTime;
+        this.layer.changed();
+      })
+    );
   }
 
   ngOnInit(): void {
@@ -57,8 +73,10 @@ export class PoiLayerComponent implements OnInit {
     let strokeColor;
     let fillColor;
 
+    let isOpen = this.openingHoursService.isOpen(feature, this.selectedDateTime);
+
     if (selected) { // This feature is selected
-      if (this.openingHoursService.isOpen(feature)) {
+      if (isOpen) {
         strokeColor = this.green
         fillColor = this.greenSemiTransparent
       } else {
@@ -67,13 +85,13 @@ export class PoiLayerComponent implements OnInit {
       }
     } else if (this.selectedFeature != null) { // A different feature is currently selected
       fillColor = 'transparent'
-      if (this.openingHoursService.isOpen(feature)) {
+      if (isOpen) {
         strokeColor = this.greenSemiTransparent
       } else {
         strokeColor = this.redSemiTransparent
       }
     } else { // No feature is selected
-      if (this.openingHoursService.isOpen(feature)) {
+      if (isOpen) {
         strokeColor = this.green
         fillColor = this.greenTransparent
       } else {

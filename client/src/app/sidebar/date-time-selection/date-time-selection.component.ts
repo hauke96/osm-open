@@ -15,6 +15,7 @@ export class DateTimeSelectionComponent {
 
   onInputChanged(): void {
     if (!this.date || !this.time) {
+      this.dateTimeSelectionService.resetSelectedDateTime();
       return;
     }
 
