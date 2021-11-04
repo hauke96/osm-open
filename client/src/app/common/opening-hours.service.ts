@@ -8,12 +8,18 @@ import opening_hours, {optional_conf_param} from "opening_hours";
 })
 export class OpeningHoursService {
   isOpen(feature: Feature<Geometry>, date?: Date): boolean {
-    return this.getOpeningHours(feature).getState(date);
+    return this.getOpeningHours(feature)?.getState(date) ?? false;
   }
 
-  getOpeningHours(feature: Feature<Geometry>): opening_hours {
+  getOpeningHours(feature: Feature<Geometry>): (opening_hours | undefined) {
     // TODO use locale of country the POI is in
-    return new opening_hours(this.getOpeningHoursString(feature), null, {locale: "de"} as optional_conf_param);
+    try {
+      return new opening_hours(this.getOpeningHoursString(feature), null, {locale: "de"} as optional_conf_param);
+    } catch (e) {
+      console.error(`Error on feature ${feature.get("@id")} with name '${feature.get("name")}' and opening_hours '${this.getOpeningHoursString(feature)}'`)
+      console.error(e);
+      return undefined;
+    }
   }
 
   getOpeningHoursString(feature: Feature<Geometry>): string {

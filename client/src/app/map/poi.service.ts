@@ -38,7 +38,8 @@ export class PoiService {
       console.log(data);
       let features = data.elements.map((element: any) => {
         const feature = new Feature<Point>();
-        feature.setProperties(element.tags)
+        feature.setProperties(element.tags);
+        feature.set("@id", element.id);
 
         let lon: number;
         let lat: number;
