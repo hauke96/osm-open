@@ -12,6 +12,7 @@ import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component
 import { DateTimeSelectionComponent } from './sidebar/date-time-selection/date-time-selection.component';
 import {FormsModule} from "@angular/forms";
 import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinner.component';
+import { NotificationComponent } from './common/notification/notification.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinne
     PoiLayerComponent,
     PoiDetailsComponent,
     DateTimeSelectionComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    NotificationComponent
   ],
     imports: [
         BrowserModule,

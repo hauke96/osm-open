@@ -1,0 +1,9 @@
+<div class="notification-container">
+  <div *ngIf="hasError()" class="error-container">
+    <div>
+      <b>{{"notification.error" | translate}}</b>
+      <span>{{errorText()}}</span>
+    </div>
+    <button class="error-button" (click)="onOkButtonClicked()">OK</button>
+  </div>
+</div>

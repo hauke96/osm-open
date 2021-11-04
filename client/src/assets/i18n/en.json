@@ -6,11 +6,14 @@
   },
   "poi-details": {
     "open-notice": "Is now open:",
-    "view-on-osm-org": "View on osm.org,",
+    "view-on-osm-org": "View on osm.org",
     "website": "Website"
   },
   "date-time-selection": {
     "title": "Filter by date"
+  },
+  "notification": {
+    "error": "Error: "
   },
   "yes": "yes",
   "no": "no"

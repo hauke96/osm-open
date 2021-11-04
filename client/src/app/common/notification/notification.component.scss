@@ -1,0 +1,51 @@
+@import "src/styles";
+
+:host {
+  position: absolute;
+  bottom: $space-large;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.notification-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  min-width: 250px;
+  width: 65%;
+}
+
+.error-container {
+  @extend .shadow;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $space-small $space-small $space-small $space-base;
+
+  width: 100%;
+
+  background-color: $color-error-light;
+  border-radius: $border-radius;
+
+  * {
+    color: $color-gray-very-light;
+  }
+}
+
+.error-button {
+  background-color: transparent;
+  border: 1px solid $color-gray-light;
+
+  &:hover {
+    border: 1px solid $color-gray-light;
+    background-color: #ffffff33;
+  }
+
+  &:active {
+    border: 1px solid $color-gray-light;
+    background-color: #ffffff20;
+  }
+}
