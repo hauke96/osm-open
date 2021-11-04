@@ -5,7 +5,12 @@
     "zoom": "Zoom further in to load data"
   },
   "poi-details": {
-    "open-notice": "Is now open:"
+    "open-notice": "Is now open:",
+    "view-on-osm-org": "View on osm.org,",
+    "website": "Website"
+  },
+  "date-time-selection": {
+    "title": "Filter by date"
   },
   "yes": "yes",
   "no": "no"
