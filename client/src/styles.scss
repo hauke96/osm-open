@@ -41,11 +41,10 @@ input {
   font-size: 1rem;
 }
 
-button {
+button,
+input {
   height: $space-large;
-  padding-left: $space-base;
-  padding-right: $space-base;
-  background-color: $color-very-light;
+  padding: 0 $space-base 0 $space-base;
   border: 1px solid $color-light;
   border-radius: $border-radius-small;
 
@@ -62,4 +61,8 @@ button {
     border-color: $color-gray-light;
     color: $color-gray-mid;
   }
+}
+
+button {
+  background-color: $color-very-light;
 }

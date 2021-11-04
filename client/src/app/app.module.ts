@@ -9,6 +9,7 @@ import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 import { LoadDataComponent } from './sidebar/load-data/load-data.component';
 import { PoiLayerComponent } from './map/poi-layer/poi-layer.component';
 import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component';
+import { DateTimeSelectionComponent } from './sidebar/date-time-selection/date-time-selection.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component
     SidebarComponent,
     LoadDataComponent,
     PoiLayerComponent,
-    PoiDetailsComponent
+    PoiDetailsComponent,
+    DateTimeSelectionComponent
   ],
   imports: [
     BrowserModule,
