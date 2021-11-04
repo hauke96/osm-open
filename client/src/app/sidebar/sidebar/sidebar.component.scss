@@ -14,7 +14,7 @@
 
   background-color: white;
   border-radius: $border-radius;
-  padding: $space-base;
+  padding: $space-base $space-base 0 $space-base;
 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
 }
