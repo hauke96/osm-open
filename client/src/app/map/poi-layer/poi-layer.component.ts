@@ -21,7 +21,7 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
   private layer: VectorLayer<VectorSource<Point>>;
   private source: VectorSource<Point>;
 
-  private selectedFeature: Feature<Geometry>;
+  private selectedFeature: Feature<Point>;
   private selectedDateTime: Date | undefined;
 
   private redTransparent = 'rgba(244,67,54,0.25)';
@@ -61,6 +61,9 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
       this.dateTimeSelectionService.dateTimeSelected.subscribe((selectedDateTime: (Date | undefined)) => {
         this.selectedDateTime = selectedDateTime;
         this.layer.changed();
+        if(this.selectedFeature) {
+          this.poiService.selectPoi(this.selectedFeature);
+        }
       })
     );
   }

@@ -3,8 +3,8 @@ import {PoiService} from "../../map/poi.service";
 import {Unsubscriber} from "../../common/ubsunscriber";
 import {Point} from "ol/geom";
 import {Feature} from "ol";
-import opening_hours, {optional_conf_param} from "opening_hours";
 import {OpeningHoursService} from "../../common/opening-hours.service";
+import {DateTimeSelectionService} from "../../common/date-time-selection.service";
 
 @Component({
   selector: 'app-poi-details',
@@ -16,18 +16,35 @@ export class PoiDetailsComponent extends Unsubscriber {
   openingHoursString: string;
   isNowOpen: boolean;
 
-  constructor(poiService: PoiService, openingHoursService: OpeningHoursService) {
+  private selectedFeature: Feature<Point>;
+  private selectedDateTime: Date | undefined;
+
+  constructor(private openingHoursService: OpeningHoursService,
+              private dateTimeSelectionService: DateTimeSelectionService,
+              poiService: PoiService
+  ) {
     super();
-    this.unsubscribeLater(poiService.poiSelected.subscribe((feature: Feature<Point>) => {
-      if (!feature) {
-        this.name = "";
-        this.openingHoursString = "";
-        this.isNowOpen = false;
-      } else {
-        this.name = feature.get("name");
-        this.openingHoursString = openingHoursService.getOpeningHoursString(feature);
-        this.isNowOpen = openingHoursService.isOpen(feature);
-      }
-    }));
+    this.unsubscribeLater(
+      poiService.poiSelected.subscribe((feature: Feature<Point>) => {
+        this.selectedFeature = feature;
+        this.loadFeatureDetails();
+      }),
+      this.dateTimeSelectionService.dateTimeSelected.subscribe((dateTime: (Date | undefined)) => {
+        this.selectedDateTime = dateTime;
+        this.loadFeatureDetails();
+      })
+    );
+  }
+
+  loadFeatureDetails(): void {
+    if (!this.selectedFeature) {
+      this.name = "";
+      this.openingHoursString = "";
+      this.isNowOpen = false;
+    } else {
+      this.name = this.selectedFeature.get("name");
+      this.openingHoursString = this.openingHoursService.getOpeningHoursString(this.selectedFeature);
+      this.isNowOpen = this.openingHoursService.isOpen(this.selectedFeature, this.selectedDateTime);
+    }
   }
 }
