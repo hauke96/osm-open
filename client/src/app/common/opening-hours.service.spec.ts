@@ -1,13 +1,10 @@
-import { TestBed } from '@angular/core/testing';
+import {OpeningHoursService} from './opening-hours.service';
 
-import { OpeningHoursService } from './opening-hours.service';
-
-describe('OpeningHoursService', () => {
+describe(OpeningHoursService.name, () => {
   let service: OpeningHoursService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(OpeningHoursService);
+    service = new OpeningHoursService();
   });
 
   it('should be created', () => {

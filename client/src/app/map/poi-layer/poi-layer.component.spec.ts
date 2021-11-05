@@ -1,21 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {PoiLayerComponent} from './poi-layer.component';
+import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
+import {AppModule} from "../../app.module";
+import {LayerService} from "../layer.service";
 
-import { PoiLayerComponent } from './poi-layer.component';
-
-describe('PoiLayerComponent', () => {
+describe(PoiLayerComponent.name, () => {
   let component: PoiLayerComponent;
-  let fixture: ComponentFixture<PoiLayerComponent>;
+  let fixture: MockedComponentFixture<PoiLayerComponent>;
+  let layerService: LayerService;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ PoiLayerComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    layerService = {} as LayerService;
+    return MockBuilder(PoiLayerComponent, AppModule)
+      .provide({provide: LayerService, useFactory: () => layerService});
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PoiLayerComponent);
-    component = fixture.componentInstance;
+    fixture = MockRender(PoiLayerComponent);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 

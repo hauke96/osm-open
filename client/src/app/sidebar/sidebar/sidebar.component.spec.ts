@@ -1,21 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SidebarComponent } from './sidebar.component';
+import {SidebarComponent} from './sidebar.component';
+import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
+import {AppModule} from "../../app.module";
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
-  let fixture: ComponentFixture<SidebarComponent>;
+  let fixture: MockedComponentFixture<SidebarComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ SidebarComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    return MockBuilder(SidebarComponent, AppModule);
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SidebarComponent);
-    component = fixture.componentInstance;
+    fixture = MockRender(SidebarComponent);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 

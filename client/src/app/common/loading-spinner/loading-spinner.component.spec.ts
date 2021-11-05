@@ -1,21 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {LoadingSpinnerComponent} from './loading-spinner.component';
+import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
+import {AppModule} from "../../app.module";
 
-import { LoadingSpinnerComponent } from './loading-spinner.component';
-
-describe('LoadingSpinnerComponent', () => {
+describe(LoadingSpinnerComponent.name, () => {
   let component: LoadingSpinnerComponent;
-  let fixture: ComponentFixture<LoadingSpinnerComponent>;
+  let fixture: MockedComponentFixture<LoadingSpinnerComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ LoadingSpinnerComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    return MockBuilder(LoadingSpinnerComponent, AppModule)
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoadingSpinnerComponent);
-    component = fixture.componentInstance;
+    fixture = MockRender(LoadingSpinnerComponent);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 

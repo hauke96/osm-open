@@ -22,7 +22,8 @@
       "es2018",
       "dom"
     ],
-    "skipLibCheck": true // see: https://github.com/openlayers/openlayers/issues/12497
+    "skipLibCheck": true, // see: https://github.com/openlayers/openlayers/issues/12497
+    "resolveJsonModule": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

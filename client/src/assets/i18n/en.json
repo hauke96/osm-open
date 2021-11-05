@@ -16,6 +16,9 @@
     "error": "Error: ",
     "ok": "OK"
   },
+  "sidebar": {
+    "view-on": "View on "
+  },
   "yes": "yes",
   "no": "no"
 }

@@ -7,6 +7,9 @@ module.exports = {
     "<rootDir>/node_modules/",
     "<rootDir>/dist/"
   ],
+  transformIgnorePatterns: [
+    "<rootDir>/node_modules/(?!ol).+\.js$"
+  ],
   globals: {
     "ts-jest": {
       tsconfig: "<rootDir>/tsconfig.spec.json",
