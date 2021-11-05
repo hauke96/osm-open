@@ -1,13 +1,10 @@
-import { TestBed } from '@angular/core/testing';
+import {DateTimeSelectionService} from './date-time-selection.service';
 
-import { DateTimeSelectionService } from './date-time-selection.service';
-
-describe('DateTimeSelectionService', () => {
+describe(DateTimeSelectionService.name, () => {
   let service: DateTimeSelectionService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(DateTimeSelectionService);
+    service = new DateTimeSelectionService();
   });
 
   it('should be created', () => {

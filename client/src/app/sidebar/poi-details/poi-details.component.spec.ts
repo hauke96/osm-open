@@ -1,21 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { PoiDetailsComponent } from './poi-details.component';
+import {PoiDetailsComponent} from './poi-details.component';
+import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
+import {AppModule} from "../../app.module";
 
 describe('PoiDetailsComponent', () => {
   let component: PoiDetailsComponent;
-  let fixture: ComponentFixture<PoiDetailsComponent>;
+  let fixture: MockedComponentFixture<PoiDetailsComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ PoiDetailsComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    return MockBuilder(PoiDetailsComponent, AppModule);
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PoiDetailsComponent);
-    component = fixture.componentInstance;
+    fixture = MockRender(PoiDetailsComponent);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 

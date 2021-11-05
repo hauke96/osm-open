@@ -1,21 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { DateTimeSelectionComponent } from './date-time-selection.component';
+import {DateTimeSelectionComponent} from './date-time-selection.component';
+import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
+import {AppModule} from "../../app.module";
 
 describe('DateTimeSelectionComponent', () => {
   let component: DateTimeSelectionComponent;
-  let fixture: ComponentFixture<DateTimeSelectionComponent>;
+  let fixture: MockedComponentFixture<DateTimeSelectionComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ DateTimeSelectionComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    return MockBuilder(DateTimeSelectionComponent, AppModule);
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DateTimeSelectionComponent);
-    component = fixture.componentInstance;
+    fixture = MockRender(DateTimeSelectionComponent);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 

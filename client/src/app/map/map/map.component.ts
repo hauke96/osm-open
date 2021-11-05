@@ -2,7 +2,7 @@ import {AfterViewInit, Component, forwardRef} from '@angular/core';
 import {Map, MapEvent, View} from "ol";
 import {Attribution} from "ol/control";
 import TileLayer from "ol/layer/Tile";
-import {OSM} from "ol/source";
+import OSM from "ol/source/OSM";
 import {MapService} from "../map.service";
 import {LayerService} from "../layer.service";
 import BaseLayer from "ol/layer/Base";

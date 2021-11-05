@@ -1,21 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {LoadDataComponent} from './load-data.component';
+import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
+import {AppModule} from "../../app.module";
 
-import { LoadDataComponent } from './load-data.component';
-
-describe('LoadDataComponent', () => {
+describe(LoadDataComponent.name, () => {
   let component: LoadDataComponent;
-  let fixture: ComponentFixture<LoadDataComponent>;
+  let fixture: MockedComponentFixture<LoadDataComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ LoadDataComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    return MockBuilder(LoadDataComponent, AppModule);
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoadDataComponent);
-    component = fixture.componentInstance;
+    fixture = MockRender(LoadDataComponent);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 

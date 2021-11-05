@@ -1,21 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { NotificationComponent } from './notification.component';
+import {NotificationComponent} from './notification.component';
+import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
+import {AppModule} from "../../app.module";
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;
-  let fixture: ComponentFixture<NotificationComponent>;
+  let fixture: MockedComponentFixture<NotificationComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ NotificationComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    return MockBuilder(NotificationComponent, AppModule);
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NotificationComponent);
-    component = fixture.componentInstance;
+    fixture = MockRender(NotificationComponent);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 

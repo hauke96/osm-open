@@ -1,13 +1,13 @@
-import { TestBed } from '@angular/core/testing';
+import {PoiService} from './poi.service';
+import {HttpClient} from "@angular/common/http";
 
-import { PoiService } from './poi.service';
-
-describe('PoiService', () => {
+describe(PoiService.name, () => {
   let service: PoiService;
+  let httpClient: HttpClient;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(PoiService);
+    httpClient = {} as HttpClient;
+    service = new PoiService(httpClient);
   });
 
   it('should be created', () => {
