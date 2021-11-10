@@ -4,10 +4,10 @@
 		<h3>{{ name }}</h3>
 		<p>{{ openingHoursString }}</p>
 		<div>
-			<a *ngIf="!!website" [href]="website" target="_blank">{{ 'poi-details.website' | translate }}</a>
+			<a *ngIf="!!website" [href]="website" target="_blank">{{ "poi-details.website" | translate }}</a>
 			<span *ngIf="!!website"> | </span>
-			<a [href]="osmWebsite" target="_blank">{{ 'poi-details.view-on-osm-org' | translate }}</a>
+			<a [href]="osmWebsite" target="_blank">{{ "poi-details.view-on-osm-org" | translate }}</a>
 		</div>
-		<p>{{ 'poi-details.open-notice' | translate }} {{ isNowOpen ? 'yes' : ('no' | translate) }}</p>
+		<p>{{ "poi-details.open-notice" | translate }} {{ isNowOpen ? "yes" : ("no" | translate) }}</p>
 	</div>
 </div>

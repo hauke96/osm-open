@@ -24,7 +24,7 @@ import { NotificationComponent } from './common/notification/notification.compon
     PoiDetailsComponent,
     DateTimeSelectionComponent,
     LoadingSpinnerComponent,
-    NotificationComponent
+    NotificationComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,12 +33,12 @@ import { NotificationComponent } from './common/notification/notification.compon
       loader: {
         provide: TranslateLoader,
         useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient),
-        deps: [HttpClient]
-      }
+        deps: [HttpClient],
+      },
     }),
-    FormsModule
+    FormsModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {}

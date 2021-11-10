@@ -9,7 +9,7 @@ import { DateTimeSelectionService } from '../../common/date-time-selection.servi
 @Component({
   selector: 'app-poi-details',
   templateUrl: './poi-details.component.html',
-  styleUrls: ['./poi-details.component.scss']
+  styleUrls: ['./poi-details.component.scss'],
 })
 export class PoiDetailsComponent extends Unsubscriber {
   name: string;

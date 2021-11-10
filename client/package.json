@@ -8,10 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest --detectOpenHandles",
     "test:coverage": "jest --coverage",
-    "format": "prettier --check \"src/{environment,app,assets}/**/*{.js,.ts,.html,.scss,.css,.json}\"",
-    "format:fix": "prettier --write \"src/{environment,app,assets}/**/*{.js,.ts,.html,.scss,.css,.json}\"",
-    "lint": "ng lint",
-    "lint:fix": "ng lint --fix"
+    "format:check": "prettier --check \"src/{environment,app,assets}/**/*{.js,.ts,.html,.scss,.css,.json}\" && ng lint",
+    "format:fix": "prettier --write \"src/{environment,app,assets}/**/*{.js,.ts,.html,.scss,.css,.json}\" && ng lint --fix"
   },
   "private": true,
   "dependencies": {

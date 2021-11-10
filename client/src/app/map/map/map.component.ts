@@ -13,7 +13,7 @@ import { fromLonLat } from 'ol/proj';
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  providers: [{ provide: LayerService, useExisting: forwardRef(() => MapComponent) }]
+  providers: [{ provide: LayerService, useExisting: forwardRef(() => MapComponent) }],
 })
 export class MapComponent implements AfterViewInit, LayerService {
   map: Map;
@@ -23,16 +23,16 @@ export class MapComponent implements AfterViewInit, LayerService {
       controls: [new Attribution()],
       layers: [
         new TileLayer({
-          source: new OSM()
-        })
+          source: new OSM(),
+        }),
       ],
       view: new View({
         center: fromLonLat([9.9800664, 53.5476275]),
         projection: 'EPSG:3857',
         zoom: 14,
         minZoom: 0,
-        maxZoom: 19
-      })
+        maxZoom: 19,
+      }),
     });
 
     // Restore map center & zoom

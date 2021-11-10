@@ -5,10 +5,10 @@ import { Feature } from 'ol';
 import { HttpClient } from '@angular/common/http';
 import { Extent } from 'ol/extent';
 import { fromLonLat, toLonLat } from 'ol/proj';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PoiService {
   private dataChangedSubject: Subject<Feature<Point>[]> = new Subject<Feature<Point>[]>();

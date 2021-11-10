@@ -4,7 +4,7 @@ import { DateTimeSelectionService } from '../../common/date-time-selection.servi
 @Component({
   selector: 'app-date-time-selection',
   templateUrl: './date-time-selection.component.html',
-  styleUrls: ['./date-time-selection.component.scss']
+  styleUrls: ['./date-time-selection.component.scss'],
 })
 export class DateTimeSelectionComponent {
   date: string;

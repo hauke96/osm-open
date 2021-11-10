@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  sourceRepoUrl: "https://github.com/hauke96/osm-open"
+  sourceRepoUrl: 'https://github.com/hauke96/osm-open',
 };
 
 /*

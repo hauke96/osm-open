@@ -85,7 +85,8 @@
           "error",
           {
             "printWidth": 120,
-            "useTabs": true
+            "useTabs": true,
+            "parser": "html"
           }
         ]
       }

@@ -15,7 +15,7 @@ import { Unsubscriber } from '../../common/ubsunscriber';
 @Component({
   selector: 'app-poi-layer',
   templateUrl: './poi-layer.component.html',
-  styleUrls: ['./poi-layer.component.scss']
+  styleUrls: ['./poi-layer.component.scss'],
 })
 export class PoiLayerComponent extends Unsubscriber implements OnInit {
   private layer: VectorLayer<VectorSource<Point>>;
@@ -42,11 +42,11 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     this.source = new VectorSource<Point>();
     this.layer = new VectorLayer<VectorSource<Point>>({
       source: this.source,
-      style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, false) : [])
+      style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, false) : []),
     });
 
     const select = new Select({
-      style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, true) : [])
+      style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, true) : []),
     });
     select.on('select', (event: SelectEvent) => {
       this.selectedFeature = event.selected[0];
@@ -108,18 +108,18 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     }
 
     const fill = new Fill({
-      color: fillColor
+      color: fillColor,
     });
     const stroke = new Stroke({
       color: strokeColor,
-      width: 1.5
+      width: 1.5,
     });
     return new Style({
       image: new Circle({
         fill: fill,
         stroke: stroke,
-        radius: selected ? 10 : 6
-      })
+        radius: selected ? 10 : 6,
+      }),
     });
   }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DateTimeSelectionService {
   private dateTimeSelectedSubject: Subject<Date | undefined> = new Subject<Date | undefined>();
@@ -15,7 +15,7 @@ export class DateTimeSelectionService {
     this.dateTimeSelectedSubject.next(date);
   }
 
-  resetSelectedDateTime() {
+  resetSelectedDateTime(): void {
     this.dateTimeSelectedSubject.next(undefined);
   }
 }

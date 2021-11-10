@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
   private errorMessages: Array<string>;
 
   constructor() {
-    this.errorMessages = new Array<string>();
+    this.errorMessages = [];
   }
 
   public hasError(): boolean {
@@ -20,11 +20,11 @@ export class NotificationService {
   }
 
   // Drops/removes the oldest error reported by "getError()"
-  public dropError() {
+  public dropError(): void {
     this.errorMessages.shift();
   }
 
-  public addError(message: string) {
+  public addError(message: string): void {
     this.errorMessages.push(message);
   }
 }

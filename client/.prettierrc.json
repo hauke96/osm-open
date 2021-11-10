@@ -1,5 +1,14 @@
 {
   "printWidth": 120,
   "arrowParens": "avoid",
-  "trailingComma": "es5"
+  "trailingComma": "es5",
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "useTabs": true,
+        "parser": "html"
+      }
+    }
+  ]
 }

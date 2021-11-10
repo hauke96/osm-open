@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { Extent } from 'ol/extent';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MapService {
   private $currentMapViewChanges: Subject<[number, Extent]> = new Subject<[number, Extent]>();
