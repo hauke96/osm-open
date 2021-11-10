@@ -1,4 +1,4 @@
-import {OpeningHoursService} from './opening-hours.service';
+import { OpeningHoursService } from './opening-hours.service';
 
 describe(OpeningHoursService.name, () => {
   let service: OpeningHoursService;

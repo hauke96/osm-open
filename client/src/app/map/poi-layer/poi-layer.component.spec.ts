@@ -1,7 +1,7 @@
-import {PoiLayerComponent} from './poi-layer.component';
-import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
-import {AppModule} from "../../app.module";
-import {LayerService} from "../layer.service";
+import { PoiLayerComponent } from './poi-layer.component';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { AppModule } from '../../app.module';
+import { LayerService } from '../layer.service';
 
 describe(PoiLayerComponent.name, () => {
   let component: PoiLayerComponent;
@@ -10,8 +10,7 @@ describe(PoiLayerComponent.name, () => {
 
   beforeEach(() => {
     layerService = {} as LayerService;
-    return MockBuilder(PoiLayerComponent, AppModule)
-      .provide({provide: LayerService, useFactory: () => layerService});
+    return MockBuilder(PoiLayerComponent, AppModule).provide({ provide: LayerService, useFactory: () => layerService });
   });
 
   beforeEach(() => {

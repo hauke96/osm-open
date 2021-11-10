@@ -1,4 +1,4 @@
-import {DateTimeSelectionService} from './date-time-selection.service';
+import { DateTimeSelectionService } from './date-time-selection.service';
 
 describe(DateTimeSelectionService.name, () => {
   let service: DateTimeSelectionService;

@@ -1,6 +1,6 @@
-import {MapComponent} from './map.component';
-import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
-import {AppComponent} from "../../app.component";
+import { MapComponent } from './map.component';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { AppComponent } from '../../app.component';
 
 describe(MapComponent.name, () => {
   let component: MapComponent;

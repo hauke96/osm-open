@@ -1,6 +1,6 @@
-import {LoadDataComponent} from './load-data.component';
-import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
-import {AppModule} from "../../app.module";
+import { LoadDataComponent } from './load-data.component';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { AppModule } from '../../app.module';
 
 describe(LoadDataComponent.name, () => {
   let component: LoadDataComponent;

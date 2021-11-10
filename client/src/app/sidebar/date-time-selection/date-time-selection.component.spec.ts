@@ -1,6 +1,6 @@
-import {DateTimeSelectionComponent} from './date-time-selection.component';
-import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
-import {AppModule} from "../../app.module";
+import { DateTimeSelectionComponent } from './date-time-selection.component';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { AppModule } from '../../app.module';
 
 describe('DateTimeSelectionComponent', () => {
   let component: DateTimeSelectionComponent;

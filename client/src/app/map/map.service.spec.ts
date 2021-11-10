@@ -1,4 +1,4 @@
-import {MapService} from './map.service';
+import { MapService } from './map.service';
 
 describe(MapService.name, () => {
   let service: MapService;

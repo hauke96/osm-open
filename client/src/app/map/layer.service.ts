@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import BaseLayer from "ol/layer/Base";
-import {Interaction} from "ol/interaction";
+import { Injectable } from '@angular/core';
+import BaseLayer from 'ol/layer/Base';
+import { Interaction } from 'ol/interaction';
 
 @Injectable({
   providedIn: 'root'

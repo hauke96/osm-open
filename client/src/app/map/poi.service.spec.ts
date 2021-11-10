@@ -1,5 +1,5 @@
-import {PoiService} from './poi.service';
-import {HttpClient} from "@angular/common/http";
+import { PoiService } from './poi.service';
+import { HttpClient } from '@angular/common/http';
 
 describe(PoiService.name, () => {
   let service: PoiService;

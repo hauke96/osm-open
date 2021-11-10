@@ -1,6 +1,6 @@
-import {NotificationComponent} from './notification.component';
-import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
-import {AppModule} from "../../app.module";
+import { NotificationComponent } from './notification.component';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { AppModule } from '../../app.module';
 
 describe('NotificationComponent', () => {
   let component: NotificationComponent;

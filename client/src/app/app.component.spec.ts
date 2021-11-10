@@ -1,6 +1,6 @@
-import {AppComponent} from './app.component';
-import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
-import {AppModule} from "./app.module";
+import { AppComponent } from './app.component';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { AppModule } from './app.module';
 
 describe(AppComponent.name, () => {
   let component: AppComponent;
@@ -14,7 +14,7 @@ describe(AppComponent.name, () => {
     fixture = MockRender(AppComponent);
     component = fixture.point.componentInstance;
     fixture.detectChanges();
-  })
+  });
 
   it('should create the app', () => {
     expect(component).toBeTruthy();

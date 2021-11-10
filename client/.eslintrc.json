@@ -8,6 +8,9 @@
       "files": [
         "*.ts"
       ],
+      "env": {
+        "browser": true
+      },
       "parserOptions": {
         "project": [
           "tsconfig.json"
@@ -24,6 +27,8 @@
         "plugin:prettier/recommended"
       ],
       "rules": {
+        "no-useless-constructor": "off",
+        "operator-linebreak": "off",
         "quotes": [
           "error",
           "single"
@@ -32,7 +37,8 @@
           "error",
           {
             "printWidth": 120,
-            "arrowParens": "avoid"
+            "arrowParens": "avoid",
+            "trailingComma": "es5"
           }
         ],
         "@typescript-eslint/explicit-function-return-type": [
@@ -61,12 +67,28 @@
     },
     {
       "files": [
+        "*.spec.ts"
+      ],
+      "env": {
+        "jest": true
+      }
+    },
+    {
+      "files": [
         "*.html"
       ],
       "extends": [
         "plugin:@angular-eslint/template/recommended"
       ],
-      "rules": {}
+      "rules": {
+        "prettier/prettier": [
+          "error",
+          {
+            "printWidth": 120,
+            "useTabs": true
+          }
+        ]
+      }
     }
   ]
 }

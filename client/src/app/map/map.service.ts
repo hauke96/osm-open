@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {Observable, Subject} from "rxjs";
-import {Extent} from "ol/extent";
+import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
+import { Extent } from 'ol/extent';
 
 @Injectable({
   providedIn: 'root'
