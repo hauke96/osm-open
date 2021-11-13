@@ -10,7 +10,7 @@ import { Feature } from 'ol';
 import { Circle, Fill, Stroke, Style } from 'ol/style';
 import { OpeningHoursService } from '../../common/opening-hours.service';
 import { DateTimeSelectionService } from '../../common/date-time-selection.service';
-import { Unsubscriber } from '../../common/ubsunscriber';
+import { Unsubscriber } from '../../common/unsubscriber';
 
 @Component({
   selector: 'app-poi-layer',

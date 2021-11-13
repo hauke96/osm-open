@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PoiService } from '../../map/poi.service';
-import { Unsubscriber } from '../../common/ubsunscriber';
+import { Unsubscriber } from '../../common/unsubscriber';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
 import { OpeningHoursService } from '../../common/opening-hours.service';

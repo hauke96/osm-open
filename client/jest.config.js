@@ -20,5 +20,6 @@ module.exports = {
     "<rootDir>"
   ],
   collectCoverage: true,
-  coverageReporters: ["html", "text"]
+  coverageReporters: ["html", "text"],
+  cacheDirectory: "./jestCache"
 };

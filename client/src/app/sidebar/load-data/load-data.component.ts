@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MapService } from '../../map/map.service';
-import { Unsubscriber } from '../../common/ubsunscriber';
+import { Unsubscriber } from '../../common/unsubscriber';
 import { PoiService } from '../../map/poi.service';
 import { Extent } from 'ol/extent';
 import { NotificationService } from '../../common/notification.service';
