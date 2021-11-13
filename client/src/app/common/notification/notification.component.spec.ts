@@ -21,7 +21,7 @@ describe('NotificationComponent', () => {
 
     return MockBuilder(NotificationComponent, AppModule).provide({
       provide: NotificationService,
-      useValue: notificationService,
+      useFactory: () => notificationService,
     });
   });
 

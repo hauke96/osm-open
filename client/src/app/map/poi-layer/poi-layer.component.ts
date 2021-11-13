@@ -18,11 +18,12 @@ import { Unsubscriber } from '../../common/unsubscriber';
   styleUrls: ['./poi-layer.component.scss'],
 })
 export class PoiLayerComponent extends Unsubscriber implements OnInit {
-  private layer: VectorLayer<VectorSource<Point>>;
-  private source: VectorSource<Point>;
+  public readonly layer: VectorLayer<VectorSource<Point>>;
+  public readonly source: VectorSource<Point>;
 
-  private selectedFeature: Feature<Point>;
-  private selectedDateTime: Date | undefined;
+  public selectedFeature: Feature<Point>;
+  public selectedDateTime: Date | undefined;
+  public select: Select;
 
   private redTransparent = 'rgba(244,67,54,0.25)';
   private redSemiTransparent = 'rgba(244,67,54,0.85)';
@@ -45,14 +46,14 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
       style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, false) : []),
     });
 
-    const select = new Select({
+    this.select = new Select({
       style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, true) : []),
     });
-    select.on('select', (event: SelectEvent) => {
+    this.select.on('select', (event: SelectEvent) => {
       this.selectedFeature = event.selected[0];
       this.poiService.selectPoi(event.selected[0]);
     });
-    this.layerService.addInteraction(select);
+    this.layerService.addInteraction(this.select);
 
     this.unsubscribeLater(
       this.poiService.dataChanged.subscribe(newFeatures => {
