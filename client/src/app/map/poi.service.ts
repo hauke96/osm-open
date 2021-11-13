@@ -6,13 +6,14 @@ import { HttpClient } from '@angular/common/http';
 import { Extent } from 'ol/extent';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { map } from 'rxjs/operators';
+import { log2 } from 'ol/math';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PoiService {
   private dataChangedSubject: Subject<Feature<Point>[]> = new Subject<Feature<Point>[]>();
-  private poiSelectedSubject: Subject<Feature<Point>> = new Subject<Feature<Point>>();
+  private poiSelectedSubject: Subject<Feature<Point> | undefined> = new Subject<Feature<Point> | undefined>();
 
   constructor(private httpClient: HttpClient) {}
 
@@ -20,7 +21,7 @@ export class PoiService {
     return this.dataChangedSubject.asObservable();
   }
 
-  get poiSelected(): Observable<Feature<Point>> {
+  get poiSelected(): Observable<Feature<Point> | undefined> {
     return this.poiSelectedSubject.asObservable();
   }
 
@@ -30,12 +31,12 @@ export class PoiService {
     const bbox = '(' + bottomLeft[1] + ',' + bottomLeft[0] + ',' + topRight[1] + ',' + topRight[0] + ')';
 
     const url = `https://overpass-api.de/api/interpreter?data=
-      [out:json][timeout:30];
-      (
-        node["opening_hours"]${bbox};
-        way["opening_hours"]${bbox};
-      );
-      out center;`;
+[out:json][timeout:30];
+(
+node["opening_hours"]${bbox};
+way["opening_hours"]${bbox};
+);
+out center;`;
 
     return this.httpClient.get<any>(url).pipe(
       map((data: any) => {
@@ -64,7 +65,7 @@ export class PoiService {
     );
   }
 
-  selectPoi(feature: Feature<Point>): void {
+  selectPoi(feature: Feature<Point> | undefined): void {
     this.poiSelectedSubject.next(feature);
   }
 }

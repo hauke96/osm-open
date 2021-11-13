@@ -78,6 +78,8 @@ describe(OpeningHoursService.name, () => {
       it('should always be closed', () => {
         const date = new Date('2021-11-15T00:00:00');
 
+        console.error = jest.fn();
+
         // Go through the whole week in 5-minute steps
         for (let i = 0; i < ((24 * 60) / 5) * 7; i++) {
           date.setMinutes(date.getMinutes() + 5);

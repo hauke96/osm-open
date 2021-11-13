@@ -13,8 +13,7 @@ import { NotificationService } from '../../common/notification.service';
 export class LoadDataComponent extends Unsubscriber {
   canLoadData: boolean = false;
   isLoading: boolean = false;
-
-  private extent: Extent;
+  extent: Extent;
 
   constructor(
     private poiService: PoiService,

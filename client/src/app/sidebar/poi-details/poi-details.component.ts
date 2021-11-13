@@ -18,8 +18,8 @@ export class PoiDetailsComponent extends Unsubscriber {
   osmWebsite: string;
   isNowOpen: boolean;
 
-  private selectedFeature: Feature<Point>;
-  private selectedDateTime: Date | undefined;
+  selectedFeature: Feature<Point> | undefined;
+  selectedDateTime: Date | undefined;
 
   constructor(
     private openingHoursService: OpeningHoursService,
@@ -28,7 +28,7 @@ export class PoiDetailsComponent extends Unsubscriber {
   ) {
     super();
     this.unsubscribeLater(
-      poiService.poiSelected.subscribe((feature: Feature<Point>) => {
+      poiService.poiSelected.subscribe((feature: Feature<Point> | undefined) => {
         this.selectedFeature = feature;
         this.loadFeatureDetails();
       }),
