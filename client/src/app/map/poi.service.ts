@@ -6,7 +6,6 @@ import { HttpClient } from '@angular/common/http';
 import { Extent } from 'ol/extent';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { map } from 'rxjs/operators';
-import { log2 } from 'ol/math';
 
 @Injectable({
   providedIn: 'root',
