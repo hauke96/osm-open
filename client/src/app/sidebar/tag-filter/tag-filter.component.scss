@@ -1,0 +1,16 @@
+@import "src/styles";
+
+:host {
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: $space-small;
+  margin-left: 1px; // Looks better because of all the borders from buttons and inputs
+}
+
+.tag-selection {
+  margin-bottom: $space-small;
+}

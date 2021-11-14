@@ -9,7 +9,7 @@ $color-mid: #42a5f5; // #400 Blue
 $color-dark: #1976d2; // #700 Blue
 $color-very-dark: #0d47a1; // #900 Blue
 // Grey-scale:
-$color-white: #ffffff;
+$color-background: #ffffff;
 $color-gray-very-light: #eeeeee; // #200
 $color-gray-very-light-transparent: #eeeeeed9; // #200
 $color-gray-light: #e0e0e0; // #300
@@ -44,12 +44,14 @@ body {
 span,
 p,
 button,
-input {
-  font-size: 1rem;
+input,
+select {
+  font-size: $font-size-normal;
 }
 
 button,
-input {
+input,
+select {
   height: $space-large;
   padding: 0 $space-base 0 $space-base;
   border: 1px solid $color-light;
@@ -80,4 +82,8 @@ button {
 
 .shadow {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+select {
+  background-color: $color-background;
 }

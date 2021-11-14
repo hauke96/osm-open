@@ -10,7 +10,7 @@
     "website": "Website"
   },
   "date-time-selection": {
-    "title": "Filter by date"
+    "title": "Select date"
   },
   "notification": {
     "error": "Error: ",
@@ -18,6 +18,14 @@
   },
   "sidebar": {
     "view-on": "View on "
+  },
+  "tag-filter": {
+    "title": "Filter by tag",
+    "template-placeholder": "Templates",
+    "tag-placeholder": "key=value",
+    "tags": {
+      "restaurant": "Restaurants"
+    }
   },
   "yes": "yes",
   "no": "no"

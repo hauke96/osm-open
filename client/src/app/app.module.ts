@@ -13,6 +13,7 @@ import { DateTimeSelectionComponent } from './sidebar/date-time-selection/date-t
 import { FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinner.component';
 import { NotificationComponent } from './common/notification/notification.component';
+import { TagFilterComponent } from './sidebar/tag-filter/tag-filter.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NotificationComponent } from './common/notification/notification.compon
     DateTimeSelectionComponent,
     LoadingSpinnerComponent,
     NotificationComponent,
+    TagFilterComponent,
   ],
   imports: [
     BrowserModule,
