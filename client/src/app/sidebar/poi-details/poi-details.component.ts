@@ -48,23 +48,11 @@ export class PoiDetailsComponent extends Unsubscriber {
       this.isNowOpen = false;
     } else {
       this.name = this.selectedFeature.get('name');
-      this.website = this.getWebsite(this.selectedFeature);
+      this.website = this.selectedFeature.get('website');
       this.osmWebsite = this.getOsmWebsite(this.selectedFeature);
       this.openingHoursString = this.openingHoursService.getOpeningHoursString(this.selectedFeature);
       this.isNowOpen = this.openingHoursService.isOpen(this.selectedFeature, this.selectedDateTime);
     }
-  }
-
-  private getWebsite(feature: Feature<Point>): string {
-    let websiteString = '';
-
-    if (feature.get('website')) {
-      websiteString = feature.get('website');
-    } else if (feature.get('contact:website')) {
-      websiteString = feature.get('contact:website');
-    }
-
-    return websiteString;
   }
 
   private getOsmWebsite(feature: Feature<Point>): string {

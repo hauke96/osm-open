@@ -45,6 +45,15 @@ out center;`;
           feature.set('@id', element.id);
           feature.set('@type', element.type);
 
+          if (feature.get('contact:website')) {
+            feature.set('website', feature.get('contact:website'));
+            feature.unset('contact:website');
+          }
+
+          if (feature.get('website') && !('' + feature.get('website')).startsWith('http')) {
+            feature.set('website', 'https://' + feature.get('website'));
+          }
+
           let lon: number;
           let lat: number;
 

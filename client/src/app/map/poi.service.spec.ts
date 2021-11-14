@@ -23,8 +23,13 @@ describe(PoiService.name, () => {
     let extent: number[];
     let dataChangedSpy: jest.Mock;
     let loadDataSpy: jest.Mock;
+    let expectedWebsite1: string;
+    let expectedWebsite2: string;
 
     beforeEach(() => {
+      expectedWebsite1 = 'https://foo.com';
+      expectedWebsite2 = 'bar.com';
+
       response = {
         version: 0.6,
         generator: 'Overpass API 0.7.57.1 74a55df1',
@@ -42,12 +47,12 @@ describe(PoiService.name, () => {
             tags: {
               name: 'Foo',
               opening_hours: 'PH,Mo-Su 09:30-20:00',
-              website: 'https://foo.com',
+              website: expectedWebsite1,
             },
           },
           {
             type: 'way',
-            id: 733424412,
+            id: 234,
             center: {
               lat: 23.34,
               lon: 2.34,
@@ -55,7 +60,17 @@ describe(PoiService.name, () => {
             tags: {
               name: 'Bar',
               opening_hours: 'Mo-Fr 11:00-19:00; PH,Sa,Su off',
-              'contact:website': 'https://bar.com',
+              'contact:website': expectedWebsite2,
+            },
+          },
+          {
+            type: 'node',
+            id: 345,
+            lat: 34.5,
+            lon: 4.56,
+            tags: {
+              name: 'Bar',
+              opening_hours: 'Mo-Fr 11:00-19:00; PH,Sa,Su off',
             },
           },
         ],
@@ -73,6 +88,22 @@ describe(PoiService.name, () => {
 
     it('should fire data changed event', () => {
       expect(dataChangedSpy).toHaveBeenCalledTimes(1);
+    });
+
+    it('should convert "contact:website" to "website"', () => {
+      const website1 = dataChangedSpy.mock.calls[0][0][0].get('website');
+      const website2 = dataChangedSpy.mock.calls[0][0][1].get('website');
+      const website3 = dataChangedSpy.mock.calls[0][0][2].get('website');
+
+      expect(website1).toEqual(expectedWebsite1);
+      expect(website2).toEqual('https://' + expectedWebsite2);
+      expect(website3).toBeUndefined();
+    });
+
+    it('should fix URL without https prefix', () => {
+      const website = dataChangedSpy.mock.calls[0][0][1].get('contact:website');
+
+      expect(website).toBeUndefined();
     });
 
     it('should call returned observable', () => {
