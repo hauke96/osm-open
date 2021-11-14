@@ -24,7 +24,11 @@
     "template-placeholder": "Templates",
     "tag-placeholder": "key=value",
     "tags": {
-      "restaurant": "Restaurants"
+      "restaurant": "Restaurants",
+      "cafe": "Cafes",
+      "bakery": "Bakeries",
+      "supermarket": "Supermarkets",
+      "pub": "Pubs & Bars"
     }
   },
   "yes": "yes",

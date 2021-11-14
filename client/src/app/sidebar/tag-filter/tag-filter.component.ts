@@ -15,7 +15,13 @@ export class TagFilterComponent {
   selectedTag: string;
 
   constructor() {
-    this.tagTemplates = [{ name: 'tag-filter.tags.restaurant', tag: 'amenity=restaurant' }];
+    this.tagTemplates = [
+      { name: 'tag-filter.tags.restaurant', tag: 'amenity~(restaurant|fast_food)' },
+      { name: 'tag-filter.tags.cafe', tag: 'amenity=cafe' },
+      { name: 'tag-filter.tags.bakery', tag: 'shop=bakery' },
+      { name: 'tag-filter.tags.supermarket', tag: 'shop~(supermarket|convenience|kiosk)' },
+      { name: 'tag-filter.tags.pub', tag: 'amenity~(bar|pub|biergarten)' },
+    ];
   }
 
   onTagFieldChanged(): void {
