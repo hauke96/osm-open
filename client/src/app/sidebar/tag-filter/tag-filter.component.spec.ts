@@ -1,21 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { TagFilterComponent } from './tag-filter.component';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { AppModule } from '../../app.module';
 
-describe('TagFilterComponent', () => {
+describe(TagFilterComponent.name, () => {
   let component: TagFilterComponent;
-  let fixture: ComponentFixture<TagFilterComponent>;
+  let fixture: MockedComponentFixture<TagFilterComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ TagFilterComponent ]
-    })
-    .compileComponents();
+  beforeEach(() => {
+    return MockBuilder(TagFilterComponent, AppModule);
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TagFilterComponent);
-    component = fixture.componentInstance;
+    fixture = MockRender(TagFilterComponent);
+    component = fixture.point.componentInstance;
     fixture.detectChanges();
   });
 
