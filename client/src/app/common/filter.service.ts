@@ -7,6 +7,7 @@ import { Geometry } from 'ol/geom';
   providedIn: 'root',
 })
 export class FilterService {
+  // This publishes a function which returns a boolean. Returning "true" means that the feature should be visible, "false" means the feature should not be visible.
   private filterSubject: Subject<(feature: Feature<Geometry>) => boolean> = new Subject();
 
   get filter(): Observable<(feature: Feature<Geometry>) => boolean> {
