@@ -25,6 +25,7 @@ export class TagFilterComponent {
       { name: 'tag-filter.tags.supermarket', tag: 'shop~(supermarket|convenience|kiosk)' },
       { name: 'tag-filter.tags.pub', tag: 'amenity~(bar|pub|biergarten)' },
     ];
+    this.selectedTag = '';
   }
 
   onTagFieldChanged(): void {

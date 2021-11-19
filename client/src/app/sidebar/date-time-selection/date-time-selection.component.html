@@ -1,5 +1,5 @@
 <b class="title">{{ "date-time-selection.title" | translate }}</b>
 <div>
-	<input type="date" class="date-picker" [(ngModel)]="date" (change)="onInputChanged()" />
-	<input type="time" [(ngModel)]="time" (change)="onInputChanged()" />
+	<input type="date" class="date-picker" [(ngModel)]="date" (change)="onInputChanged()" required />
+	<input type="time" [(ngModel)]="time" (change)="onInputChanged()" required />
 </div>

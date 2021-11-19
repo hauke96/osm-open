@@ -22,7 +22,7 @@
   },
   "tag-filter": {
     "title": "Filter by tag",
-    "template-placeholder": "Templates",
+    "template-placeholder": "Select a template",
     "tag-placeholder": "key=value, e.g. amenity=bicycle_parking",
     "tags": {
       "restaurant": "Restaurants",

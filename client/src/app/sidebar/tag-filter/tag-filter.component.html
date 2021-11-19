@@ -1,5 +1,11 @@
 <b class="title">{{ "tag-filter.title" | translate }}</b>
-<select [(ngModel)]="selectedTag" (ngModelChange)="onTagFieldChanged()" class="tag-selection">
+<select
+	[(ngModel)]="selectedTag"
+	(ngModelChange)="onTagFieldChanged()"
+	class="tag-selection"
+	[ngClass]="{'placeholder': !selectedTag || selectedTag === ''}"
+>
+	<option value="" disabled selected hidden>{{"tag-filter.template-placeholder"|translate}}</option>
 	<option *ngFor="let t of tagTemplates" [ngValue]="t.tag">{{t.name | translate}}</option>
 </select>
 <input

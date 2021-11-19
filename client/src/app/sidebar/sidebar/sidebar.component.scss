@@ -21,7 +21,8 @@
 
 app-load-data,
 app-date-time-selection,
-app-tag-filter {
+app-tag-filter,
+hr {
   margin-bottom: $space-base;
 }
 
@@ -32,4 +33,10 @@ app-tag-filter {
     color: $color-gray-mid;
     font-size: $font-size-small;
   }
+}
+
+hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid $color-gray-light;
 }
