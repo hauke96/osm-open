@@ -87,7 +87,7 @@ describe('PoiDetailsComponent', () => {
       expect(component.osmWebsite).toEqual('https://openstreetmap.org/' + featureType + '/' + featureId);
       expect(component.website).toEqual(featureWebsite);
       expect(component.openingHoursString).toEqual(featureOpeningHours);
-      expect(component.isNowOpen).toEqual(expectedIsOpen);
+      expect(component.isOpen).toEqual(expectedIsOpen);
     });
 
     it('should calls isOpen correctly', () => {
@@ -108,7 +108,7 @@ describe('PoiDetailsComponent', () => {
         expect(component.osmWebsite).toEqual('');
         expect(component.website).toEqual('');
         expect(component.openingHoursString).toEqual('');
-        expect(component.isNowOpen).toEqual(false);
+        expect(component.isOpen).toEqual(false);
       });
     });
 
@@ -133,7 +133,7 @@ describe('PoiDetailsComponent', () => {
         expect(component.osmWebsite).toEqual('https://openstreetmap.org/' + featureType + '/' + featureId);
         expect(component.website).toEqual(featureWebsite);
         expect(component.openingHoursString).toEqual(featureOpeningHours);
-        expect(component.isNowOpen).toEqual(expectedIsOpen);
+        expect(component.isOpen).toEqual(expectedIsOpen);
       });
     });
   });

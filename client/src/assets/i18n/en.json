@@ -5,7 +5,8 @@
     "zoom": "Zoom further in to load data"
   },
   "poi-details": {
-    "open-notice": "Is now open:",
+    "open-now-notice": "Is open <b>now</b>:",
+    "open-notice": "Is open at <b>selected time</b>:",
     "view-on-osm-org": "View on osm.org",
     "website": "Website"
   },

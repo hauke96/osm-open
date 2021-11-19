@@ -16,7 +16,7 @@ export class PoiDetailsComponent extends Unsubscriber {
   openingHoursString: string;
   website: string;
   osmWebsite: string;
-  isNowOpen: boolean;
+  isOpen: boolean;
 
   selectedFeature: Feature<Point> | undefined;
   selectedDateTime: Date | undefined;
@@ -39,19 +39,23 @@ export class PoiDetailsComponent extends Unsubscriber {
     );
   }
 
+  get openingCheckTimeIsNow(): boolean {
+    return !this.selectedDateTime;
+  }
+
   loadFeatureDetails(): void {
     if (!this.selectedFeature) {
       this.name = '';
       this.openingHoursString = '';
       this.website = '';
       this.osmWebsite = '';
-      this.isNowOpen = false;
+      this.isOpen = false;
     } else {
       this.name = this.selectedFeature.get('name');
       this.website = this.selectedFeature.get('website');
       this.osmWebsite = this.getOsmWebsite(this.selectedFeature);
       this.openingHoursString = this.openingHoursService.getOpeningHoursString(this.selectedFeature);
-      this.isNowOpen = this.openingHoursService.isOpen(this.selectedFeature, this.selectedDateTime);
+      this.isOpen = this.openingHoursService.isOpen(this.selectedFeature, this.selectedDateTime);
     }
   }
 
