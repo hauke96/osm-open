@@ -6,9 +6,10 @@ import { PoiService } from '../poi.service';
 import { OpeningHoursService } from '../../common/opening-hours.service';
 import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 import { Subject } from 'rxjs';
-import { Feature } from 'ol';
-import { Point } from 'ol/geom';
+import { Feature, Map } from 'ol';
+import { Geometry, Point } from 'ol/geom';
 import { SelectEvent } from 'ol/interaction/Select';
+import { FilterService } from '../../common/filter.service';
 
 describe(PoiLayerComponent.name, () => {
   let component: PoiLayerComponent;
@@ -17,13 +18,16 @@ describe(PoiLayerComponent.name, () => {
   let poiService: PoiService;
   let openingHoursService: OpeningHoursService;
   let dateTimeSelectionService: DateTimeSelectionService;
+  let filterService: FilterService;
 
   let poiDataChangedSubject: Subject<Feature<Point>[]>;
   let dateTimeSelectedSubject: Subject<Date | undefined>;
+  let filterSubject: Subject<(feature: Feature<Geometry>) => boolean>;
 
   beforeEach(() => {
-    poiDataChangedSubject = new Subject<Feature<Point>[]>();
-    dateTimeSelectedSubject = new Subject<Date | undefined>();
+    poiDataChangedSubject = new Subject();
+    dateTimeSelectedSubject = new Subject();
+    filterSubject = new Subject();
 
     layerService = {
       addLayer: jest.fn(),
@@ -36,12 +40,16 @@ describe(PoiLayerComponent.name, () => {
     dateTimeSelectionService = {
       dateTimeSelected: dateTimeSelectedSubject.asObservable(),
     } as unknown as DateTimeSelectionService;
+    filterService = {
+      filter: filterSubject.asObservable(),
+    } as FilterService;
 
     return MockBuilder(PoiLayerComponent, AppModule)
       .provide({ provide: LayerService, useFactory: () => layerService })
       .provide({ provide: PoiService, useFactory: () => poiService })
       .provide({ provide: OpeningHoursService, useFactory: () => openingHoursService })
-      .provide({ provide: DateTimeSelectionService, useFactory: () => dateTimeSelectionService });
+      .provide({ provide: DateTimeSelectionService, useFactory: () => dateTimeSelectionService })
+      .provide({ provide: FilterService, useFactory: () => filterService });
   });
 
   beforeEach(() => {
@@ -127,6 +135,66 @@ describe(PoiLayerComponent.name, () => {
 
     it('should call poi service', () => {
       expect(poiService.selectPoi).toHaveBeenCalledWith(component.selectedFeature);
+    });
+  });
+
+  describe('with changed filter', () => {
+    let filterFunction: jest.Mock;
+
+    beforeEach(() => {
+      filterFunction = jest.fn().mockReturnValue(true);
+
+      component.layer.changed = jest.fn();
+
+      filterSubject.next(filterFunction);
+    });
+
+    it('should set filter function', () => {
+      expect(component.filterFunction).toEqual(filterFunction);
+    });
+
+    it('should mark layer changed', () => {
+      expect(component.layer.changed).toHaveBeenCalled();
+    });
+  });
+
+  [
+    [true, true, true],
+    [true, true, false],
+    [true, false, true],
+    [true, false, false],
+    [false, true, true],
+    [false, true, false],
+    [false, false, true],
+    [false, false, false],
+  ].forEach(([filtered, open, selected]: boolean[]) => {
+    describe('with called style function: filtered=' + filtered + ', open=' + open + ', selected=' + selected, () => {
+      let filterFunction: jest.Mock;
+      let feature: Feature<Point>;
+
+      beforeEach(() => {
+        filterFunction = jest.fn().mockReturnValue(filtered);
+        component.filterFunction = filterFunction;
+
+        openingHoursService.isOpen = jest.fn().mockReturnValue(open);
+
+        feature = new Feature(new Point([1, 2]));
+        component.getStyle(feature, selected);
+      });
+
+      it('should use filter function', () => {
+        expect(filterFunction).toHaveBeenCalledWith(feature);
+      });
+
+      if (filtered) {
+        it('should check open state', () => {
+          expect(openingHoursService.isOpen).toHaveBeenCalledWith(feature, component.selectedDateTime);
+        });
+      } else {
+        it('should NOT check open state', () => {
+          expect(openingHoursService.isOpen).not.toHaveBeenCalled();
+        });
+      }
     });
   });
 });

@@ -25,8 +25,7 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
   public selectedFeature: Feature<Point>;
   public selectedDateTime: Date | undefined;
   public select: Select;
-
-  private filterFunction: (feature: Feature<Geometry>) => boolean;
+  public filterFunction: (feature: Feature<Geometry>) => boolean;
 
   private redTransparent = 'rgba(244,67,54,0.25)';
   private redSemiTransparent = 'rgba(244,67,54,0.85)';
@@ -83,7 +82,7 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     this.layerService.addLayer(this.layer);
   }
 
-  private getStyle(feature: Feature<Geometry>, selected: boolean): Style {
+  getStyle(feature: Feature<Geometry>, selected: boolean): Style {
     let strokeColor;
     let fillColor;
 

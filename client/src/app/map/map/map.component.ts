@@ -44,20 +44,16 @@ export class MapComponent implements AfterViewInit, LayerService {
     if (zoom) {
       this.map.getView().setZoom(+zoom);
     }
-
-    // Update map center after map has been moved
-    this.map.on('moveend', (e: MapEvent) => {
-      localStorage.setItem('project_creation_map_center', JSON.stringify(e.map.getView().getCenter()));
-      localStorage.setItem('project_creation_map_zoom', '' + e.map.getView().getZoom());
-    });
   }
 
   ngAfterViewInit(): void {
     this.map.setTarget('map');
 
-    this.map.on('moveend', () =>
-      this.mapService.mapViewChanged(this.map.getView().getZoom() ?? 0, this.map.getView().calculateExtent())
-    );
+    this.map.on('moveend', (e: MapEvent) => {
+      this.mapService.mapViewChanged(e.map.getView().getZoom() ?? 0, e.map.getView().calculateExtent());
+      localStorage.setItem('project_creation_map_center', JSON.stringify(e.map.getView().getCenter()));
+      localStorage.setItem('project_creation_map_zoom', '' + e.map.getView().getZoom());
+    });
   }
 
   addLayer(layer: BaseLayer): void {
