@@ -9,10 +9,10 @@ $color-mid: #42a5f5; // #400 Blue
 $color-dark: #1976d2; // #700 Blue
 $color-very-dark: #0d47a1; // #900 Blue
 // Grey-scale:
-$color-white: #ffffff;
-$color-gray-very-light: #eeeeee; // #200
-$color-gray-very-light-transparent: #eeeeeed9; // #200
-$color-gray-light: #e0e0e0; // #300
+$color-background: #ffffff;
+$color-gray-near-white: #eeeeee; // #200
+$color-gray-very-light: #e0e0e0; // #300
+$color-gray-light: #cecece; // #between 300 and 400
 $color-gray-mid: #9e9e9e; // #400
 $color-gray-dark: #616161; // #700
 // Notifications:
@@ -44,12 +44,14 @@ body {
 span,
 p,
 button,
-input {
-  font-size: 1rem;
+input,
+select {
+  font-size: $font-size-normal;
 }
 
 button,
-input {
+input,
+select {
   height: $space-large;
   padding: 0 $space-base 0 $space-base;
   border: 1px solid $color-light;
@@ -64,8 +66,8 @@ input {
   }
 
   &:disabled {
-    background-color: $color-gray-very-light;
-    border-color: $color-gray-light;
+    background-color: $color-gray-near-white;
+    border-color: $color-gray-very-light;
     color: $color-gray-mid;
   }
 }
@@ -80,4 +82,13 @@ button {
 
 .shadow {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+}
+
+select {
+  background-color: $color-background;
+}
+
+.placeholder, input::placeholder, input:invalid {
+  color: $color-gray-mid;
+  opacity: 1;
 }

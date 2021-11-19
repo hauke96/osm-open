@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "jest --detectOpenHandles",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "format:check": "prettier --check \"src/{environment,app,assets}/**/*{.js,.ts,.html,.scss,.css,.json}\" && ng lint",
+    "format:fix": "prettier --write \"src/{environment,app,assets}/**/*{.js,.ts,.html,.scss,.css,.json}\" && ng lint --fix"
   },
   "private": true,
   "dependencies": {
@@ -31,14 +33,26 @@
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~12.2.12",
+    "@angular-eslint/builder": "12.6.1",
+    "@angular-eslint/eslint-plugin": "12.6.1",
+    "@angular-eslint/eslint-plugin-template": "12.6.1",
+    "@angular-eslint/schematics": "12.6.1",
+    "@angular-eslint/template-parser": "12.6.1",
     "@angular/cli": "~12.2.12",
     "@angular/compiler-cli": "~12.2.0",
     "@types/jasmine": "~3.8.0",
     "@types/jest": "latest",
     "@types/node": "^12.11.1",
+    "@typescript-eslint/eslint-plugin": "4.28.2",
+    "@typescript-eslint/parser": "4.28.2",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-prettier": "^4.0.0",
     "jasmine-core": "~3.8.0",
     "jest": "^27.3.1",
     "jest-preset-angular": "^10.1.0",
+    "prettier": "^2.4.1",
     "typescript": "~4.3.5"
   }
 }

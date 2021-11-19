@@ -1,6 +1,6 @@
-import {SidebarComponent} from './sidebar.component';
-import {MockBuilder, MockedComponentFixture, MockRender} from "ng-mocks";
-import {AppModule} from "../../app.module";
+import { SidebarComponent } from './sidebar.component';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { AppModule } from '../../app.module';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;

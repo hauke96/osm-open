@@ -11,7 +11,7 @@ h3 {
 }
 
 .opening-bar {
-  width: 2.5 * $border-radius-small;
+  min-width: 2.5 * $border-radius-small;
   margin-right: $space-base;
   border-radius: 1.25 * $border-radius;
 }

@@ -14,13 +14,15 @@
   min-width: 250px;
   max-width: 350px;
 
-  background-color: white;
+  background-color: $color-background;
   border-radius: $border-radius;
   padding: $space-base $space-base 0 $space-base;
 }
 
 app-load-data,
-app-date-time-selection {
+app-date-time-selection,
+app-tag-filter,
+hr {
   margin-bottom: $space-base;
 }
 
@@ -31,4 +33,10 @@ app-date-time-selection {
     color: $color-gray-mid;
     font-size: $font-size-small;
   }
+}
+
+hr {
+  width: 100%;
+  border: none;
+  border-top: 1px solid $color-gray-light;
 }

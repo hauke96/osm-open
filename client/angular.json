@@ -56,7 +56,17 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "src/assets/",
+                  "ignore": [
+                    "dummy-data/*"
+                  ],
+                  "output": "/assets/"
+                }
+              ]
             },
             "development": {
               "buildOptimizer": false,
@@ -86,9 +96,21 @@
           "options": {
             "browserTarget": "osm-open:build"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "osm-open"
+  "defaultProject": "osm-open",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

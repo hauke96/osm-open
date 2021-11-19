@@ -1,13 +1,17 @@
 <div *ngIf="!!openingHoursString" class="details-container">
-  <div class="opening-bar" [ngClass]="{'green' : isNowOpen, 'red': !isNowOpen}"></div>
-  <div>
-    <h3>{{name}}</h3>
-    <p>{{openingHoursString}}</p>
-    <div>
-      <a *ngIf="!!website" [href]="website" target="_blank">{{ "poi-details.website" | translate }}</a>
-      <span *ngIf="!!website"> | </span>
-      <a [href]="osmWebsite" target="_blank">{{ "poi-details.view-on-osm-org" | translate }}</a>
-    </div>
-    <p>{{"poi-details.open-notice" | translate}} {{isNowOpen ? "yes" : "no" | translate}}</p>
-  </div>
+	<div class="opening-bar" [ngClass]="{ green: isOpen, red: !isOpen }"></div>
+	<div>
+		<h3>{{ name }}</h3>
+		<p>{{ openingHoursString }}</p>
+		<div>
+			<a *ngIf="!!website" [href]="website" target="_blank">{{ "poi-details.website" | translate }}</a>
+			<span *ngIf="!!website"> | </span>
+			<a [href]="osmWebsite" target="_blank">{{ "poi-details.view-on-osm-org" | translate }}</a>
+		</div>
+		<p>
+			<span *ngIf="openingCheckTimeIsNow" [innerHTML]="'poi-details.open-now-notice' | translate"></span>
+			<span *ngIf="!openingCheckTimeIsNow" [innerHTML]="'poi-details.open-notice' | translate"></span>
+			<span> {{ isOpen ? ('yes' | translate) : ('no' | translate) }}</span>
+		</p>
+	</div>
 </div>

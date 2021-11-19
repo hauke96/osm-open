@@ -1,28 +1,31 @@
-import {Component, OnInit} from '@angular/core';
-import {LayerService} from "../layer.service";
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import {Geometry, Point} from "ol/geom";
-import {PoiService} from "../poi.service";
-import {Select} from "ol/interaction";
-import {SelectEvent} from "ol/interaction/Select";
-import {Feature} from "ol";
-import {Circle, Fill, Stroke, Style} from "ol/style";
-import {OpeningHoursService} from "../../common/opening-hours.service";
-import {DateTimeSelectionService} from "../../common/date-time-selection.service";
-import {Unsubscriber} from "../../common/ubsunscriber";
+import { Component, OnInit } from '@angular/core';
+import { LayerService } from '../layer.service';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import { Geometry, Point } from 'ol/geom';
+import { PoiService } from '../poi.service';
+import { Select } from 'ol/interaction';
+import { SelectEvent } from 'ol/interaction/Select';
+import { Feature } from 'ol';
+import { Circle, Fill, Stroke, Style } from 'ol/style';
+import { OpeningHoursService } from '../../common/opening-hours.service';
+import { DateTimeSelectionService } from '../../common/date-time-selection.service';
+import { Unsubscriber } from '../../common/unsubscriber';
+import { FilterService } from '../../common/filter.service';
 
 @Component({
   selector: 'app-poi-layer',
   templateUrl: './poi-layer.component.html',
-  styleUrls: ['./poi-layer.component.scss']
+  styleUrls: ['./poi-layer.component.scss'],
 })
 export class PoiLayerComponent extends Unsubscriber implements OnInit {
-  private layer: VectorLayer<VectorSource<Point>>;
-  private source: VectorSource<Point>;
+  public readonly layer: VectorLayer<VectorSource<Point>>;
+  public readonly source: VectorSource<Point>;
 
-  private selectedFeature: Feature<Point>;
-  private selectedDateTime: Date | undefined;
+  public selectedFeature: Feature<Point>;
+  public selectedDateTime: Date | undefined;
+  public select: Select;
+  public filterFunction: (feature: Feature<Geometry>) => boolean;
 
   private redTransparent = 'rgba(244,67,54,0.25)';
   private redSemiTransparent = 'rgba(244,67,54,0.85)';
@@ -30,40 +33,47 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
   private greenTransparent = 'rgba(76,175,80,0.25)';
   private greenSemiTransparent = 'rgba(76,175,80,0.85)';
   private green = 'rgb(76,175,80)';
+  private gray = 'rgb(158,158,158)';
 
-  constructor(private layerService: LayerService,
-              private poiService: PoiService,
-              private openingHoursService: OpeningHoursService,
-              private dateTimeSelectionService: DateTimeSelectionService
+  constructor(
+    private layerService: LayerService,
+    private poiService: PoiService,
+    private openingHoursService: OpeningHoursService,
+    private dateTimeSelectionService: DateTimeSelectionService,
+    filterService: FilterService
   ) {
     super();
 
     this.source = new VectorSource<Point>();
     this.layer = new VectorLayer<VectorSource<Point>>({
       source: this.source,
-      style: (feature) => feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, false) : []
-    })
-
-    let select = new Select({
-      style: (feature) => feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, true) : []
+      style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, false) : []),
     });
-    select.on('select', (event: SelectEvent) => {
+
+    this.select = new Select({
+      style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, true) : []),
+    });
+    this.select.on('select', (event: SelectEvent) => {
       this.selectedFeature = event.selected[0];
       this.poiService.selectPoi(event.selected[0]);
     });
-    this.layerService.addInteraction(select);
+    this.layerService.addInteraction(this.select);
 
     this.unsubscribeLater(
       this.poiService.dataChanged.subscribe(newFeatures => {
         this.source.clear();
         this.source.addFeatures(newFeatures);
       }),
-      this.dateTimeSelectionService.dateTimeSelected.subscribe((selectedDateTime: (Date | undefined)) => {
+      this.dateTimeSelectionService.dateTimeSelected.subscribe((selectedDateTime: Date | undefined) => {
         this.selectedDateTime = selectedDateTime;
         this.layer.changed();
-        if(this.selectedFeature) {
+        if (this.selectedFeature) {
           this.poiService.selectPoi(this.selectedFeature);
         }
+      }),
+      filterService.filtered.subscribe((filterFunction: (feature: Feature<Geometry>) => boolean) => {
+        this.filterFunction = filterFunction;
+        this.layer.changed();
       })
     );
   }
@@ -72,50 +82,60 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     this.layerService.addLayer(this.layer);
   }
 
-  private getStyle(feature: Feature<Geometry>, selected: boolean) {
+  getStyle(feature: Feature<Geometry>, selected: boolean): Style {
     let strokeColor;
     let fillColor;
 
-    let isOpen = this.openingHoursService.isOpen(feature, this.selectedDateTime);
+    const isVisible = !this.filterFunction || this.filterFunction(feature);
 
-    if (selected) { // This feature is selected
-      if (isOpen) {
-        strokeColor = this.green
-        fillColor = this.greenSemiTransparent
+    if (isVisible) {
+      const isOpen = this.openingHoursService.isOpen(feature, this.selectedDateTime);
+
+      if (selected) {
+        // This feature is selected
+        if (isOpen) {
+          strokeColor = this.green;
+          fillColor = this.greenSemiTransparent;
+        } else {
+          strokeColor = this.red;
+          fillColor = this.redSemiTransparent;
+        }
+      } else if (this.selectedFeature != null) {
+        // A different feature is currently selected
+        fillColor = 'transparent';
+        if (isOpen) {
+          strokeColor = this.greenSemiTransparent;
+        } else {
+          strokeColor = this.redSemiTransparent;
+        }
       } else {
-        strokeColor = this.red
-        fillColor = this.redSemiTransparent
+        // No feature is selected
+        if (isOpen) {
+          strokeColor = this.green;
+          fillColor = this.greenTransparent;
+        } else {
+          strokeColor = this.red;
+          fillColor = this.redTransparent;
+        }
       }
-    } else if (this.selectedFeature != null) { // A different feature is currently selected
-      fillColor = 'transparent'
-      if (isOpen) {
-        strokeColor = this.greenSemiTransparent
-      } else {
-        strokeColor = this.redSemiTransparent
-      }
-    } else { // No feature is selected
-      if (isOpen) {
-        strokeColor = this.green
-        fillColor = this.greenTransparent
-      } else {
-        strokeColor = this.red
-        fillColor = this.redTransparent
-      }
+    } else {
+      strokeColor = this.gray;
+      fillColor = 'transparent';
     }
 
-    var fill = new Fill({
-      color: fillColor
+    const fill = new Fill({
+      color: fillColor,
     });
-    var stroke = new Stroke({
+    const stroke = new Stroke({
       color: strokeColor,
-      width: 1.5
+      width: 1.5,
     });
     return new Style({
       image: new Circle({
         fill: fill,
         stroke: stroke,
-        radius: selected ? 10 : 6
-      })
+        radius: selected ? 10 : 6,
+      }),
     });
   }
 }

@@ -31,21 +31,21 @@
   border-radius: $border-radius;
 
   * {
-    color: $color-gray-very-light;
+    color: $color-gray-near-white;
   }
 }
 
 .error-button {
   background-color: transparent;
-  border: 1px solid $color-gray-light;
+  border: 1px solid $color-gray-very-light;
 
   &:hover {
-    border: 1px solid $color-gray-light;
+    border: 1px solid $color-gray-very-light;
     background-color: #ffffff33;
   }
 
   &:active {
-    border: 1px solid $color-gray-light;
+    border: 1px solid $color-gray-very-light;
     background-color: #ffffff20;
   }
 }
