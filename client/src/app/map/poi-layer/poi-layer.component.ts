@@ -71,7 +71,7 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
           this.poiService.selectPoi(this.selectedFeature);
         }
       }),
-      filterService.filter.subscribe((filterFunction: (feature: Feature<Geometry>) => boolean) => {
+      filterService.filtered.subscribe((filterFunction: (feature: Feature<Geometry>) => boolean) => {
         this.filterFunction = filterFunction;
         this.layer.changed();
       })

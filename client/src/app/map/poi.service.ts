@@ -12,17 +12,17 @@ import { environment } from '../../environments/environment';
   providedIn: 'root',
 })
 export class PoiService {
-  private dataChangedSubject: Subject<Feature<Point>[]> = new Subject<Feature<Point>[]>();
-  private poiSelectedSubject: Subject<Feature<Point> | undefined> = new Subject<Feature<Point> | undefined>();
+  private $dataChanged: Subject<Feature<Point>[]> = new Subject<Feature<Point>[]>();
+  private $poiSelected: Subject<Feature<Point> | undefined> = new Subject<Feature<Point> | undefined>();
 
   constructor(private httpClient: HttpClient) {}
 
   get dataChanged(): Observable<Feature<Point>[]> {
-    return this.dataChangedSubject.asObservable();
+    return this.$dataChanged.asObservable();
   }
 
   get poiSelected(): Observable<Feature<Point> | undefined> {
-    return this.poiSelectedSubject.asObservable();
+    return this.$poiSelected.asObservable();
   }
 
   loadData(extent: Extent): Observable<void> {
@@ -63,12 +63,12 @@ export class PoiService {
           feature.setGeometry(new Point(fromLonLat([lon, lat])));
           return feature;
         });
-        this.dataChangedSubject.next(features);
+        this.$dataChanged.next(features);
       })
     );
   }
 
   selectPoi(feature: Feature<Point> | undefined): void {
-    this.poiSelectedSubject.next(feature);
+    this.$poiSelected.next(feature);
   }
 }

@@ -18,12 +18,12 @@ describe(FilterService.name, () => {
 
     beforeEach(() => {
       spy = jest.fn();
-      service.filter.subscribe(spy);
+      service.filtered.subscribe(spy);
     });
 
     it('should publish selected date', () => {
       const expectedFunction = (feature: Feature<Geometry>): boolean => true;
-      service.filterFeatures(expectedFunction);
+      service.filter(expectedFunction);
 
       expect(spy).toHaveBeenCalledWith(expectedFunction);
     });

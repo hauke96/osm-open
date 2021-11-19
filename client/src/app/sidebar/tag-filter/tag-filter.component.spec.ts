@@ -41,13 +41,13 @@ describe(TagFilterComponent.name, () => {
       filterService.getKey = jest.fn().mockReturnValue(key);
       filterService.getValue = jest.fn().mockReturnValue(value);
       filterService.isRegex = jest.fn().mockReturnValue(false);
-      filterService.filterFeatures = jest.fn();
+      filterService.filter = jest.fn();
 
       component.onTagFieldChanged();
     });
 
     it('should match', () => {
-      const filterFunction = (filterService.filterFeatures as jest.Mock).mock.calls[0][0] as (
+      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
         feature: Feature<Geometry>
       ) => boolean;
 
@@ -58,7 +58,7 @@ describe(TagFilterComponent.name, () => {
     });
 
     it('should NOT match', () => {
-      const filterFunction = (filterService.filterFeatures as jest.Mock).mock.calls[0][0] as (
+      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
         feature: Feature<Geometry>
       ) => boolean;
 
@@ -81,13 +81,13 @@ describe(TagFilterComponent.name, () => {
       filterService.getKey = jest.fn().mockReturnValue(key);
       filterService.getValue = jest.fn().mockReturnValue(value);
       filterService.isRegex = jest.fn().mockReturnValue(true);
-      filterService.filterFeatures = jest.fn();
+      filterService.filter = jest.fn();
 
       component.onTagFieldChanged();
     });
 
     it('should match on exact value', () => {
-      const filterFunction = (filterService.filterFeatures as jest.Mock).mock.calls[0][0] as (
+      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
         feature: Feature<Geometry>
       ) => boolean;
 
@@ -98,7 +98,7 @@ describe(TagFilterComponent.name, () => {
     });
 
     it('should match on different value', () => {
-      const filterFunction = (filterService.filterFeatures as jest.Mock).mock.calls[0][0] as (
+      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
         feature: Feature<Geometry>
       ) => boolean;
 

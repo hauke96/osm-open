@@ -11,13 +11,13 @@ import { Title } from '@angular/platform-browser';
     let fixture: MockedComponentFixture<AppComponent>;
     let translateService: TranslateService;
     let title: Title;
-    let langChangesSubject: Subject<string>;
+    let langChangedSubject: Subject<string>;
 
     beforeEach(() => {
-      langChangesSubject = new Subject<string>();
+      langChangedSubject = new Subject<string>();
 
       translateService = {
-        onLangChange: langChangesSubject.asObservable(),
+        onLangChange: langChangedSubject.asObservable(),
       } as unknown as TranslateService;
       translateService.addLangs = jest.fn();
       translateService.setDefaultLang = jest.fn();
@@ -53,7 +53,7 @@ import { Title } from '@angular/platform-browser';
       expect(translateService.use).toHaveBeenCalledWith('en');
     });
 
-    describe('on changes language', () => {
+    describe('on changed language', () => {
       let expedtedTitle: string;
 
       beforeEach(() => {
@@ -62,7 +62,7 @@ import { Title } from '@angular/platform-browser';
         translateService.get = jest.fn().mockReturnValue(of(expedtedTitle));
         title.setTitle = jest.fn();
 
-        langChangesSubject.next('de');
+        langChangedSubject.next('de');
       });
 
       it('should get translated title', () => {

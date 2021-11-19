@@ -41,7 +41,7 @@ describe(PoiLayerComponent.name, () => {
       dateTimeSelected: dateTimeSelectedSubject.asObservable(),
     } as unknown as DateTimeSelectionService;
     filterService = {
-      filter: filterSubject.asObservable(),
+      filtered: filterSubject.asObservable(),
     } as FilterService;
 
     return MockBuilder(PoiLayerComponent, AppModule)

@@ -5,17 +5,17 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class DateTimeSelectionService {
-  private dateTimeSelectedSubject: Subject<Date | undefined> = new Subject<Date | undefined>();
+  private $dateTimeSelected: Subject<Date | undefined> = new Subject<Date | undefined>();
 
   get dateTimeSelected(): Observable<Date | undefined> {
-    return this.dateTimeSelectedSubject.asObservable();
+    return this.$dateTimeSelected.asObservable();
   }
 
   selectDateTime(date: Date): void {
-    this.dateTimeSelectedSubject.next(date);
+    this.$dateTimeSelected.next(date);
   }
 
   resetSelectedDateTime(): void {
-    this.dateTimeSelectedSubject.next(undefined);
+    this.$dateTimeSelected.next(undefined);
   }
 }

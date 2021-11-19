@@ -33,11 +33,11 @@ export class TagFilterComponent {
     const isRegex = this.filterService.isRegex(this.selectedTag);
 
     if (isRegex) {
-      this.filterService.filterFeatures((feature: Feature<Geometry>): boolean => {
+      this.filterService.filter((feature: Feature<Geometry>): boolean => {
         return !!feature.get(key) && feature.get(key).match(value) != null;
       });
     } else {
-      this.filterService.filterFeatures((feature: Feature<Geometry>): boolean => {
+      this.filterService.filter((feature: Feature<Geometry>): boolean => {
         return feature.get(key) === value;
       });
     }
