@@ -30,7 +30,7 @@ export class PoiService {
     const topRight = toLonLat([extent[2], extent[3]]);
     const bbox = '(' + bottomLeft[1] + ',' + bottomLeft[0] + ',' + topRight[1] + ',' + topRight[0] + ')';
 
-    const url = environment.dataQueryUrl.replace('$$BBOX$$', bbox);
+    const url = environment.dataQueryUrl.replace(/\$\$BBOX\$\$/g, bbox);
 
     return this.httpClient.get<any>(url).pipe(
       map((data: any) => {
