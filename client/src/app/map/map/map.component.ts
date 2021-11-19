@@ -1,13 +1,14 @@
 import { AfterViewInit, Component, forwardRef } from '@angular/core';
 import { Map, MapEvent, View } from 'ol';
 import { Attribution } from 'ol/control';
-import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import { MapService } from '../map.service';
 import { LayerService } from '../layer.service';
 import BaseLayer from 'ol/layer/Base';
 import { Interaction } from 'ol/interaction';
 import { fromLonLat } from 'ol/proj';
+import ImageLayer from 'ol/layer/Image';
+import { Raster } from 'ol/source';
 
 @Component({
   selector: 'app-map',
@@ -22,8 +23,23 @@ export class MapComponent implements AfterViewInit, LayerService {
     this.map = new Map({
       controls: [new Attribution()],
       layers: [
-        new TileLayer({
-          source: new OSM(),
+        new ImageLayer({
+          source: new Raster({
+            sources: [new OSM()],
+            operation: (pixels: any[], data: any) => {
+              const pixel = pixels[0];
+              const strength = 0.5;
+              // Factors from CCIR 601 specification to create a grayscale image
+              const gray = pixel[0] * 0.3 + pixel[1] * 0.59 + pixel[2] * 0.11;
+
+              return [
+                pixel[0] - (pixel[0] - gray) * strength,
+                pixel[1] - (pixel[1] - gray) * strength,
+                pixel[2] - (pixel[2] - gray) * strength,
+                pixel[3],
+              ];
+            },
+          }),
         }),
       ],
       view: new View({
