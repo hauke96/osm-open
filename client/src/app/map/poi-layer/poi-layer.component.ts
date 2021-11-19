@@ -11,6 +11,7 @@ import { Circle, Fill, Stroke, Style } from 'ol/style';
 import { OpeningHoursService } from '../../common/opening-hours.service';
 import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 import { Unsubscriber } from '../../common/unsubscriber';
+import { FilterService } from '../../common/filter.service';
 
 @Component({
   selector: 'app-poi-layer',
@@ -25,18 +26,22 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
   public selectedDateTime: Date | undefined;
   public select: Select;
 
+  private filterFunction: (feature: Feature<Geometry>) => boolean;
+
   private redTransparent = 'rgba(244,67,54,0.25)';
   private redSemiTransparent = 'rgba(244,67,54,0.85)';
   private red = 'rgb(244,67,54)';
   private greenTransparent = 'rgba(76,175,80,0.25)';
   private greenSemiTransparent = 'rgba(76,175,80,0.85)';
   private green = 'rgb(76,175,80)';
+  private gray = 'rgb(158,158,158)';
 
   constructor(
     private layerService: LayerService,
     private poiService: PoiService,
     private openingHoursService: OpeningHoursService,
-    private dateTimeSelectionService: DateTimeSelectionService
+    private dateTimeSelectionService: DateTimeSelectionService,
+    filterService: FilterService
   ) {
     super();
 
@@ -66,6 +71,10 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
         if (this.selectedFeature) {
           this.poiService.selectPoi(this.selectedFeature);
         }
+      }),
+      filterService.filter.subscribe((filterFunction: (feature: Feature<Geometry>) => boolean) => {
+        this.filterFunction = filterFunction;
+        this.layer.changed();
       })
     );
   }
@@ -78,34 +87,41 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     let strokeColor;
     let fillColor;
 
-    const isOpen = this.openingHoursService.isOpen(feature, this.selectedDateTime);
+    const isVisible = !this.filterFunction || this.filterFunction(feature);
 
-    if (selected) {
-      // This feature is selected
-      if (isOpen) {
-        strokeColor = this.green;
-        fillColor = this.greenSemiTransparent;
+    if (isVisible) {
+      const isOpen = this.openingHoursService.isOpen(feature, this.selectedDateTime);
+
+      if (selected) {
+        // This feature is selected
+        if (isOpen) {
+          strokeColor = this.green;
+          fillColor = this.greenSemiTransparent;
+        } else {
+          strokeColor = this.red;
+          fillColor = this.redSemiTransparent;
+        }
+      } else if (this.selectedFeature != null) {
+        // A different feature is currently selected
+        fillColor = 'transparent';
+        if (isOpen) {
+          strokeColor = this.greenSemiTransparent;
+        } else {
+          strokeColor = this.redSemiTransparent;
+        }
       } else {
-        strokeColor = this.red;
-        fillColor = this.redSemiTransparent;
-      }
-    } else if (this.selectedFeature != null) {
-      // A different feature is currently selected
-      fillColor = 'transparent';
-      if (isOpen) {
-        strokeColor = this.greenSemiTransparent;
-      } else {
-        strokeColor = this.redSemiTransparent;
+        // No feature is selected
+        if (isOpen) {
+          strokeColor = this.green;
+          fillColor = this.greenTransparent;
+        } else {
+          strokeColor = this.red;
+          fillColor = this.redTransparent;
+        }
       }
     } else {
-      // No feature is selected
-      if (isOpen) {
-        strokeColor = this.green;
-        fillColor = this.greenTransparent;
-      } else {
-        strokeColor = this.red;
-        fillColor = this.redTransparent;
-      }
+      strokeColor = this.gray;
+      fillColor = 'transparent';
     }
 
     const fill = new Fill({
