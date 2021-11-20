@@ -32,6 +32,12 @@
       "pub": "Pubs & Bars"
     }
   },
+  "tag-list": {
+    "show-tags": "Show tags",
+    "hide-tags": "Hide tags",
+    "key": "Key",
+    "value": "Value"
+  },
   "yes": "yes",
   "no": "no"
 }

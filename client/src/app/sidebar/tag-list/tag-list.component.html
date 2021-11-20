@@ -1,15 +1,15 @@
 <div class="show-tag-wrapper hoverable" (click)="listExpanded = !listExpanded">
-	<span *ngIf="!listExpanded">Show tags</span>
+	<span *ngIf="!listExpanded">{{ "tag-list.show-tags" | translate}}</span>
 	<i *ngIf="!listExpanded" class="bi-chevron-down"></i>
 
-	<span *ngIf="listExpanded">Hide tags</span>
+	<span *ngIf="listExpanded">{{ "tag-list.hide-tags" | translate}}</span>
 	<i *ngIf="listExpanded" class="bi-chevron-up"></i>
 </div>
 <div *ngIf="listExpanded" class="tag-list">
 	<table>
 		<tr>
-			<th>Key</th>
-			<th>Value</th>
+			<th>{{ "tag-list.key" | translate}}</th>
+			<th>{{ "tag-list.value" | translate}}</th>
 		</tr>
 		<tr *ngFor="let t of relevantTags">
 			<td [title]="t[0]" class="no-overflow">{{t[0]}}</td>
