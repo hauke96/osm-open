@@ -13,13 +13,13 @@
   display: flex;
 
   width: 25%;
-  min-width: 280px;
-  max-width: 400px;
+  min-width: 300px;
+  max-width: 430px;
   max-height: 100%;
 }
 
 app-sidebar {
   margin: $space-base;
-  padding: $space-base $space-base 0 $space-base;
+  padding: $space-base;
   width: 100%;
 }
