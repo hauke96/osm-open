@@ -1,0 +1,52 @@
+@import 'src/styles';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+
+.show-tag-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: $space-tiny;
+  margin-bottom: $space-base;
+  border-bottom: 1px solid $color-gray-light;
+
+  &:hover {
+    border-bottom: 1px solid $color-dark;
+  }
+  &:hover > * {
+    color: $color-dark;
+  }
+}
+
+.tag-list {
+  padding-left: $space-small;
+  padding-right: $space-small;
+  margin-bottom: $space-small;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    tr {
+      th {
+        text-align: start;
+      }
+
+      td, th {
+        border: 1px solid $color-gray-very-light;
+        padding: $space-small;
+        vertical-align: baseline;
+      }
+
+      &:hover {
+        background-color: $color-gray-near-white;
+      }
+    }
+  }
+}
+
+.no-overflow {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,22 @@
+<div class="show-tag-wrapper hoverable" (click)="listExpanded = !listExpanded">
+	<span *ngIf="!listExpanded">Show tags</span>
+	<i *ngIf="!listExpanded" class="bi-chevron-down"></i>
+
+	<span *ngIf="listExpanded">Hide tags</span>
+	<i *ngIf="listExpanded" class="bi-chevron-up"></i>
+</div>
+<div *ngIf="listExpanded" class="tag-list">
+	<table>
+		<tr>
+			<th>Key</th>
+			<th>Value</th>
+		</tr>
+		<tr *ngFor="let t of relevantTags">
+			<td [title]="t[0]" class="no-overflow">{{t[0]}}</td>
+			<td [title]="t[1]" *ngIf="!isUrl(t[1])">{{t[1]}}</td>
+			<td [title]="t[1]" *ngIf="isUrl(t[1])">
+				<a [href]="t[1]" target="_blank">{{t[1]}}}</a>
+			</td>
+		</tr>
+	</table>
+</div>

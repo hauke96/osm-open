@@ -13,5 +13,7 @@
 			<span *ngIf="!openingCheckTimeIsNow" [innerHTML]="'poi-details.open-notice' | translate"></span>
 			<span> {{ isOpen ? ('yes' | translate) : ('no' | translate) }}</span>
 		</p>
+
+		<app-tag-list [selectedFeature]="selectedFeature"></app-tag-list>
 	</div>
 </div>
