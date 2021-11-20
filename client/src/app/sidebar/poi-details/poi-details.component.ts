@@ -1,73 +1,59 @@
 import { Component, Input } from '@angular/core';
-import { Unsubscriber } from '../../common/unsubscriber';
-import { Point } from 'ol/geom';
+import { Geometry } from 'ol/geom';
 import { Feature } from 'ol';
-import { OpeningHoursService } from '../../common/opening-hours.service';
-import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 
 @Component({
   selector: 'app-poi-details',
   templateUrl: './poi-details.component.html',
   styleUrls: ['./poi-details.component.scss'],
 })
-export class PoiDetailsComponent extends Unsubscriber {
-  name: string;
-  openingHoursString: string;
-  website: string;
-  osmWebsite: string;
-  isOpen: boolean;
-  selectedDateTime: Date | undefined;
-
-  private _selectedFeature: Feature<Point> | undefined;
-
-  constructor(
-    private openingHoursService: OpeningHoursService,
-    private dateTimeSelectionService: DateTimeSelectionService
-  ) {
-    super();
-    this.unsubscribeLater(
-      this.dateTimeSelectionService.dateTimeSelected.subscribe((dateTime: Date | undefined) => {
-        this.selectedDateTime = dateTime;
-        this.loadFeatureDetails();
-      })
-    );
-  }
-
-  get selectedFeature(): Feature<Point> | undefined {
-    return this._selectedFeature;
-  }
-
+export class PoiDetailsComponent {
   @Input()
-  set selectedFeature(value: Feature<Point> | undefined) {
-    this._selectedFeature = value;
-    this.loadFeatureDetails();
-  }
+  selectedFeature: Feature<Geometry> | undefined;
 
-  get openingCheckTimeIsNow(): boolean {
-    return !this.selectedDateTime;
+  listExpanded: boolean = false;
+
+  private relevantKeys = [
+    'addr:street',
+    'addr:housenumber',
+    'addr:postcode',
+    'contact:phone',
+    'contact:website',
+    'contact:facebook',
+    'name',
+    'website',
+    'phone',
+    'wheelchair',
+    'wheelchair:description',
+    'toilets',
+    'toilets:wheelchair',
+    'changing_table',
+    'opening_hours',
+  ];
+
+  constructor() {}
+
+  get relevantTags(): [string, string][] {
+    if (!this.selectedFeature) {
+      return [];
+    }
+
+    return Object.entries(this.selectedFeature.getProperties()).filter(t => this.relevantKeys.includes(t[0]));
   }
 
   get lastEditDate(): Date {
     return new Date(this.selectedFeature?.get('@timestamp'));
   }
 
-  loadFeatureDetails(): void {
-    if (!this._selectedFeature) {
-      this.name = '';
-      this.openingHoursString = '';
-      this.website = '';
-      this.osmWebsite = '';
-      this.isOpen = false;
-    } else {
-      this.name = this._selectedFeature.get('name');
-      this.website = this._selectedFeature.get('website');
-      this.osmWebsite = this.getOsmWebsite(this._selectedFeature);
-      this.openingHoursString = this.openingHoursService.getOpeningHoursString(this._selectedFeature);
-      this.isOpen = this.openingHoursService.isOpen(this._selectedFeature, this.selectedDateTime);
-    }
-  }
+  isUrl(value: string): boolean {
+    let url;
 
-  private getOsmWebsite(feature: Feature<Point>): string {
-    return 'https://openstreetmap.org/' + feature.get('@type') + '/' + feature.get('@id');
+    try {
+      url = new URL(value);
+    } catch (_) {
+      return false;
+    }
+
+    return url.protocol === 'http:' || url.protocol === 'https:';
   }
 }

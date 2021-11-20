@@ -4,11 +4,12 @@
     "load-data": "Load data",
     "zoom": "Zoom further in to load data"
   },
-  "poi-details": {
+  "poi": {
     "open-now-notice": "Is open <b>now</b>:",
     "open-notice": "Is open at <b>selected time</b>:",
     "view-on-osm-org": "View on osm.org",
-    "website": "Website"
+    "website": "Website",
+    "no-name": "(no name)"
   },
   "date-time-selection": {
     "title": "Select date"
@@ -18,8 +19,7 @@
     "ok": "OK"
   },
   "sidebar": {
-    "view-on": "View on ",
-    "last-edited": "Data last edited on: "
+    "view-on": "View on "
   },
   "tag-filter": {
     "title": "Filter by tag",
@@ -33,11 +33,12 @@
       "pub": "Pubs & Bars"
     }
   },
-  "tag-list": {
-    "show-tags": "Show tags",
-    "hide-tags": "Hide tags",
+  "poi-details": {
+    "show-details": "Show details",
+    "hide-details": "Hide details",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "last-edited": "Data last edited on: "
   },
   "yes": "yes",
   "no": "no"
