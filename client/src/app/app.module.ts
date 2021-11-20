@@ -14,6 +14,7 @@ import { FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinner.component';
 import { NotificationComponent } from './common/notification/notification.component';
 import { TagFilterComponent } from './sidebar/tag-filter/tag-filter.component';
+import { TagListComponent } from './sidebar/tag-list/tag-list.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { TagFilterComponent } from './sidebar/tag-filter/tag-filter.component';
     LoadingSpinnerComponent,
     NotificationComponent,
     TagFilterComponent,
+    TagListComponent,
   ],
   imports: [
     BrowserModule,
