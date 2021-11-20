@@ -6,15 +6,20 @@
   display: block;
 }
 
-app-sidebar {
+.sidebar-wrapper {
   position: absolute;
-  left: $space-base;
-  top: $space-base;
+  left: 0;
+  top: 0;
+  display: flex;
 
   width: 25%;
   min-width: 280px;
   max-width: 400px;
-  max-height: calc(100% - 3 * #{$space-base});
+  max-height: 100%;
+}
 
+app-sidebar {
+  margin: $space-base;
   padding: $space-base $space-base 0 $space-base;
+  width: 100%;
 }
