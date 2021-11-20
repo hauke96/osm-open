@@ -18,7 +18,8 @@
     "ok": "OK"
   },
   "sidebar": {
-    "view-on": "View on "
+    "view-on": "View on ",
+    "last-edited": "Data last edited on: "
   },
   "tag-filter": {
     "title": "Filter by tag",

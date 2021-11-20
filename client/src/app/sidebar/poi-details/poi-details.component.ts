@@ -47,6 +47,10 @@ export class PoiDetailsComponent extends Unsubscriber {
     return !this.selectedDateTime;
   }
 
+  get lastEditDate(): Date {
+    return new Date(this.selectedFeature?.get('@timestamp'));
+  }
+
   loadFeatureDetails(): void {
     if (!this._selectedFeature) {
       this.name = '';

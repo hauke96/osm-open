@@ -15,5 +15,9 @@
 		</p>
 
 		<app-tag-list [selectedFeature]="selectedFeature"></app-tag-list>
+
+		<div *ngIf="selectedFeature">
+			<span>{{"sidebar.last-edited" | translate}}{{lastEditDate | date}}</span>
+		</div>
 	</div>
 </div>
