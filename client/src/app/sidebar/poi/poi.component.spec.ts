@@ -2,30 +2,21 @@ import { PoiComponent } from './poi.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
 import { AppModule } from '../../app.module';
 import { OpeningHoursService } from '../../common/opening-hours.service';
-import { DateTimeSelectionService } from '../../common/date-time-selection.service';
-import { Subject } from 'rxjs';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
 
-describe('PoiDetailsComponent', () => {
+describe(PoiComponent.name, () => {
   let component: PoiComponent;
   let fixture: MockedComponentFixture<PoiComponent>;
   let openingHoursService: OpeningHoursService;
-  let dateTimeSelectionService: DateTimeSelectionService;
-
-  let dateTimeSelectedSubject: Subject<Date | undefined>;
 
   beforeEach(() => {
-    dateTimeSelectedSubject = new Subject<Date | undefined>();
-
     openingHoursService = {} as OpeningHoursService;
-    dateTimeSelectionService = {
-      dateTimeSelected: dateTimeSelectedSubject.asObservable(),
-    } as unknown as DateTimeSelectionService;
 
-    return MockBuilder(PoiComponent, AppModule)
-      .provide({ provide: OpeningHoursService, useFactory: () => openingHoursService })
-      .provide({ provide: DateTimeSelectionService, useFactory: () => dateTimeSelectionService });
+    return MockBuilder(PoiComponent, AppModule).provide({
+      provide: OpeningHoursService,
+      useFactory: () => openingHoursService,
+    });
   });
 
   beforeEach(() => {
@@ -112,7 +103,7 @@ describe('PoiDetailsComponent', () => {
         expectedIsOpen = false;
         openingHoursService.isOpen = jest.fn().mockReturnValue(expectedIsOpen);
 
-        dateTimeSelectedSubject.next(newDate);
+        component.selectedDateTime = newDate;
       });
 
       it('should set selected date', () => {

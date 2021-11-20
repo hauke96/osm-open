@@ -5,20 +5,31 @@ import { PoiService } from '../../map/poi.service';
 import { Subject } from 'rxjs';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
+import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
   let fixture: MockedComponentFixture<SidebarComponent>;
   let poiService: PoiService;
+  let dateTimeSelectionService: DateTimeSelectionService;
+
   let poiSelectionSubject: Subject<Feature<Point>>;
+  let dateTimeSelectedSubject: Subject<Date | undefined>;
 
   beforeEach(() => {
     poiSelectionSubject = new Subject<Feature<Point>>();
+    dateTimeSelectedSubject = new Subject<Date | undefined>();
+
     poiService = {
       poiSelected: poiSelectionSubject.asObservable(),
     } as PoiService;
+    dateTimeSelectionService = {
+      dateTimeSelected: dateTimeSelectedSubject.asObservable(),
+    } as unknown as DateTimeSelectionService;
 
-    return MockBuilder(SidebarComponent, AppModule).provide({ provide: PoiService, useFactory: () => poiService });
+    return MockBuilder(SidebarComponent, AppModule)
+      .provide({ provide: PoiService, useFactory: () => poiService })
+      .provide({ provide: DateTimeSelectionService, useFactory: () => dateTimeSelectionService });
   });
 
   beforeEach(() => {
@@ -42,6 +53,20 @@ describe('SidebarComponent', () => {
 
     it('should store selected feature', () => {
       expect(component.selectedFeature).toEqual(expectedFeature);
+    });
+  });
+
+  describe('with selected date', () => {
+    let expectedDate: Date;
+
+    beforeEach(() => {
+      expectedDate = new Date();
+
+      dateTimeSelectedSubject.next(expectedDate);
+    });
+
+    it('should store selected date', () => {
+      expect(component.selectedDateTime).toEqual(expectedDate);
     });
   });
 });
