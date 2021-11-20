@@ -1,6 +1,5 @@
 import { MapComponent } from './map.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppComponent } from '../../app.component';
 import { MapEvent } from 'ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -8,6 +7,10 @@ import { Point } from 'ol/geom';
 import { Interaction, Select } from 'ol/interaction';
 import { MapService } from '../map.service';
 import { AppModule } from '../../app.module';
+
+import Worker from '../../../../jest/worker-mock';
+// @ts-ignore
+window.Worker = Worker;
 
 describe(MapComponent.name, () => {
   let component: MapComponent;

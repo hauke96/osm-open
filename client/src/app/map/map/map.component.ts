@@ -8,7 +8,7 @@ import BaseLayer from 'ol/layer/Base';
 import { Interaction } from 'ol/interaction';
 import { fromLonLat } from 'ol/proj';
 import ImageLayer from 'ol/layer/Image';
-import Raster from 'ol/source/Raster';
+import { Raster } from 'ol/source';
 
 @Component({
   selector: 'app-map',
