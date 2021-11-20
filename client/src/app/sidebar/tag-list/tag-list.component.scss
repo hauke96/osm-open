@@ -1,6 +1,10 @@
 @import 'src/styles';
 @import "~bootstrap-icons/font/bootstrap-icons.css";
 
+:host {
+  width: 100%;
+}
+
 .show-tag-wrapper {
   display: flex;
   flex-direction: row;
@@ -36,6 +40,8 @@
         border: 1px solid $color-gray-very-light;
         padding: $space-small;
         vertical-align: baseline;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
       }
 
       &:hover {

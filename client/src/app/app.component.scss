@@ -1,5 +1,20 @@
+@import 'src/styles';
+
 :host {
   width: 100%;
   height: 100%;
   display: block;
+}
+
+app-sidebar {
+  position: absolute;
+  left: $space-base;
+  top: $space-base;
+
+  width: 25%;
+  min-width: 280px;
+  max-width: 400px;
+  max-height: calc(100% - 3 * #{$space-base});
+
+  padding: $space-base $space-base 0 $space-base;
 }

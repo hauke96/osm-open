@@ -1,5 +1,10 @@
 @import "src/styles";
 
+:host {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 h3 {
   margin-top: $space-small;
 }
@@ -7,13 +12,14 @@ h3 {
 .details-container {
   display: flex;
   flex-direction: row;
-  margin-bottom: $space-base;
 }
 
 .opening-bar {
-  min-width: 2.5 * $border-radius-small;
+  $factor: 1;
+
+  min-width: 2 * $factor * $border-radius-small;
   margin-right: $space-base;
-  border-radius: 1.25 * $border-radius;
+  border-radius: $factor * $border-radius;
 }
 
 .red {
@@ -22,4 +28,8 @@ h3 {
 
 .green {
   background-color: #4caf50d8;
+}
+
+.content {
+  width: 100%;
 }
