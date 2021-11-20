@@ -2,7 +2,7 @@
 <app-date-time-selection></app-date-time-selection>
 <app-tag-filter></app-tag-filter>
 <hr />
-<app-poi-details></app-poi-details>
+<app-poi-details [selectedFeature]="selectedFeature"></app-poi-details>
 <div class="footer">
 	<span>
 		{{ "OSM Open v" + version }} | {{ "sidebar.view-on" | translate }}

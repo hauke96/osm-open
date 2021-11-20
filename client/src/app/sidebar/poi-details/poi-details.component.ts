@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { PoiService } from '../../map/poi.service';
+import { Component, Input } from '@angular/core';
 import { Unsubscriber } from '../../common/unsubscriber';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
@@ -17,21 +16,16 @@ export class PoiDetailsComponent extends Unsubscriber {
   website: string;
   osmWebsite: string;
   isOpen: boolean;
-
-  selectedFeature: Feature<Point> | undefined;
   selectedDateTime: Date | undefined;
+
+  private _selectedFeature: Feature<Point> | undefined;
 
   constructor(
     private openingHoursService: OpeningHoursService,
-    private dateTimeSelectionService: DateTimeSelectionService,
-    poiService: PoiService
+    private dateTimeSelectionService: DateTimeSelectionService
   ) {
     super();
     this.unsubscribeLater(
-      poiService.poiSelected.subscribe((feature: Feature<Point> | undefined) => {
-        this.selectedFeature = feature;
-        this.loadFeatureDetails();
-      }),
       this.dateTimeSelectionService.dateTimeSelected.subscribe((dateTime: Date | undefined) => {
         this.selectedDateTime = dateTime;
         this.loadFeatureDetails();
@@ -39,23 +33,33 @@ export class PoiDetailsComponent extends Unsubscriber {
     );
   }
 
+  get selectedFeature(): Feature<Point> | undefined {
+    return this._selectedFeature;
+  }
+
+  @Input()
+  set selectedFeature(value: Feature<Point> | undefined) {
+    this._selectedFeature = value;
+    this.loadFeatureDetails();
+  }
+
   get openingCheckTimeIsNow(): boolean {
     return !this.selectedDateTime;
   }
 
   loadFeatureDetails(): void {
-    if (!this.selectedFeature) {
+    if (!this._selectedFeature) {
       this.name = '';
       this.openingHoursString = '';
       this.website = '';
       this.osmWebsite = '';
       this.isOpen = false;
     } else {
-      this.name = this.selectedFeature.get('name');
-      this.website = this.selectedFeature.get('website');
-      this.osmWebsite = this.getOsmWebsite(this.selectedFeature);
-      this.openingHoursString = this.openingHoursService.getOpeningHoursString(this.selectedFeature);
-      this.isOpen = this.openingHoursService.isOpen(this.selectedFeature, this.selectedDateTime);
+      this.name = this._selectedFeature.get('name');
+      this.website = this._selectedFeature.get('website');
+      this.osmWebsite = this.getOsmWebsite(this._selectedFeature);
+      this.openingHoursString = this.openingHoursService.getOpeningHoursString(this._selectedFeature);
+      this.isOpen = this.openingHoursService.isOpen(this._selectedFeature, this.selectedDateTime);
     }
   }
 

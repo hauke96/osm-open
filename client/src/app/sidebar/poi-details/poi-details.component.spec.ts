@@ -6,32 +6,24 @@ import { DateTimeSelectionService } from '../../common/date-time-selection.servi
 import { Subject } from 'rxjs';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
-import { PoiService } from '../../map/poi.service';
 
 describe('PoiDetailsComponent', () => {
   let component: PoiDetailsComponent;
   let fixture: MockedComponentFixture<PoiDetailsComponent>;
-  let poiService: PoiService;
   let openingHoursService: OpeningHoursService;
   let dateTimeSelectionService: DateTimeSelectionService;
 
-  let poiSelectedSubject: Subject<Feature<Point> | undefined>;
   let dateTimeSelectedSubject: Subject<Date | undefined>;
 
   beforeEach(() => {
-    poiSelectedSubject = new Subject<Feature<Point> | undefined>();
     dateTimeSelectedSubject = new Subject<Date | undefined>();
 
-    poiService = {
-      poiSelected: poiSelectedSubject.asObservable(),
-    } as unknown as PoiService;
     openingHoursService = {} as OpeningHoursService;
     dateTimeSelectionService = {
       dateTimeSelected: dateTimeSelectedSubject.asObservable(),
     } as unknown as DateTimeSelectionService;
 
     return MockBuilder(PoiDetailsComponent, AppModule)
-      .provide({ provide: PoiService, useFactory: () => poiService })
       .provide({ provide: OpeningHoursService, useFactory: () => openingHoursService })
       .provide({ provide: DateTimeSelectionService, useFactory: () => dateTimeSelectionService });
   });
@@ -74,8 +66,7 @@ describe('PoiDetailsComponent', () => {
       openingHoursService.isOpen = jest.fn().mockReturnValue(expectedIsOpen);
 
       component.selectedDateTime = new Date('2021-11-15T15:00:00');
-
-      poiSelectedSubject.next(feature);
+      component.selectedFeature = feature;
     });
 
     it('should store selected feature', () => {
@@ -96,7 +87,7 @@ describe('PoiDetailsComponent', () => {
 
     describe('with reset', () => {
       beforeEach(() => {
-        poiSelectedSubject.next(undefined);
+        component.selectedFeature = undefined;
       });
 
       it('should reset selected feature', () => {
