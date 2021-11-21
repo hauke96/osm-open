@@ -1,9 +1,9 @@
 <div class="show-tag-wrapper hoverable" (click)="listExpanded = !listExpanded">
 	<span *ngIf="!listExpanded">{{ "poi-details.show-details" | translate}}</span>
-	<i *ngIf="!listExpanded" class="bi-chevron-down"></i>
+	<i *ngIf="!listExpanded" class="icon-chevron-down"></i>
 
 	<span *ngIf="listExpanded">{{ "poi-details.hide-details" | translate}}</span>
-	<i *ngIf="listExpanded" class="bi-chevron-up"></i>
+	<i *ngIf="listExpanded" class="icon-chevron-up"></i>
 </div>
 <div *ngIf="listExpanded" class="tag-list">
 	<table>
