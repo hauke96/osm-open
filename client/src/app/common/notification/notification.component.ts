@@ -1,15 +1,13 @@
-import {Component} from '@angular/core';
-import {NotificationService} from "../notification.service";
+import { Component } from '@angular/core';
+import { NotificationService } from '../notification.service';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss']
+  styleUrls: ['./notification.component.scss'],
 })
 export class NotificationComponent {
-
-  constructor(private notificationService: NotificationService) {
-  }
+  constructor(private notificationService: NotificationService) {}
 
   hasError(): boolean {
     return this.notificationService.hasError();

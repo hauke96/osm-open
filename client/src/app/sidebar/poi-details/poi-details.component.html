@@ -1,13 +1,24 @@
-<div *ngIf="!!openingHoursString" class="details-container">
-  <div class="opening-bar" [ngClass]="{'green' : isNowOpen, 'red': !isNowOpen}"></div>
-  <div>
-    <h3>{{name}}</h3>
-    <p>{{openingHoursString}}</p>
-    <div>
-      <a *ngIf="!!website" [href]="website" target="_blank">{{ "poi-details.website" | translate }}</a>
-      <span *ngIf="!!website"> | </span>
-      <a [href]="osmWebsite" target="_blank">{{ "poi-details.view-on-osm-org" | translate }}</a>
-    </div>
-    <p>{{"poi-details.open-notice" | translate}} {{isNowOpen ? "yes" : "no" | translate}}</p>
-  </div>
+<div class="show-tag-wrapper hoverable" (click)="listExpanded = !listExpanded">
+	<span *ngIf="!listExpanded">{{ "poi-details.show-details" | translate}}</span>
+	<i *ngIf="!listExpanded" class="icon-chevron-down"></i>
+
+	<span *ngIf="listExpanded">{{ "poi-details.hide-details" | translate}}</span>
+	<i *ngIf="listExpanded" class="icon-chevron-up"></i>
+</div>
+<div *ngIf="listExpanded" class="tag-list">
+	<table>
+		<tr>
+			<th>{{ "poi-details.key" | translate}}</th>
+			<th>{{ "poi-details.value" | translate}}</th>
+		</tr>
+		<tr *ngFor="let t of relevantTags">
+			<td [title]="t[0]" class="no-overflow">{{t[0]}}</td>
+			<td [title]="t[1]" *ngIf="!isUrl(t[1])">{{t[1]}}</td>
+			<td [title]="t[1]" *ngIf="isUrl(t[1])">
+				<a [href]="t[1]" target="_blank">{{t[1]}}</a>
+			</td>
+		</tr>
+	</table>
+
+  <p *ngIf="selectedFeature">{{"poi-details.last-edited" | translate}}{{lastEditDate | date}}</p>
 </div>

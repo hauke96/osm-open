@@ -1,6 +1,9 @@
 <app-load-data></app-load-data>
 <app-date-time-selection></app-date-time-selection>
-<app-poi-details></app-poi-details>
-<div class="footer">
-  <span>{{"OSM Open v" + version}} | {{"sidebar.view-on" | translate}}<a [href]="sourceRepoUrl" target="_blank">GitHub</a></span>
-</div>
+<app-tag-filter></app-tag-filter>
+<hr />
+<app-poi *ngIf="selectedFeature" [selectedFeature]="selectedFeature" [selectedDateTime]="selectedDateTime"> </app-poi>
+<span class="footer-label">
+	{{ "OSM Open v" + version }} | {{ "sidebar.view-on" | translate }}
+	<a [href]="sourceRepoUrl" target="_blank">GitHub</a>
+</span>

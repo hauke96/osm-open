@@ -4,13 +4,15 @@
     "load-data": "Load data",
     "zoom": "Zoom further in to load data"
   },
-  "poi-details": {
-    "open-notice": "Is now open:",
+  "poi": {
+    "open-now-notice": "Is open <b>now</b>:",
+    "open-notice": "Is open at <b>selected time</b>:",
     "view-on-osm-org": "View on osm.org",
-    "website": "Website"
+    "website": "Website",
+    "no-name": "(no name)"
   },
   "date-time-selection": {
-    "title": "Filter by date"
+    "title": "Select date"
   },
   "notification": {
     "error": "Error: ",
@@ -18,6 +20,25 @@
   },
   "sidebar": {
     "view-on": "View on "
+  },
+  "tag-filter": {
+    "title": "Filter by tag",
+    "template-placeholder": "Select a template",
+    "tag-placeholder": "key=value, e.g. amenity=bicycle_parking",
+    "tags": {
+      "restaurant": "Restaurants",
+      "cafe": "Cafes",
+      "bakery": "Bakeries",
+      "supermarket": "Supermarkets",
+      "pub": "Pubs & Bars"
+    }
+  },
+  "poi-details": {
+    "show-details": "Show details",
+    "hide-details": "Hide details",
+    "key": "Key",
+    "value": "Value",
+    "last-edited": "Data last edited on: "
   },
   "yes": "yes",
   "no": "no"

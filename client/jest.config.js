@@ -1,11 +1,12 @@
 module.exports = {
   preset: "jest-preset-angular",
   setupFilesAfterEnv: [
-    "<rootDir>/setup-jest.ts"
+    "<rootDir>/jest/setup-jest.ts"
   ],
   testPathIgnorePatterns: [
     "<rootDir>/node_modules/",
-    "<rootDir>/dist/"
+    "<rootDir>/dist/",
+    "<rootDir>/jest/",
   ],
   transformIgnorePatterns: [
     "<rootDir>/node_modules/(?!ol).+\.js$"
@@ -20,5 +21,6 @@ module.exports = {
     "<rootDir>"
   ],
   collectCoverage: true,
-  coverageReporters: ["html", "text"]
+  coverageReporters: ["html", "text"],
+  cacheDirectory: "./jestCache"
 };
