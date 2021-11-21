@@ -1,25 +1,58 @@
-@import "src/styles";
+@import 'src/styles';
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 
-h3 {
-  margin-top: $space-small;
+:host {
+  width: 100%;
 }
 
-.details-container {
+.show-tag-wrapper {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
+  padding-bottom: $space-tiny;
   margin-bottom: $space-base;
+  border-bottom: 1px solid $color-gray-light;
+
+  &:hover {
+    border-bottom: 1px solid $color-dark;
+  }
+  &:hover > * {
+    color: $color-dark;
+  }
 }
 
-.opening-bar {
-  min-width: 2.5 * $border-radius-small;
-  margin-right: $space-base;
-  border-radius: 1.25 * $border-radius;
+.tag-list {
+  padding-left: $space-small;
+  padding-right: $space-small;
+  margin-bottom: $space-small;
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    tr {
+      th {
+        text-align: start;
+      }
+
+      td, th {
+        border: 1px solid $color-gray-very-light;
+        padding: $space-small;
+        vertical-align: baseline;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:hover {
+        background-color: $color-gray-near-white;
+      }
+    }
+  }
 }
 
-.red {
-  background-color: #f44336d8;
-}
-
-.green {
-  background-color: #4caf50d8;
+.no-overflow {
+  overflow-x: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }

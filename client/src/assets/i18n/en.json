@@ -4,11 +4,12 @@
     "load-data": "Load data",
     "zoom": "Zoom further in to load data"
   },
-  "poi-details": {
+  "poi": {
     "open-now-notice": "Is open <b>now</b>:",
     "open-notice": "Is open at <b>selected time</b>:",
     "view-on-osm-org": "View on osm.org",
-    "website": "Website"
+    "website": "Website",
+    "no-name": "(no name)"
   },
   "date-time-selection": {
     "title": "Select date"
@@ -31,6 +32,13 @@
       "supermarket": "Supermarkets",
       "pub": "Pubs & Bars"
     }
+  },
+  "poi-details": {
+    "show-details": "Show details",
+    "hide-details": "Hide details",
+    "key": "Key",
+    "value": "Value",
+    "last-edited": "Data last edited on: "
   },
   "yes": "yes",
   "no": "no"

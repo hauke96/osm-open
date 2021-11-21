@@ -39,6 +39,7 @@ export class PoiService {
           feature.setProperties(element.tags);
           feature.set('@id', element.id);
           feature.set('@type', element.type);
+          feature.set('@timestamp', element.timestamp);
 
           if (feature.get('contact:website')) {
             feature.set('website', feature.get('contact:website'));

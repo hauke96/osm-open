@@ -8,12 +8,13 @@ import { MapComponent } from './map/map/map.component';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 import { LoadDataComponent } from './sidebar/load-data/load-data.component';
 import { PoiLayerComponent } from './map/poi-layer/poi-layer.component';
-import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component';
+import { PoiComponent } from './sidebar/poi/poi.component';
 import { DateTimeSelectionComponent } from './sidebar/date-time-selection/date-time-selection.component';
 import { FormsModule } from '@angular/forms';
 import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinner.component';
 import { NotificationComponent } from './common/notification/notification.component';
 import { TagFilterComponent } from './sidebar/tag-filter/tag-filter.component';
+import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component';
 
 @NgModule({
   declarations: [
@@ -22,11 +23,12 @@ import { TagFilterComponent } from './sidebar/tag-filter/tag-filter.component';
     SidebarComponent,
     LoadDataComponent,
     PoiLayerComponent,
-    PoiDetailsComponent,
+    PoiComponent,
     DateTimeSelectionComponent,
     LoadingSpinnerComponent,
     NotificationComponent,
     TagFilterComponent,
+    PoiDetailsComponent,
   ],
   imports: [
     BrowserModule,

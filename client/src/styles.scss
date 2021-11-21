@@ -20,7 +20,8 @@ $color-error-light: #ef5350; // #400 Red
 $color-error: #f44336d9; // #500 Red
 
 // Spacings:
-$space-base: 1.25rem;
+$space-base: 1.2rem;
+$space-tiny: math.div($space-base, 3);
 $space-small: math.div($space-base, 2);
 $space-large: $space-base * 2;
 $space-huge: $space-base * 3.5;
@@ -91,4 +92,16 @@ select {
 .placeholder, input::placeholder, input:invalid {
   color: $color-gray-mid;
   opacity: 1;
+}
+
+.hoverable {
+  cursor: pointer;
+
+  &:hover {
+    color: $color-dark;
+  }
+}
+
+a {
+  @extend .hoverable;
 }

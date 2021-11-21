@@ -1,0 +1,35 @@
+@import "src/styles";
+
+:host {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+h3 {
+  margin-top: $space-small;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.opening-bar {
+  $factor: 1;
+
+  min-width: 2 * $factor * $border-radius-small;
+  margin-right: $space-base;
+  border-radius: $factor * $border-radius;
+}
+
+.red {
+  background-color: #f44336d8;
+}
+
+.green {
+  background-color: #4caf50d8;
+}
+
+.content {
+  width: 100%;
+}
