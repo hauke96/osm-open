@@ -38,6 +38,7 @@
 .error-button {
   background-color: transparent;
   border: 1px solid $color-gray-very-light;
+  margin-left: $space-small;
 
   &:hover {
     border: 1px solid $color-gray-very-light;
