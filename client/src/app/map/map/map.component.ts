@@ -21,7 +21,12 @@ export class MapComponent implements AfterViewInit, LayerService {
 
   constructor(private mapService: MapService) {
     this.map = new Map({
-      controls: [new Attribution()],
+      controls: [
+        new Attribution({
+          collapsed: false,
+          collapsible: false,
+        }),
+      ],
       layers: [
         new ImageLayer({
           source: new Raster({
