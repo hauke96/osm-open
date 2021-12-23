@@ -7,8 +7,7 @@ import { LayerService } from '../layer.service';
 import BaseLayer from 'ol/layer/Base';
 import { Interaction } from 'ol/interaction';
 import { fromLonLat } from 'ol/proj';
-import ImageLayer from 'ol/layer/Image';
-import { Raster } from 'ol/source';
+import TileLayer from 'ol/layer/Tile';
 
 @Component({
   selector: 'app-map',
@@ -28,23 +27,9 @@ export class MapComponent implements AfterViewInit, LayerService {
         }),
       ],
       layers: [
-        new ImageLayer({
-          source: new Raster({
-            sources: [new OSM()],
-            operation: (pixels: any[], data: any) => {
-              const pixel = pixels[0];
-              const strength = 0.5;
-              // Factors from CCIR 601 specification to create a grayscale image
-              const gray = pixel[0] * 0.3 + pixel[1] * 0.59 + pixel[2] * 0.11;
-
-              return [
-                pixel[0] - (pixel[0] - gray) * strength,
-                pixel[1] - (pixel[1] - gray) * strength,
-                pixel[2] - (pixel[2] - gray) * strength,
-                pixel[3],
-              ];
-            },
-          }),
+        new TileLayer({
+          className: 'osm-layer',
+          source: new OSM(),
         }),
       ],
       view: new View({
