@@ -126,3 +126,7 @@ a {
 
 .icon-chevron-down::before { content: "\f282"; }
 .icon-chevron-up::before { content: "\f286"; }
+
+.ol-grayscale-layer {
+  filter: grayscale(50%);
+}
