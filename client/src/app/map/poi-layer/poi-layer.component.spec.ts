@@ -6,7 +6,7 @@ import { PoiService } from '../poi.service';
 import { OpeningHoursService } from '../../common/opening-hours.service';
 import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 import { Subject } from 'rxjs';
-import { Feature, Map } from 'ol';
+import { Feature } from 'ol';
 import { Geometry, Point } from 'ol/geom';
 import { SelectEvent } from 'ol/interaction/Select';
 import { FilterService } from '../../common/filter.service';
@@ -68,16 +68,51 @@ describe(PoiLayerComponent.name, () => {
 
   describe('with data change on poi layer', () => {
     let newFeatures: Feature<Point>[];
+    let featureWithGeometry: Feature<Point>;
 
     beforeEach(() => {
       component.source.addFeatures([new Feature(), new Feature()]);
 
-      newFeatures = [new Feature(new Point([1, 2]))];
-      poiDataChangedSubject.next(newFeatures);
+      featureWithGeometry = new Feature(new Point([11, 21]));
+      newFeatures = [new Feature(), featureWithGeometry];
     });
 
-    it('should clear and set features', () => {
-      expect(component.source.getFeatures()).toEqual(newFeatures);
+    describe('with function showing positiv matches', () => {
+      beforeEach(() => {
+        component.showOnlyFilteredFeatures = true;
+        component.filterFunction = (f: Feature<Geometry>) => f.getGeometry() != null;
+        poiDataChangedSubject.next(newFeatures);
+      });
+
+      it('should clear and set features', () => {
+        expect(component.source.getFeatures().length).toEqual(1);
+        expect(component.source.getFeatures()[0].getGeometry()!.getCoordinates()[0]).toEqual(11);
+        expect(component.source.getFeatures()[0].getGeometry()!.getCoordinates()[1]).toEqual(21);
+      });
+    });
+
+    describe('with function showing negative matches', () => {
+      beforeEach(() => {
+        component.showOnlyFilteredFeatures = false;
+        component.filterFunction = (f: Feature<Geometry>) => f.getGeometry() != null;
+        poiDataChangedSubject.next(newFeatures);
+      });
+
+      it('should clear and set features', () => {
+        expect(component.source.getFeatures().length).toEqual(1);
+        expect(component.source.getFeatures()[0].getGeometry()).toBeUndefined();
+      });
+    });
+
+    describe('with no filter function', () => {
+      beforeEach(() => {
+        component.showOnlyFilteredFeatures = true;
+        poiDataChangedSubject.next(newFeatures);
+      });
+
+      it('should clear and set features', () => {
+        expect(component.source.getFeatures().length).toEqual(2);
+      });
     });
   });
 
@@ -144,6 +179,7 @@ describe(PoiLayerComponent.name, () => {
     beforeEach(() => {
       filterFunction = jest.fn().mockReturnValue(true);
 
+      component.features = [];
       component.layer.changed = jest.fn();
 
       filterSubject.next(filterFunction);
