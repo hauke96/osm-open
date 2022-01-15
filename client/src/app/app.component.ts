@@ -13,7 +13,7 @@ export class AppComponent {
     translate.setDefaultLang('en');
 
     const browserLang = translate.getBrowserLang();
-    translate.use(browserLang.match(/en/) ? browserLang : 'en');
+    translate.use(browserLang?.match(/en/) ? browserLang : 'en');
 
     translate.onLangChange.subscribe((event: LangChangeEvent) => {
       translate.get('title').subscribe((res: string) => {
