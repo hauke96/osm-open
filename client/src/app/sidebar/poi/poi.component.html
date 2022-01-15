@@ -8,7 +8,7 @@
 			<span *ngIf="!openingCheckTimeIsNow" [innerHTML]="'poi.open-notice' | translate"></span>
 			<span> {{ isOpen ? ('yes' | translate) : ('no' | translate) }}</span>
 		</p>
-		<p>
+		<p class="website-osm-row">
 			<a *ngIf="!!website" [href]="website" target="_blank">{{ "poi.website" | translate }}</a>
 			<span *ngIf="!!website"> | </span>
 			<a [href]="osmWebsite" target="_blank">{{ "poi.view-on-osm-org" | translate }}</a>
