@@ -28,7 +28,7 @@ export class MapComponent implements AfterViewInit, LayerService {
       ],
       layers: [
         new TileLayer({
-          className: 'osm-layer',
+          className: 'ol-grayscale-layer',
           source: new OSM(),
         }),
       ],

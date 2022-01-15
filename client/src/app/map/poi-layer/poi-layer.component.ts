@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { LayerService } from '../layer.service';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -22,6 +22,10 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
   public readonly layer: VectorLayer<VectorSource<Point>>;
   public readonly source: VectorSource<Point>;
 
+  @Input()
+  public showOnlyFilteredFeatures: boolean = true;
+
+  public features: Feature<Point>[];
   public selectedFeature: Feature<Point>;
   public selectedDateTime: Date | undefined;
   public select: Select;
@@ -61,8 +65,8 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
 
     this.unsubscribeLater(
       this.poiService.dataChanged.subscribe(newFeatures => {
-        this.source.clear();
-        this.source.addFeatures(newFeatures);
+        this.features = newFeatures;
+        this.updateFeatures();
       }),
       this.dateTimeSelectionService.dateTimeSelected.subscribe((selectedDateTime: Date | undefined) => {
         this.selectedDateTime = selectedDateTime;
@@ -73,6 +77,7 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
       }),
       filterService.filtered.subscribe((filterFunction: (feature: Feature<Geometry>) => boolean) => {
         this.filterFunction = filterFunction;
+        this.updateFeatures();
         this.layer.changed();
       })
     );
@@ -80,6 +85,15 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
 
   ngOnInit(): void {
     this.layerService.addLayer(this.layer);
+  }
+
+  updateFeatures(): void {
+    let filteredFeatures = this.features;
+    if (this.filterFunction != null) {
+      filteredFeatures = filteredFeatures.filter(f => this.filterFunction(f) === this.showOnlyFilteredFeatures);
+    }
+    this.source.clear();
+    this.source.addFeatures(filteredFeatures);
   }
 
   getStyle(feature: Feature<Geometry>, selected: boolean): Style {
