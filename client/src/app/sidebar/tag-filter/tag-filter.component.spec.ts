@@ -1,9 +1,10 @@
 import { TagFilterComponent } from './tag-filter.component';
-import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
+import { MockBuilder, MockedComponentFixture, MockRender, ngMocks } from 'ng-mocks';
 import { AppModule } from '../../app.module';
 import { FilterService } from '../../common/filter.service';
 import { Geometry } from 'ol/geom';
 import { Feature } from 'ol';
+import { By } from '@angular/platform-browser';
 
 describe(TagFilterComponent.name, () => {
   let component: TagFilterComponent;
@@ -66,6 +67,16 @@ describe(TagFilterComponent.name, () => {
       feature.set(key, 'foo-tag bar');
 
       expect(filterFunction(feature)).toEqual(false);
+    });
+
+    describe('with reset button clicked', () => {
+      beforeEach(() => {
+        component.reset();
+      });
+
+      it('should reset input', () => {
+        expect(component.selectedTag).toEqual('');
+      });
     });
   });
 

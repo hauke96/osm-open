@@ -14,3 +14,22 @@
 .tag-selection {
   margin-bottom: $space-small;
 }
+
+.resettable-input {
+  width: 100%;
+  box-sizing: border-box;
+
+  &.reset-enabled {
+    padding-right: 1.65*$space-base;
+  }
+}
+
+.close-button {
+  margin-left: -1.5*$space-base;
+  vertical-align: middle;
+  font-size: 1.5 * $font-size-normal;
+
+  &:hover {
+    color: $color-dark;
+  }
+}

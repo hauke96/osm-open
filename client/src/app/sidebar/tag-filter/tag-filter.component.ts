@@ -43,4 +43,8 @@ export class TagFilterComponent {
       });
     }
   }
+
+  reset(): void {
+    this.selectedTag = '';
+  }
 }

@@ -8,8 +8,20 @@
 	<option value="" disabled selected hidden>{{"tag-filter.template-placeholder"|translate}}</option>
 	<option *ngFor="let t of tagTemplates" [ngValue]="t.tag">{{t.name | translate}}</option>
 </select>
-<input
-	[(ngModel)]="selectedTag"
-	(ngModelChange)="onTagFieldChanged()"
-	[placeholder]='"tag-filter.tag-placeholder" | translate'
-/>
+
+<!-- TODO Extract this resetable-input into own component if its used again -->
+<div>
+	<input
+		class="resettable-input"
+		[class.reset-enabled]="'' !== selectedTag"
+		[(ngModel)]="selectedTag"
+		(ngModelChange)="onTagFieldChanged()"
+		[placeholder]='"tag-filter.tag-placeholder" | translate'
+	/>
+	<i
+		*ngIf="'' !== selectedTag"
+		class="icon-close close-button"
+		(click)="reset()"
+		[class.invisible]="selectedTag === ''"
+	></i>
+</div>
