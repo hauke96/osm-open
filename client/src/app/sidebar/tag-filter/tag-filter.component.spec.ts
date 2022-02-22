@@ -4,7 +4,6 @@ import { AppModule } from '../../app.module';
 import { FilterService } from '../../common/filter.service';
 import { Geometry } from 'ol/geom';
 import { Feature } from 'ol';
-import { By } from '@angular/platform-browser';
 
 describe(TagFilterComponent.name, () => {
   let component: TagFilterComponent;
