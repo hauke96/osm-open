@@ -106,6 +106,12 @@ a {
   @extend .hoverable;
 }
 
+.title {
+  margin-top: 0;
+  margin-bottom: $space-small;
+  margin-left: 1px; // Looks better because of all the borders from buttons and inputs
+}
+
 //
 // Icons
 //

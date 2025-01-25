@@ -2,15 +2,20 @@
 
 :host {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
 }
 
 .load-data-button {
+  align-self: flex-start;
   margin-right: $space-base;
   white-space: nowrap;
 }
 
 app-loading-spinner {
   margin-right: $space-base;
+}
+
+.zoom-in-notice {
+  color: $color-error;
+  margin-top: $space-small;
 }

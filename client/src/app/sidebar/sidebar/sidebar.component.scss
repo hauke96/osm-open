@@ -10,11 +10,14 @@
   border-radius: $border-radius;
 }
 
-app-load-data,
 app-date-time-selection,
 app-tag-filter,
 hr {
   margin-bottom: $space-base;
+}
+
+app-load-data {
+  margin-bottom: $space-small;
 }
 
 .footer-label {
