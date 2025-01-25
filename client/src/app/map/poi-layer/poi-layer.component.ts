@@ -147,8 +147,8 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     });
     return new Style({
       image: new Circle({
-        fill: fill,
-        stroke: stroke,
+        fill,
+        stroke,
         radius: selected ? 10 : 6,
       }),
     });

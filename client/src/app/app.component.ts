@@ -8,7 +8,10 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public translate: TranslateService, title: Title) {
+  constructor(
+    public translate: TranslateService,
+    title: Title
+  ) {
     translate.addLangs(['en']);
     translate.setDefaultLang('en');
 

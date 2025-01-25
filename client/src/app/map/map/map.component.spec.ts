@@ -1,6 +1,6 @@
 import { MapComponent } from './map.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import {Feature, MapEvent} from 'ol';
+import { Feature, MapEvent } from 'ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Point } from 'ol/geom';

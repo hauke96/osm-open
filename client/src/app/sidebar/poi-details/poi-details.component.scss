@@ -1,4 +1,4 @@
-@import 'src/styles';
+@import "src/styles";
 
 :host {
   width: 100%;
@@ -36,7 +36,8 @@
         text-align: start;
       }
 
-      td, th {
+      td,
+      th {
         border: 1px solid $color-gray-very-light;
         padding: $space-small;
         vertical-align: baseline;
