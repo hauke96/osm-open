@@ -83,10 +83,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "osm-open:build:production"
+              "buildTarget": "osm-open:build:production"
             },
             "development": {
-              "browserTarget": "osm-open:build:development"
+              "buildTarget": "osm-open:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -94,7 +94,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "osm-open:build"
+            "buildTarget": "osm-open:build"
           }
         },
         "lint": {
