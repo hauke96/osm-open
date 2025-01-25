@@ -90,6 +90,9 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
 
   updateFeatures(): void {
     let filteredFeatures = this.features;
+    if (!filteredFeatures) {
+      return;
+    }
     if (this.filterFunction != null) {
       filteredFeatures = filteredFeatures.filter(f => this.filterFunction(f) === this.showOnlyFilteredFeatures);
     }
