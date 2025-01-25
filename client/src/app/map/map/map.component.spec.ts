@@ -1,6 +1,6 @@
 import { MapComponent } from './map.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { MapEvent } from 'ol';
+import {Feature, MapEvent} from 'ol';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import { Point } from 'ol/geom';
@@ -96,7 +96,7 @@ describe(MapComponent.name, () => {
   });
 
   describe('with add layer call', () => {
-    let expectedLayer: VectorLayer<VectorSource<Point>>;
+    let expectedLayer: VectorLayer<VectorSource<Feature<Point>>>;
 
     beforeEach(() => {
       expectedLayer = new VectorLayer();

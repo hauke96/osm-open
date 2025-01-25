@@ -19,8 +19,8 @@ import { FilterService } from '../../common/filter.service';
   styleUrls: ['./poi-layer.component.scss'],
 })
 export class PoiLayerComponent extends Unsubscriber implements OnInit {
-  public readonly layer: VectorLayer<VectorSource<Point>>;
-  public readonly source: VectorSource<Point>;
+  public readonly layer: VectorLayer<VectorSource<Feature<Point>>>;
+  public readonly source: VectorSource<Feature<Point>>;
 
   @Input()
   public showOnlyFilteredFeatures: boolean = true;
@@ -48,8 +48,8 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
   ) {
     super();
 
-    this.source = new VectorSource<Point>();
-    this.layer = new VectorLayer<VectorSource<Point>>({
+    this.source = new VectorSource<Feature<Point>>();
+    this.layer = new VectorLayer<VectorSource<Feature<Point>>>({
       source: this.source,
       style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, false) : []),
     });
@@ -58,8 +58,9 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
       style: feature => (feature instanceof Feature ? this.getStyle(feature as Feature<Geometry>, true) : []),
     });
     this.select.on('select', (event: SelectEvent) => {
-      this.selectedFeature = event.selected[0];
-      this.poiService.selectPoi(event.selected[0]);
+      const selectedFeature = event.selected[0] as Feature<Point>;
+      this.selectedFeature = selectedFeature;
+      this.poiService.selectPoi(selectedFeature);
     });
     this.layerService.addInteraction(this.select);
 

@@ -6,7 +6,7 @@ import { PoiService } from '../poi.service';
 import { OpeningHoursService } from '../../common/opening-hours.service';
 import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 import { Subject } from 'rxjs';
-import { Feature } from 'ol';
+import { Feature, MapBrowserEvent } from 'ol';
 import { Geometry, Point } from 'ol/geom';
 import { SelectEvent } from 'ol/interaction/Select';
 import { FilterService } from '../../common/filter.service';
@@ -160,8 +160,8 @@ describe(PoiLayerComponent.name, () => {
 
     beforeEach(() => {
       poiService.selectPoi = jest.fn();
-      selectedFeature = new Feature(new Point([1, 2]));
-      component.select.dispatchEvent({ type: 'select', selected: [selectedFeature] } as SelectEvent);
+      selectedFeature = new Feature<Point>(new Point([1, 2]));
+      component.select.dispatchEvent(new SelectEvent('select', [selectedFeature], [], {} as MapBrowserEvent<any>));
     });
 
     it('should set selected feature', () => {
