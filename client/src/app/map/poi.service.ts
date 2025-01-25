@@ -7,6 +7,7 @@ import { Extent } from 'ol/extent';
 import { fromLonLat, toLonLat } from 'ol/proj';
 import { map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { FilterService } from '../common/filter.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,10 @@ export class PoiService {
   private $dataChanged: Subject<Feature<Point>[]> = new Subject<Feature<Point>[]>();
   private $poiSelected: Subject<Feature<Point> | undefined> = new Subject<Feature<Point> | undefined>();
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private filterService: FilterService
+  ) {}
 
   get dataChanged(): Observable<Feature<Point>[]> {
     return this.$dataChanged.asObservable();
@@ -30,7 +34,9 @@ export class PoiService {
     const topRight = toLonLat([extent[2], extent[3]]);
     const bbox = '(' + bottomLeft[1] + ',' + bottomLeft[0] + ',' + topRight[1] + ',' + topRight[0] + ')';
 
-    const url = environment.dataQueryUrl.replace(/\$\$BBOX\$\$/g, bbox);
+    const url = environment.dataQueryUrl
+      .replace(/\$\$QUERY\$\$/g, this.filterService.asOverpassQuery())
+      .replace(/\$\$BBOX\$\$/g, bbox);
 
     return this.httpClient.get<any>(url).pipe(
       map((data: any) => {

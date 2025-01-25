@@ -42,11 +42,11 @@ export class MapComponent implements AfterViewInit, LayerService {
     });
 
     // Restore map center & zoom
-    const center = localStorage.getItem('project_creation_map_center');
+    const center = localStorage.getItem('map_center');
     if (center) {
       this.map.getView().setCenter(JSON.parse(center));
     }
-    const zoom = localStorage.getItem('project_creation_map_zoom');
+    const zoom = localStorage.getItem('map_zoom');
     if (zoom) {
       this.map.getView().setZoom(+zoom);
     }
@@ -57,8 +57,8 @@ export class MapComponent implements AfterViewInit, LayerService {
 
     this.map.on('moveend', (e: MapEvent) => {
       this.mapService.mapViewChanged(e.map.getView().getZoom() ?? 0, e.map.getView().calculateExtent());
-      localStorage.setItem('project_creation_map_center', JSON.stringify(e.map.getView().getCenter()));
-      localStorage.setItem('project_creation_map_zoom', '' + e.map.getView().getZoom());
+      localStorage.setItem('map_center', JSON.stringify(e.map.getView().getCenter()));
+      localStorage.setItem('map_zoom', '' + e.map.getView().getZoom());
     });
   }
 

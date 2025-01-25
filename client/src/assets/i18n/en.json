@@ -41,5 +41,6 @@
     "last-edited": "Data last edited on: "
   },
   "yes": "yes",
-  "no": "no"
+  "no": "no",
+  "unknown": "unknown"
 }

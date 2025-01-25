@@ -21,9 +21,9 @@ describe(MapComponent.name, () => {
     Object.defineProperty(window, 'localStorage', {
       value: {
         getItem: jest.fn().mockImplementation(key => {
-          if (key === 'project_creation_map_center') {
+          if (key === 'map_center') {
             return '[1, 2]';
-          } else if (key === 'project_creation_map_zoom') {
+          } else if (key === 'map_zoom') {
             return '15';
           }
           return undefined;
@@ -80,14 +80,11 @@ describe(MapComponent.name, () => {
     });
 
     it('should set map center', () => {
-      expect(window.localStorage.setItem).toHaveBeenCalledWith(
-        'project_creation_map_center',
-        JSON.stringify(expectedCenter)
-      );
+      expect(window.localStorage.setItem).toHaveBeenCalledWith('map_center', JSON.stringify(expectedCenter));
     });
 
     it('should set map zoom', () => {
-      expect(window.localStorage.setItem).toHaveBeenCalledWith('project_creation_map_zoom', '' + expectedZoom);
+      expect(window.localStorage.setItem).toHaveBeenCalledWith('map_zoom', '' + expectedZoom);
     });
 
     it('should call map service', () => {

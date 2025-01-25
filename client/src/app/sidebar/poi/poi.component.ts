@@ -13,7 +13,7 @@ export class PoiComponent {
   openingHoursString: string;
   website: string;
   osmWebsite: string;
-  isOpen: boolean;
+  isOpen: boolean | undefined;
 
   private _selectedFeature: Feature<Point> | undefined;
   private _selectedDateTime: Date | undefined;

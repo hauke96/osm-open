@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { FilterService } from '../../common/filter.service';
-import { Geometry } from 'ol/geom';
-import { Feature } from 'ol';
 
 interface TagTemplate {
   name: string;
@@ -15,7 +13,7 @@ interface TagTemplate {
 })
 export class TagFilterComponent {
   tagTemplates: TagTemplate[];
-  selectedTag: string;
+  filterExpression: string;
 
   constructor(private filterService: FilterService) {
     this.tagTemplates = [
@@ -25,26 +23,14 @@ export class TagFilterComponent {
       { name: 'tag-filter.tags.supermarket', tag: 'shop~(supermarket|convenience|kiosk)' },
       { name: 'tag-filter.tags.pub', tag: 'amenity~(bar|pub|biergarten)' },
     ];
-    this.selectedTag = '';
+    this.filterExpression = '';
   }
 
   onTagFieldChanged(): void {
-    const key = this.filterService.getKey(this.selectedTag);
-    const value = this.filterService.getValue(this.selectedTag);
-    const isRegex = this.filterService.isRegex(this.selectedTag);
-
-    if (isRegex) {
-      this.filterService.filter((feature: Feature<Geometry>): boolean => {
-        return !!feature.get(key) && feature.get(key).match(value) != null;
-      });
-    } else {
-      this.filterService.filter((feature: Feature<Geometry>): boolean => {
-        return feature.get(key) === value;
-      });
-    }
+    this.filterService.filter(this.filterExpression);
   }
 
   reset(): void {
-    this.selectedTag = '';
+    this.filterExpression = '';
   }
 }

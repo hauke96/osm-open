@@ -32,13 +32,13 @@ export class LoadDataComponent extends Unsubscriber {
 
   onLoadDataClicked(): void {
     this.isLoading = true;
-    this.poiService.loadData(this.extent).subscribe(
-      () => (this.isLoading = false),
-      err => {
+    this.poiService.loadData(this.extent).subscribe({
+      next: () => (this.isLoading = false),
+      error: err => {
         this.notificationService.addError(err.message);
         this.isLoading = false;
         throw err;
-      }
-    );
+      },
+    });
   }
 }

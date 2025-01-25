@@ -2,8 +2,6 @@ import { TagFilterComponent } from './tag-filter.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
 import { AppModule } from '../../app.module';
 import { FilterService } from '../../common/filter.service';
-import { Geometry } from 'ol/geom';
-import { Feature } from 'ol';
 
 describe(TagFilterComponent.name, () => {
   let component: TagFilterComponent;
@@ -36,36 +34,15 @@ describe(TagFilterComponent.name, () => {
     beforeEach(() => {
       key = 'my_great';
       value = '(.*tag.*)';
-      component.selectedTag = key + '=' + value;
+      component.filterExpression = key + '=' + value;
 
-      filterService.getKey = jest.fn().mockReturnValue(key);
-      filterService.getValue = jest.fn().mockReturnValue(value);
-      filterService.isRegex = jest.fn().mockReturnValue(false);
       filterService.filter = jest.fn();
 
       component.onTagFieldChanged();
     });
 
-    it('should match', () => {
-      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
-        feature: Feature<Geometry>
-      ) => boolean;
-
-      const feature = new Feature();
-      feature.set(key, value);
-
-      expect(filterFunction(feature)).toEqual(true);
-    });
-
-    it('should NOT match', () => {
-      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
-        feature: Feature<Geometry>
-      ) => boolean;
-
-      const feature = new Feature();
-      feature.set(key, 'foo-tag bar');
-
-      expect(filterFunction(feature)).toEqual(false);
+    it('should call service', () => {
+      expect(filterService.filter).toHaveBeenCalledWith(component.filterExpression);
     });
 
     describe('with reset button clicked', () => {
@@ -74,48 +51,8 @@ describe(TagFilterComponent.name, () => {
       });
 
       it('should reset input', () => {
-        expect(component.selectedTag).toEqual('');
+        expect(component.filterExpression).toEqual('');
       });
-    });
-  });
-
-  describe('with regex tag', () => {
-    let key: string;
-    let value: string;
-
-    beforeEach(() => {
-      key = 'my_great';
-      value = '(.*tag.*|bar)';
-      component.selectedTag = key + '=' + value;
-
-      filterService.getKey = jest.fn().mockReturnValue(key);
-      filterService.getValue = jest.fn().mockReturnValue(value);
-      filterService.isRegex = jest.fn().mockReturnValue(true);
-      filterService.filter = jest.fn();
-
-      component.onTagFieldChanged();
-    });
-
-    it('should match on exact value', () => {
-      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
-        feature: Feature<Geometry>
-      ) => boolean;
-
-      const feature = new Feature();
-      feature.set(key, 'bar');
-
-      expect(filterFunction(feature)).toEqual(true);
-    });
-
-    it('should match on different value', () => {
-      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
-        feature: Feature<Geometry>
-      ) => boolean;
-
-      const feature = new Feature();
-      feature.set(key, 'foo-tag 42');
-
-      expect(filterFunction(feature)).toEqual(true);
     });
   });
 });

@@ -1,9 +1,9 @@
 <h3 class="title">{{ "tag-filter.title" | translate }}</h3>
 <select
-	[(ngModel)]="selectedTag"
+	[(ngModel)]="filterExpression"
 	(ngModelChange)="onTagFieldChanged()"
 	class="tag-selection"
-	[ngClass]="{'placeholder': !selectedTag || selectedTag === ''}"
+	[ngClass]="{'placeholder': !filterExpression || filterExpression === ''}"
 >
 	<option value="" disabled selected hidden>{{"tag-filter.template-placeholder"|translate}}</option>
 	<option *ngFor="let t of tagTemplates" [ngValue]="t.tag">{{t.name | translate}}</option>
@@ -13,15 +13,15 @@
 <div>
 	<input
 		class="resettable-input"
-		[class.reset-enabled]="'' !== selectedTag"
-		[(ngModel)]="selectedTag"
+		[class.reset-enabled]="'' !== filterExpression"
+		[(ngModel)]="filterExpression"
 		(ngModelChange)="onTagFieldChanged()"
 		[placeholder]='"tag-filter.tag-placeholder" | translate'
 	/>
 	<i
-		*ngIf="'' !== selectedTag"
+		*ngIf="'' !== filterExpression"
 		class="icon-close close-button"
 		(click)="reset()"
-		[class.invisible]="selectedTag === ''"
+		[class.invisible]="filterExpression === ''"
 	></i>
 </div>
