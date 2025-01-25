@@ -1,5 +1,5 @@
 import { PoiService } from './poi.service';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpResponse} from '@angular/common/http';
 import { of } from 'rxjs';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';

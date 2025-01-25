@@ -1,5 +1,4 @@
 import { MapService } from './map.service';
-import { normalizeSourceMaps } from '@angular-devkit/build-angular/src/utils';
 
 describe(MapService.name, () => {
   let service: MapService;

@@ -1,5 +1,5 @@
 import { TagFilterComponent } from './tag-filter.component';
-import { MockBuilder, MockedComponentFixture, MockRender, ngMocks } from 'ng-mocks';
+import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
 import { AppModule } from '../../app.module';
 import { FilterService } from '../../common/filter.service';
 import { Geometry } from 'ol/geom';

@@ -22,7 +22,7 @@ describe(FilterService.name, () => {
     });
 
     it('should publish selected date', () => {
-      const expectedFunction = (feature: Feature<Geometry>): boolean => true;
+      const expectedFunction = (): boolean => true;
       service.filter(expectedFunction);
 
       expect(spy).toHaveBeenCalledWith(expectedFunction);

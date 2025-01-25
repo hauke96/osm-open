@@ -50,7 +50,7 @@ export class PoiDetailsComponent {
 
     try {
       url = new URL(value);
-    } catch (_) {
+    } catch {
       return false;
     }
 

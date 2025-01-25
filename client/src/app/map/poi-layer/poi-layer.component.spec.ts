@@ -161,7 +161,7 @@ describe(PoiLayerComponent.name, () => {
     beforeEach(() => {
       poiService.selectPoi = jest.fn();
       selectedFeature = new Feature<Point>(new Point([1, 2]));
-      component.select.dispatchEvent(new SelectEvent('select', [selectedFeature], [], {} as MapBrowserEvent<any>));
+      component.select.dispatchEvent(new SelectEvent('select', [selectedFeature], [], {} as MapBrowserEvent<never>));
     });
 
     it('should set selected feature', () => {
