@@ -5,6 +5,12 @@
   flex-direction: column;
 }
 
+.control-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .load-data-button {
   align-self: flex-start;
   margin-right: $space-base;
