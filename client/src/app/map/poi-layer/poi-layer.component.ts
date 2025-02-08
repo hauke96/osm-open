@@ -21,9 +21,9 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
   public readonly layer: VectorLayer<VectorSource<Feature<Point>>>;
   public readonly source: VectorSource<Feature<Point>>;
 
-  public features: Feature<Point>[];
-  public selectedFeature: Feature<Point>;
-  public selectedDateTime: Date | undefined;
+  public features: Feature<Point>[] = [];
+  public selectedFeature: Feature<Point> | undefined = undefined;
+  public selectedDateTime: Date | undefined = undefined;
   public select: Select;
 
   private redTransparent = 'rgba(240,65,55,0.6)';
@@ -53,7 +53,6 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     });
     this.select.on('select', (event: SelectEvent) => {
       const selectedFeature = event.selected[0] as Feature<Point>;
-      this.selectedFeature = selectedFeature;
       this.poiService.selectPoi(selectedFeature);
     });
     this.layerService.addInteraction(this.select);
@@ -61,8 +60,8 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     this.unsubscribeLater(
       this.poiService.dataChanged.subscribe(newFeatures => {
         this.features = newFeatures;
-        console.log('Changed');
         this.updateFeatures();
+        this.poiService.deselectPoi();
       }),
       this.dateTimeSelectionService.dateTimeSelected.subscribe((selectedDateTime: Date | undefined) => {
         this.selectedDateTime = selectedDateTime;
@@ -70,6 +69,9 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
         if (this.selectedFeature) {
           this.poiService.selectPoi(this.selectedFeature);
         }
+      }),
+      this.poiService.poiSelected.subscribe((selectedPoiFeature: Feature<Point> | undefined) => {
+        this.selectedFeature = selectedPoiFeature;
       })
     );
   }
@@ -112,48 +114,6 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
         }
       }
     }
-
-    // if (selected) {
-    //   // This feature is selected
-    //   if (isOpen === undefined) {
-    //     strokeColor = this.gray;
-    //     fillColor = this.graySemiTransparent;
-    //   } else {
-    //     if (isOpen) {
-    //       strokeColor = this.green;
-    //       fillColor = this.greenSemiTransparent;
-    //     } else {
-    //       strokeColor = this.red;
-    //       fillColor = this.redSemiTransparent;
-    //     }
-    //   }
-    // } else if (this.selectedFeature != null) {
-    //   // A different feature is currently selected
-    //   fillColor = 'transparent';
-    //   if (isOpen === undefined) {
-    //     strokeColor = this.graySemiTransparent;
-    //   } else {
-    //     if (isOpen) {
-    //       strokeColor = this.greenSemiTransparent;
-    //     } else {
-    //       strokeColor = this.redSemiTransparent;
-    //     }
-    //   }
-    // } else {
-    //   // No feature is selected
-    //   if (isOpen === undefined) {
-    //     strokeColor = this.gray;
-    //     fillColor = this.grayTransparent;
-    //   } else {
-    //     if (isOpen) {
-    //       strokeColor = this.green;
-    //       fillColor = this.greenTransparent;
-    //     } else {
-    //       strokeColor = this.red;
-    //       fillColor = this.redTransparent;
-    //     }
-    //   }
-    // }
 
     const fill = new Fill({
       color: fillColor,

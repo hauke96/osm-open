@@ -78,4 +78,8 @@ export class PoiService {
   selectPoi(feature: Feature<Point> | undefined): void {
     this.$poiSelected.next(feature);
   }
+
+  deselectPoi(): void {
+    this.$poiSelected.next(undefined);
+  }
 }
