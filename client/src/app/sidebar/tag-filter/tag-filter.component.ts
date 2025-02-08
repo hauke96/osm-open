@@ -27,9 +27,14 @@ export class TagFilterComponent {
       { name: 'tag-filter.tags.bakery', tag: 'shop=bakery' },
       { name: 'tag-filter.tags.supermarket', tag: 'shop~(supermarket|convenience|kiosk)' },
       { name: 'tag-filter.tags.pub', tag: 'amenity~(bar|pub|biergarten)' },
+      { name: 'tag-filter.tags.nightlife', tag: 'amenity~(bar|nightclub|music_venue|theatre)' },
+      { name: 'tag-filter.tags.atm', tag: 'amenity=atm' },
+      { name: 'tag-filter.tags.bank', tag: 'amenity=bank' },
     ];
 
     this.activatedRoute.queryParams.subscribe(params => {
+      this.filterExpression = '';
+
       const filterParam = params['filter'];
       if (filterParam != null) {
         this.filterExpression = filterParam + '';

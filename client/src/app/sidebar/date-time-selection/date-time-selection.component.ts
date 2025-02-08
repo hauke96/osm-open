@@ -17,6 +17,9 @@ export class DateTimeSelectionComponent {
     private activatedRoute: ActivatedRoute
   ) {
     activatedRoute.queryParams.subscribe(params => {
+      this.date = '';
+      this.time = '';
+
       const dateParam = params['date'] + '';
       if (dateParam.match(/^\d\d\d\d-\d\d-\d\d_\d\d:\d\d$/)) {
         this.date = dateParam.slice(0, 10);
@@ -34,6 +37,10 @@ export class DateTimeSelectionComponent {
   }
 
   onInputChanged(): void {
+    if (!this.date || !this.time) {
+      return;
+    }
+
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams: { date: this.date + '_' + this.time },

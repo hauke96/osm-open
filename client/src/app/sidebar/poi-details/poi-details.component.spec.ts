@@ -30,8 +30,11 @@ describe(PoiDetailsComponent.name, () => {
         ['foo', 'bar'],
         ['', ''],
         ['website', 'osm.org'],
+        ['@id', '123'],
+        ['@type', 'node'],
+        ['@timestamp', 'yesterday or so'],
       ];
-      expectedTags = [tags[2]];
+      expectedTags = [tags[0], tags[1], tags[2]];
       const feature = new Feature();
       tags.forEach(t => feature.set(t[0], t[1]));
 

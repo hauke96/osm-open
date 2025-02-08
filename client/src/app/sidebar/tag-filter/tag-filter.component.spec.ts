@@ -2,19 +2,40 @@ import { TagFilterComponent } from './tag-filter.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
 import { AppModule } from '../../app.module';
 import { FilterService } from '../../common/filter.service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 describe(TagFilterComponent.name, () => {
   let component: TagFilterComponent;
   let fixture: MockedComponentFixture<TagFilterComponent>;
   let filterService: FilterService;
+  let router: Router;
+  let activatedRoute: ActivatedRoute;
+
+  const queryParamSubject = new BehaviorSubject<ParamMap | null>(null);
 
   beforeEach(() => {
     filterService = {} as FilterService;
+    router = {
+      navigate: jest.fn(),
+    } as unknown as Router;
+    activatedRoute = {
+      queryParams: queryParamSubject.asObservable(),
+    } as unknown as ActivatedRoute;
 
-    return MockBuilder(TagFilterComponent, AppModule).provide({
-      provide: FilterService,
-      useFactory: () => filterService,
-    });
+    return MockBuilder(TagFilterComponent, AppModule)
+      .provide({
+        provide: FilterService,
+        useFactory: () => filterService,
+      })
+      .provide({
+        provide: Router,
+        useFactory: () => router,
+      })
+      .provide({
+        provide: ActivatedRoute,
+        useFactory: () => activatedRoute,
+      });
   });
 
   beforeEach(() => {
@@ -42,7 +63,24 @@ describe(TagFilterComponent.name, () => {
     });
 
     it('should call service', () => {
-      expect(filterService.filter).toHaveBeenCalledWith(component.filterExpression);
+      expect(router.navigate).toHaveBeenCalledWith([], {
+        relativeTo: activatedRoute,
+        queryParams: { filter: component.filterExpression },
+        queryParamsHandling: 'merge',
+      });
+    });
+
+    it('should update filter on route change', () => {
+      component.filterExpression = 'bar';
+
+      queryParamSubject.next(null);
+      expect(component.filterExpression).toEqual('');
+
+      queryParamSubject.next({ filter: 'foo' } as unknown as ParamMap);
+      expect(component.filterExpression).toEqual('foo');
+
+      queryParamSubject.next({ filter: '' } as unknown as ParamMap);
+      expect(component.filterExpression).toEqual('');
     });
 
     describe('with reset button clicked', () => {
@@ -51,7 +89,11 @@ describe(TagFilterComponent.name, () => {
       });
 
       it('should reset input', () => {
-        expect(component.filterExpression).toEqual('');
+        expect(router.navigate).toHaveBeenCalledWith([], {
+          relativeTo: activatedRoute,
+          queryParams: { filter: '' },
+          queryParamsHandling: 'merge',
+        });
       });
     });
   });

@@ -31,7 +31,10 @@
       "cafe": "Cafes",
       "bakery": "Bakeries",
       "supermarket": "Supermarkets",
-      "pub": "Pubs & Bars"
+      "pub": "Pubs & Bars",
+      "nightlife": "Nightlife",
+      "atm": "AMTs",
+      "bank": "Banks"
     }
   },
   "poi-details": {
