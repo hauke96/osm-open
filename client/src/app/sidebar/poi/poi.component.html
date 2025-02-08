@@ -4,11 +4,13 @@
 		<h3 *ngIf="name">{{ name }}</h3>
 		<h3 *ngIf="!name"><i>{{"poi.no-name" | translate}}</i></h3>
 		<p>
+			@if (isOpen !== undefined) {
 			<span *ngIf="openingCheckTimeIsNow" [innerHTML]="'poi.open-now-notice' | translate"></span>
 			<span *ngIf="!openingCheckTimeIsNow" [innerHTML]="'poi.open-notice' | translate"></span>
-			<span>
-				{{ isOpen === undefined ? ('unknown' | translate) : isOpen ? ('yes' | translate) : ('no' | translate) }}</span
-			>
+			<span> {{ isOpen ? ('yes' | translate) : ('no' | translate) }}</span>
+			} @else {
+			<span *ngIf="!openingCheckTimeIsNow" [innerHTML]="'poi.unknown-opening-hours' | translate"></span>
+			}
 		</p>
 		<p class="website-osm-row">
 			<a *ngIf="!!website" [href]="website" target="_blank">{{ "poi.website" | translate }}</a>

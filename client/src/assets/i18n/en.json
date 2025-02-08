@@ -7,6 +7,7 @@
   "poi": {
     "open-now-notice": "Is open <b>now</b>:",
     "open-notice": "Is open at <b>selected time</b>:",
+    "unknown-opening-hours": "The opening hours of this location are <b>unknown</b>.",
     "view-on-osm-org": "View on osm.org",
     "website": "Website",
     "no-name": "(no name)"
@@ -41,6 +42,5 @@
     "last-edited": "Data last edited on: "
   },
   "yes": "yes",
-  "no": "no",
-  "unknown": "unknown"
+  "no": "no"
 }

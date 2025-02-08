@@ -26,15 +26,13 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
   public selectedDateTime: Date | undefined;
   public select: Select;
 
-  private redTransparent = 'rgba(244,67,54,0.25)';
-  private redSemiTransparent = 'rgba(244,67,54,0.85)';
-  private red = 'rgb(244,67,54)';
-  private greenTransparent = 'rgba(76,175,80,0.25)';
-  private greenSemiTransparent = 'rgba(76,175,80,0.85)';
-  private green = 'rgb(76,175,80)';
-  private gray = 'rgb(135,135,135)';
-  private graySemiTransparent = 'rgba(135,135,135,0.85)';
-  private grayTransparent = 'rgba(135,135,135,0.25)';
+  private redTransparent = 'rgba(240,65,55,0.6)';
+  private red = 'rgb(220,75,65)';
+  private greenTransparent = 'rgba(50,160,50,0.6)';
+  private green = 'rgb(50,160,50)';
+  private gray = 'rgb(125,125,125)';
+  private grayTransparent = 'rgba(115,115,115,0.6)';
+  private whiteTransparent = 'rgb(255,255,255, 0.6)';
 
   constructor(
     private layerService: LayerService,
@@ -85,66 +83,90 @@ export class PoiLayerComponent extends Unsubscriber implements OnInit {
     this.source.addFeatures(this.features);
   }
 
-  getStyle(feature: Feature<Geometry>, selected: boolean): Style {
-    let strokeColor;
+  getStyle(feature: Feature<Geometry>, thisFeatureIsSelected: boolean): Style {
+    const strokeColor = this.whiteTransparent;
     let fillColor;
 
     const isOpen = this.openingHoursService.isOpen(feature, this.selectedDateTime);
 
-    if (selected) {
-      // This feature is selected
+    if (this.selectedFeature != null && !thisFeatureIsSelected) {
+      // A feature is currently selected, but it's not this one
       if (isOpen === undefined) {
-        strokeColor = this.gray;
-        fillColor = this.graySemiTransparent;
-      } else {
-        if (isOpen) {
-          strokeColor = this.green;
-          fillColor = this.greenSemiTransparent;
-        } else {
-          strokeColor = this.red;
-          fillColor = this.redSemiTransparent;
-        }
-      }
-    } else if (this.selectedFeature != null) {
-      // A different feature is currently selected
-      fillColor = 'transparent';
-      if (isOpen === undefined) {
-        strokeColor = this.graySemiTransparent;
-      } else {
-        if (isOpen) {
-          strokeColor = this.greenSemiTransparent;
-        } else {
-          strokeColor = this.redSemiTransparent;
-        }
-      }
-    } else {
-      // No feature is selected
-      if (isOpen === undefined) {
-        strokeColor = this.gray;
         fillColor = this.grayTransparent;
       } else {
         if (isOpen) {
-          strokeColor = this.green;
           fillColor = this.greenTransparent;
         } else {
-          strokeColor = this.red;
           fillColor = this.redTransparent;
         }
       }
+    } else {
+      // This or no feature is selected
+      if (isOpen === undefined) {
+        fillColor = this.gray;
+      } else {
+        if (isOpen) {
+          fillColor = this.green;
+        } else {
+          fillColor = this.red;
+        }
+      }
     }
+
+    // if (selected) {
+    //   // This feature is selected
+    //   if (isOpen === undefined) {
+    //     strokeColor = this.gray;
+    //     fillColor = this.graySemiTransparent;
+    //   } else {
+    //     if (isOpen) {
+    //       strokeColor = this.green;
+    //       fillColor = this.greenSemiTransparent;
+    //     } else {
+    //       strokeColor = this.red;
+    //       fillColor = this.redSemiTransparent;
+    //     }
+    //   }
+    // } else if (this.selectedFeature != null) {
+    //   // A different feature is currently selected
+    //   fillColor = 'transparent';
+    //   if (isOpen === undefined) {
+    //     strokeColor = this.graySemiTransparent;
+    //   } else {
+    //     if (isOpen) {
+    //       strokeColor = this.greenSemiTransparent;
+    //     } else {
+    //       strokeColor = this.redSemiTransparent;
+    //     }
+    //   }
+    // } else {
+    //   // No feature is selected
+    //   if (isOpen === undefined) {
+    //     strokeColor = this.gray;
+    //     fillColor = this.grayTransparent;
+    //   } else {
+    //     if (isOpen) {
+    //       strokeColor = this.green;
+    //       fillColor = this.greenTransparent;
+    //     } else {
+    //       strokeColor = this.red;
+    //       fillColor = this.redTransparent;
+    //     }
+    //   }
+    // }
 
     const fill = new Fill({
       color: fillColor,
     });
     const stroke = new Stroke({
       color: strokeColor,
-      width: 1.5,
+      width: thisFeatureIsSelected ? 3 : 1.5,
     });
     return new Style({
       image: new Circle({
         fill,
         stroke,
-        radius: selected ? 10 : 6,
+        radius: thisFeatureIsSelected ? 10 : 6,
       }),
     });
   }
