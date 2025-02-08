@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { MapComponent } from './map/map/map.component';
 import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
@@ -15,6 +15,9 @@ import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinne
 import { NotificationComponent } from './common/notification/notification.component';
 import { TagFilterComponent } from './sidebar/tag-filter/tag-filter.component';
 import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component';
+import { provideRouter, Routes } from '@angular/router';
+
+const routes: Routes = [{ path: '', component: AppComponent }];
 
 @NgModule({
   declarations: [
@@ -30,19 +33,18 @@ import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component
     TagFilterComponent,
     PoiDetailsComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     BrowserModule,
-    HttpClientModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient),
+        useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient, './assets/i18n/'),
         deps: [HttpClient],
       },
     }),
     FormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [provideHttpClient(withInterceptorsFromDi()), provideRouter(routes)],
 })
 export class AppModule {}

@@ -2,15 +2,26 @@
 
 :host {
   display: flex;
+  flex-direction: column;
+}
+
+.control-container {
+  display: flex;
   flex-direction: row;
   align-items: center;
 }
 
 .load-data-button {
+  align-self: flex-start;
   margin-right: $space-base;
   white-space: nowrap;
 }
 
 app-loading-spinner {
   margin-right: $space-base;
+}
+
+.zoom-in-notice {
+  color: $color-error;
+  margin-top: $space-small;
 }

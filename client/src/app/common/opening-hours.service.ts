@@ -7,20 +7,26 @@ import OpeningHours, { optional_conf_param as OptionalObjectParam } from 'openin
   providedIn: 'root',
 })
 export class OpeningHoursService {
-  isOpen(feature: Feature<Geometry>, date?: Date): boolean {
-    return this.getOpeningHours(feature)?.getState(date) ?? false;
+  isOpen(feature: Feature<Geometry>, date?: Date): boolean | undefined {
+    const state = this.getOpeningHours(feature)?.getState(date);
+    return state === undefined ? undefined : state;
   }
 
   getOpeningHours(feature: Feature<Geometry>): OpeningHours | undefined {
-    // TODO use locale of country the POI is in
+    const openingHoursString = this.getOpeningHoursString(feature);
+    if (!openingHoursString) {
+      return undefined;
+    }
+
     try {
-      return new OpeningHours(this.getOpeningHoursString(feature), null, {
+      return new OpeningHours(openingHoursString, null, {
+        // TODO use locale of country the POI is in
         locale: navigator.language,
       } as OptionalObjectParam);
     } catch (e) {
       console.error(
         `Error on feature https://openstreetmap.org/${feature.get('@type')}/${feature.get('@id')} with name
-        '${feature.get('name')}' and opening_hours '${this.getOpeningHoursString(feature)}':`
+        '${feature.get('name')}' and opening_hours '${openingHoursString}':`
       );
       console.error(e);
       return undefined;

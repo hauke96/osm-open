@@ -1,32 +1,35 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { Feature } from 'ol';
-import { Geometry } from 'ol/geom';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilterService {
-  // This publishes a function which returns a boolean. Returning "true" means that the feature should be visible, "false" means the feature should not be visible.
-  private $filtered: Subject<(feature: Feature<Geometry>) => boolean> = new Subject();
+  private $filterExpression: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  get filtered(): Observable<(feature: Feature<Geometry>) => boolean> {
-    return this.$filtered.asObservable();
+  public filter(newExpression: string): void {
+    this.$filterExpression.next(newExpression);
   }
 
-  public filter(filterFunction: (feature: Feature<Geometry>) => boolean): void {
-    this.$filtered.next(filterFunction);
+  public get currentFilterExpression(): string {
+    return this.$filterExpression.value;
   }
 
-  getKey(tag: string): string {
-    return tag.split(/[=~]/)[0];
+  public asOverpassQuery(): string {
+    const isRegex = FilterService.isRegex(this.currentFilterExpression);
+
+    let separator = '=';
+    if (isRegex) {
+      separator = '~';
+    }
+
+    const splitResult = this.currentFilterExpression.split(separator);
+    const key = splitResult.shift();
+    const values = splitResult.join(separator);
+    return `["${key}"${separator}"${values}"]`;
   }
 
-  getValue(tag: string): string {
-    return tag.split(/[=~]/)[1];
-  }
-
-  isRegex(tag: string): boolean {
-    return tag.match(/\w*~\w*/) != null;
+  public static isRegex(tag: string): boolean {
+    return tag.match(/^[^=~]*~.*$/) != null;
   }
 }

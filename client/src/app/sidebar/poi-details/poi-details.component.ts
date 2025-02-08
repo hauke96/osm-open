@@ -13,23 +13,7 @@ export class PoiDetailsComponent {
 
   listExpanded: boolean = false;
 
-  private relevantKeys = [
-    'addr:street',
-    'addr:housenumber',
-    'addr:postcode',
-    'contact:phone',
-    'contact:website',
-    'contact:facebook',
-    'name',
-    'website',
-    'phone',
-    'wheelchair',
-    'wheelchair:description',
-    'toilets',
-    'toilets:wheelchair',
-    'changing_table',
-    'opening_hours',
-  ];
+  private irrelevantKeys = ['@id', '@type', '@timestamp', 'geometry'];
 
   constructor() {}
 
@@ -38,7 +22,7 @@ export class PoiDetailsComponent {
       return [];
     }
 
-    return Object.entries(this.selectedFeature.getProperties()).filter(t => this.relevantKeys.includes(t[0]));
+    return Object.entries(this.selectedFeature.getProperties()).filter(t => !this.irrelevantKeys.includes(t[0]));
   }
 
   get lastEditDate(): Date {
@@ -50,7 +34,7 @@ export class PoiDetailsComponent {
 
     try {
       url = new URL(value);
-    } catch (_) {
+    } catch {
       return false;
     }
 

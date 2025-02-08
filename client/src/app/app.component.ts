@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 
 @Component({
@@ -8,14 +8,17 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  constructor(public translate: TranslateService, title: Title) {
+  constructor(
+    public translate: TranslateService,
+    title: Title
+  ) {
     translate.addLangs(['en']);
     translate.setDefaultLang('en');
 
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang?.match(/en/) ? browserLang : 'en');
 
-    translate.onLangChange.subscribe((event: LangChangeEvent) => {
+    translate.onLangChange.subscribe(() => {
       translate.get('title').subscribe((res: string) => {
         title.setTitle(res);
       });

@@ -4,7 +4,7 @@ export const environment = {
   dataQueryUrl: `https://overpass-api.de/api/interpreter?data=
 [out:json][timeout:30];
 (
-nwr["opening_hours"]$$BBOX$$;
+nwr$$QUERY$$$$BBOX$$;
 );
 out meta center;`,
 };

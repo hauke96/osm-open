@@ -6,10 +6,9 @@ import { PoiService } from '../poi.service';
 import { OpeningHoursService } from '../../common/opening-hours.service';
 import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 import { Subject } from 'rxjs';
-import { Feature } from 'ol';
-import { Geometry, Point } from 'ol/geom';
+import { Feature, MapBrowserEvent } from 'ol';
+import { Point } from 'ol/geom';
 import { SelectEvent } from 'ol/interaction/Select';
-import { FilterService } from '../../common/filter.service';
 
 describe(PoiLayerComponent.name, () => {
   let component: PoiLayerComponent;
@@ -18,16 +17,13 @@ describe(PoiLayerComponent.name, () => {
   let poiService: PoiService;
   let openingHoursService: OpeningHoursService;
   let dateTimeSelectionService: DateTimeSelectionService;
-  let filterService: FilterService;
 
   let poiDataChangedSubject: Subject<Feature<Point>[]>;
   let dateTimeSelectedSubject: Subject<Date | undefined>;
-  let filterSubject: Subject<(feature: Feature<Geometry>) => boolean>;
 
   beforeEach(() => {
     poiDataChangedSubject = new Subject();
     dateTimeSelectedSubject = new Subject();
-    filterSubject = new Subject();
 
     layerService = {
       addLayer: jest.fn(),
@@ -40,16 +36,12 @@ describe(PoiLayerComponent.name, () => {
     dateTimeSelectionService = {
       dateTimeSelected: dateTimeSelectedSubject.asObservable(),
     } as unknown as DateTimeSelectionService;
-    filterService = {
-      filtered: filterSubject.asObservable(),
-    } as FilterService;
 
     return MockBuilder(PoiLayerComponent, AppModule)
       .provide({ provide: LayerService, useFactory: () => layerService })
       .provide({ provide: PoiService, useFactory: () => poiService })
       .provide({ provide: OpeningHoursService, useFactory: () => openingHoursService })
-      .provide({ provide: DateTimeSelectionService, useFactory: () => dateTimeSelectionService })
-      .provide({ provide: FilterService, useFactory: () => filterService });
+      .provide({ provide: DateTimeSelectionService, useFactory: () => dateTimeSelectionService });
   });
 
   beforeEach(() => {
@@ -68,51 +60,20 @@ describe(PoiLayerComponent.name, () => {
 
   describe('with data change on poi layer', () => {
     let newFeatures: Feature<Point>[];
-    let featureWithGeometry: Feature<Point>;
 
     beforeEach(() => {
       component.source.addFeatures([new Feature(), new Feature()]);
 
-      featureWithGeometry = new Feature(new Point([11, 21]));
-      newFeatures = [new Feature(), featureWithGeometry];
+      newFeatures = [new Feature(new Point([11, 12])), new Feature(new Point([21, 22]))];
+      poiDataChangedSubject.next(newFeatures);
     });
 
-    describe('with function showing positiv matches', () => {
-      beforeEach(() => {
-        component.showOnlyFilteredFeatures = true;
-        component.filterFunction = (f: Feature<Geometry>) => f.getGeometry() != null;
-        poiDataChangedSubject.next(newFeatures);
-      });
-
-      it('should clear and set features', () => {
-        expect(component.source.getFeatures().length).toEqual(1);
-        expect(component.source.getFeatures()[0].getGeometry()!.getCoordinates()[0]).toEqual(11);
-        expect(component.source.getFeatures()[0].getGeometry()!.getCoordinates()[1]).toEqual(21);
-      });
-    });
-
-    describe('with function showing negative matches', () => {
-      beforeEach(() => {
-        component.showOnlyFilteredFeatures = false;
-        component.filterFunction = (f: Feature<Geometry>) => f.getGeometry() != null;
-        poiDataChangedSubject.next(newFeatures);
-      });
-
-      it('should clear and set features', () => {
-        expect(component.source.getFeatures().length).toEqual(1);
-        expect(component.source.getFeatures()[0].getGeometry()).toBeUndefined();
-      });
-    });
-
-    describe('with no filter function', () => {
-      beforeEach(() => {
-        component.showOnlyFilteredFeatures = true;
-        poiDataChangedSubject.next(newFeatures);
-      });
-
-      it('should clear and set features', () => {
-        expect(component.source.getFeatures().length).toEqual(2);
-      });
+    it('should clear and set features', () => {
+      expect(component.source.getFeatures().length).toEqual(2);
+      expect(component.source.getFeatures()[0].getGeometry()!.getCoordinates()[0]).toEqual(11);
+      expect(component.source.getFeatures()[0].getGeometry()!.getCoordinates()[1]).toEqual(12);
+      expect(component.source.getFeatures()[1].getGeometry()!.getCoordinates()[0]).toEqual(21);
+      expect(component.source.getFeatures()[1].getGeometry()!.getCoordinates()[1]).toEqual(22);
     });
   });
 
@@ -160,8 +121,8 @@ describe(PoiLayerComponent.name, () => {
 
     beforeEach(() => {
       poiService.selectPoi = jest.fn();
-      selectedFeature = new Feature(new Point([1, 2]));
-      component.select.dispatchEvent({ type: 'select', selected: [selectedFeature] } as SelectEvent);
+      selectedFeature = new Feature<Point>(new Point([1, 2]));
+      component.select.dispatchEvent(new SelectEvent('select', [selectedFeature], [], {} as MapBrowserEvent<never>));
     });
 
     it('should set selected feature', () => {
@@ -173,64 +134,27 @@ describe(PoiLayerComponent.name, () => {
     });
   });
 
-  describe('with changed filter', () => {
-    let filterFunction: jest.Mock;
-
-    beforeEach(() => {
-      filterFunction = jest.fn().mockReturnValue(true);
-
-      component.features = [];
-      component.layer.changed = jest.fn();
-
-      filterSubject.next(filterFunction);
-    });
-
-    it('should set filter function', () => {
-      expect(component.filterFunction).toEqual(filterFunction);
-    });
-
-    it('should mark layer changed', () => {
-      expect(component.layer.changed).toHaveBeenCalled();
-    });
-  });
-
   [
-    [true, true, true],
-    [true, true, false],
-    [true, false, true],
-    [true, false, false],
-    [false, true, true],
-    [false, true, false],
-    [false, false, true],
-    [false, false, false],
-  ].forEach(([filtered, open, selected]: boolean[]) => {
-    describe('with called style function: filtered=' + filtered + ', open=' + open + ', selected=' + selected, () => {
-      let filterFunction: jest.Mock;
+    [true, true],
+    [true, false],
+    [false, true],
+    [false, false],
+    [undefined, true],
+    [undefined, false],
+  ].forEach(([open, selected]: (boolean | undefined)[]) => {
+    describe('with called style function: open=' + open + ', selected=' + selected, () => {
       let feature: Feature<Point>;
 
       beforeEach(() => {
-        filterFunction = jest.fn().mockReturnValue(filtered);
-        component.filterFunction = filterFunction;
-
         openingHoursService.isOpen = jest.fn().mockReturnValue(open);
 
         feature = new Feature(new Point([1, 2]));
-        component.getStyle(feature, selected);
+        component.getStyle(feature, selected!);
       });
 
-      it('should use filter function', () => {
-        expect(filterFunction).toHaveBeenCalledWith(feature);
+      it('should check open state', () => {
+        expect(openingHoursService.isOpen).toHaveBeenCalledWith(feature, component.selectedDateTime);
       });
-
-      if (filtered) {
-        it('should check open state', () => {
-          expect(openingHoursService.isOpen).toHaveBeenCalledWith(feature, component.selectedDateTime);
-        });
-      } else {
-        it('should NOT check open state', () => {
-          expect(openingHoursService.isOpen).not.toHaveBeenCalled();
-        });
-      }
     });
   });
 });

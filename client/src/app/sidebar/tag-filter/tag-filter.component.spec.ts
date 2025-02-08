@@ -2,21 +2,40 @@ import { TagFilterComponent } from './tag-filter.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
 import { AppModule } from '../../app.module';
 import { FilterService } from '../../common/filter.service';
-import { Geometry } from 'ol/geom';
-import { Feature } from 'ol';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 describe(TagFilterComponent.name, () => {
   let component: TagFilterComponent;
   let fixture: MockedComponentFixture<TagFilterComponent>;
   let filterService: FilterService;
+  let router: Router;
+  let activatedRoute: ActivatedRoute;
+
+  const queryParamSubject = new BehaviorSubject<ParamMap | null>(null);
 
   beforeEach(() => {
     filterService = {} as FilterService;
+    router = {
+      navigate: jest.fn(),
+    } as unknown as Router;
+    activatedRoute = {
+      queryParams: queryParamSubject.asObservable(),
+    } as unknown as ActivatedRoute;
 
-    return MockBuilder(TagFilterComponent, AppModule).provide({
-      provide: FilterService,
-      useFactory: () => filterService,
-    });
+    return MockBuilder(TagFilterComponent, AppModule)
+      .provide({
+        provide: FilterService,
+        useFactory: () => filterService,
+      })
+      .provide({
+        provide: Router,
+        useFactory: () => router,
+      })
+      .provide({
+        provide: ActivatedRoute,
+        useFactory: () => activatedRoute,
+      });
   });
 
   beforeEach(() => {
@@ -36,76 +55,46 @@ describe(TagFilterComponent.name, () => {
     beforeEach(() => {
       key = 'my_great';
       value = '(.*tag.*)';
-      component.selectedTag = key + '=' + value;
+      component.filterExpression = key + '=' + value;
 
-      filterService.getKey = jest.fn().mockReturnValue(key);
-      filterService.getValue = jest.fn().mockReturnValue(value);
-      filterService.isRegex = jest.fn().mockReturnValue(false);
       filterService.filter = jest.fn();
 
       component.onTagFieldChanged();
     });
 
-    it('should match', () => {
-      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
-        feature: Feature<Geometry>
-      ) => boolean;
-
-      const feature = new Feature();
-      feature.set(key, value);
-
-      expect(filterFunction(feature)).toEqual(true);
+    it('should call service', () => {
+      expect(router.navigate).toHaveBeenCalledWith([], {
+        relativeTo: activatedRoute,
+        queryParams: { filter: component.filterExpression },
+        queryParamsHandling: 'merge',
+      });
     });
 
-    it('should NOT match', () => {
-      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
-        feature: Feature<Geometry>
-      ) => boolean;
+    it('should update filter on route change', () => {
+      component.filterExpression = 'bar';
 
-      const feature = new Feature();
-      feature.set(key, 'foo-tag bar');
+      queryParamSubject.next(null);
+      expect(component.filterExpression).toEqual('');
 
-      expect(filterFunction(feature)).toEqual(false);
-    });
-  });
+      queryParamSubject.next({ filter: 'foo' } as unknown as ParamMap);
+      expect(component.filterExpression).toEqual('foo');
 
-  describe('with regex tag', () => {
-    let key: string;
-    let value: string;
-
-    beforeEach(() => {
-      key = 'my_great';
-      value = '(.*tag.*|bar)';
-      component.selectedTag = key + '=' + value;
-
-      filterService.getKey = jest.fn().mockReturnValue(key);
-      filterService.getValue = jest.fn().mockReturnValue(value);
-      filterService.isRegex = jest.fn().mockReturnValue(true);
-      filterService.filter = jest.fn();
-
-      component.onTagFieldChanged();
+      queryParamSubject.next({ filter: '' } as unknown as ParamMap);
+      expect(component.filterExpression).toEqual('');
     });
 
-    it('should match on exact value', () => {
-      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
-        feature: Feature<Geometry>
-      ) => boolean;
+    describe('with reset button clicked', () => {
+      beforeEach(() => {
+        component.reset();
+      });
 
-      const feature = new Feature();
-      feature.set(key, 'bar');
-
-      expect(filterFunction(feature)).toEqual(true);
-    });
-
-    it('should match on different value', () => {
-      const filterFunction = (filterService.filter as jest.Mock).mock.calls[0][0] as (
-        feature: Feature<Geometry>
-      ) => boolean;
-
-      const feature = new Feature();
-      feature.set(key, 'foo-tag 42');
-
-      expect(filterFunction(feature)).toEqual(true);
+      it('should reset input', () => {
+        expect(router.navigate).toHaveBeenCalledWith([], {
+          relativeTo: activatedRoute,
+          queryParams: { filter: '' },
+          queryParamsHandling: 'merge',
+        });
+      });
     });
   });
 });

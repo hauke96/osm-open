@@ -3,15 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { of } from 'rxjs';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
+import { FilterService } from '../common/filter.service';
 
 describe(PoiService.name, () => {
   let service: PoiService;
+  let filterService: FilterService;
   let httpClient: HttpClient;
 
   beforeEach(() => {
+    filterService = {} as FilterService;
     httpClient = {} as HttpClient;
 
-    service = new PoiService(httpClient);
+    service = new PoiService(httpClient, filterService);
   });
 
   it('should be created', () => {
@@ -27,6 +30,8 @@ describe(PoiService.name, () => {
     let expectedWebsite2: string;
 
     beforeEach(() => {
+      filterService.asOverpassQuery = jest.fn().mockReturnValue('');
+
       expectedWebsite1 = 'https://foo.com';
       expectedWebsite2 = 'bar.com';
 

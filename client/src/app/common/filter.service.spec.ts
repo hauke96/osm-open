@@ -1,6 +1,4 @@
 import { FilterService } from './filter.service';
-import { Feature } from 'ol';
-import { Geometry } from 'ol/geom';
 
 describe(FilterService.name, () => {
   let service: FilterService;
@@ -13,55 +11,38 @@ describe(FilterService.name, () => {
     expect(service).toBeTruthy();
   });
 
-  describe('with subscription', () => {
-    let spy: jest.Mock;
+  it('should return current expression', () => {
+    service.filter('newValue');
+    expect(service.currentFilterExpression).toEqual('newValue');
 
-    beforeEach(() => {
-      spy = jest.fn();
-      service.filtered.subscribe(spy);
-    });
-
-    it('should publish selected date', () => {
-      const expectedFunction = (feature: Feature<Geometry>): boolean => true;
-      service.filter(expectedFunction);
-
-      expect(spy).toHaveBeenCalledWith(expectedFunction);
-    });
+    service.filter('newValue2');
+    expect(service.currentFilterExpression).toEqual('newValue2');
   });
 
-  [true, false].forEach((expectedIsRegex: boolean) => {
-    describe('with ' + expectedIsRegex ? 'regex' : 'normal' + ' tag', () => {
-      let key: string;
-      let value: string;
-      let isRegex: boolean;
+  it('should return correct normal Overpass query', () => {
+    service.filter('foo=bar');
+    expect(service.asOverpassQuery()).toEqual('["foo"="bar"]');
 
-      let expectedKey: string;
-      let expectedValue: string;
+    service.filter('foo=bar=bar~bar');
+    expect(service.asOverpassQuery()).toEqual('["foo"="bar=bar~bar"]');
+  });
 
-      beforeEach(() => {
-        expectedKey = 'my_very';
-        expectedValue = 'great_tag';
+  it('should return correct regex Overpass query', () => {
+    service.filter('foo~bar');
+    expect(service.asOverpassQuery()).toEqual('["foo"~"bar"]');
 
-        const delimiter = expectedIsRegex ? '~' : '=';
+    service.filter('foo~bar=bar~bar');
+    expect(service.asOverpassQuery()).toEqual('["foo"~"bar=bar~bar"]');
+  });
 
-        const tag = expectedKey + delimiter + expectedValue;
-
-        key = service.getKey(tag);
-        value = service.getValue(tag);
-        isRegex = service.isRegex(tag);
-      });
-
-      it('should get key correct', () => {
-        expect(key).toEqual(expectedKey);
-      });
-
-      it('should get value correct', () => {
-        expect(value).toEqual(expectedValue);
-      });
-
-      it('should get isRegex correct', () => {
-        expect(isRegex).toEqual(expectedIsRegex);
-      });
-    });
+  it('should detect regex correctly', () => {
+    expect(FilterService.isRegex('foo')).toEqual(false);
+    expect(FilterService.isRegex('foo=bar')).toEqual(false);
+    expect(FilterService.isRegex('foo~bar')).toEqual(true);
+    expect(FilterService.isRegex('foo~bar=bar')).toEqual(true);
+    expect(FilterService.isRegex('foo~')).toEqual(true);
+    expect(FilterService.isRegex('~bar')).toEqual(true);
+    expect(FilterService.isRegex('foo~bar~bar')).toEqual(true);
+    expect(FilterService.isRegex('foo=bar~bar')).toEqual(false);
   });
 });

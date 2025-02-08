@@ -8,27 +8,29 @@ There's a hosted version on [hauke-stieler.de/osm-open](https://hauke-stieler.de
 <img src="screenshot.png" alt="OSM Open Screenshot"/>
 </p>
 
-# How to use
-
-## Load data
+## How to use
 
 1. Zoom to the area you want to search in.
-2. Click on "Load data" to load all elements with opening hours.
-3. Click on a point to get further information.
+2. Select a point in time for which the opening hours should be checked.
+3. Select a tag filter (either from the selection menu or manually type in an Overpass-like-expression)
+4. Click on "Load data" to load all elements with opening hours.
+5. Click on a point to get further information.
 
-This step might take a few seconds depending on the amount of data and workload on the backend server (Overpass).
+Loading data might take a few seconds depending on the amount of data and workload on the backend server (Overpass).
 
-## Select date
+## Colors
 
-Select date and time to change the colors.
-If nothing is entered, the current date and time will be used.
+* Red: Is _closed_ at the selected point in time.
+* Green: Is _open_ at the selected point in time.
+* Gray: Matches the tag-filter, but has no opening hour data in OSM.
 
-## Filter by tags
+## Tag filter expressions
 
-There are some presets availabel but you can also use your own queries.
+There are some presets available, but you can also use your own queries.
 The "=" and "~" operators are supported, the latter one enables you to use regex syntax for the value.
 
-For regex the normal JavaScript syntax is supported as the [`.match()` method](https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Global_Objects/String/match) is used. 
+The expression is turned into an Overpass-Expression, so `foo=bar` becomes `["foo"="bar"]`.
+This also means the regex syntax follows the one of Overpass.
 
 ### Examples
 
@@ -40,7 +42,7 @@ String occurrences: `name~.*foo.*` (all names with "foo" in it)
 
 More complex query: `name~^[aA].*` (all things which name starts with the letter "a")
 
-# Contribute
+## Contribute
 
 This project only has a frontend, see the [client README](client/README.md) for details.
 

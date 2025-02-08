@@ -46,7 +46,7 @@ describe('SidebarComponent', () => {
     let expectedFeature: Feature<Point>;
 
     beforeEach(() => {
-      expectedFeature = new Feature(new Point([1, 2]));
+      expectedFeature = new Feature<Point>(new Point([1, 2]));
 
       poiSelectionSubject.next(expectedFeature);
     });

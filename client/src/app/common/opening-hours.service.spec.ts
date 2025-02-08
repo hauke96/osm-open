@@ -75,7 +75,7 @@ describe(OpeningHoursService.name, () => {
         expect(openingHours).toBeUndefined();
       });
 
-      it('should always be closed', () => {
+      it('should always be undefined', () => {
         const date = new Date('2021-11-15T00:00:00');
 
         console.error = jest.fn();
@@ -83,7 +83,7 @@ describe(OpeningHoursService.name, () => {
         // Go through the whole week in 5-minute steps
         for (let i = 0; i < ((24 * 60) / 5) * 7; i++) {
           date.setMinutes(date.getMinutes() + 5);
-          expect(service.isOpen(feature, date)).toBe(false);
+          expect(service.isOpen(feature, date)).toBeUndefined();
         }
       });
     });
