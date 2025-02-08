@@ -39,7 +39,7 @@ const routes: Routes = [{ path: '', component: AppComponent }];
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
-        useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient),
+        useFactory: (httpClient: HttpClient) => new TranslateHttpLoader(httpClient, './assets/i18n/'),
         deps: [HttpClient],
       },
     }),
