@@ -15,6 +15,9 @@ import { LoadingSpinnerComponent } from './common/loading-spinner/loading-spinne
 import { NotificationComponent } from './common/notification/notification.component';
 import { TagFilterComponent } from './sidebar/tag-filter/tag-filter.component';
 import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component';
+import { provideRouter, Routes } from '@angular/router';
+
+const routes: Routes = [{ path: '', component: AppComponent }];
 
 @NgModule({
   declarations: [
@@ -42,6 +45,6 @@ import { PoiDetailsComponent } from './sidebar/poi-details/poi-details.component
     }),
     FormsModule,
   ],
-  providers: [provideHttpClient(withInterceptorsFromDi())],
+  providers: [provideHttpClient(withInterceptorsFromDi()), provideRouter(routes)],
 })
 export class AppModule {}
