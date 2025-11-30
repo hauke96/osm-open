@@ -12,7 +12,8 @@
     "test:coverage": "jest --coverage",
     "format:check": "prettier --check \"src/{environment,app,assets}/**/*{.js,.ts,.html,.scss,.css,.json}\" && ng lint",
     "format:fix": "prettier --write \"src/{environment,app,assets}/**/*{.js,.ts,.html,.scss,.css,.json}\" && ng lint --fix",
-    "update": "npx npm-check-updates -u && npm install"
+    "update": "npx npm-check-updates -u && npm install",
+    "generate-sbom": "npx @cyclonedx/cyclonedx-npm  --package-lock-only --output-file sbom.json --spec-version 1.6 --output-format json"
   },
   "private": true,
   "dependencies": {
@@ -43,6 +44,7 @@
     "@angular-eslint/template-parser": "^18.4.3",
     "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.2.13",
+    "@cyclonedx/cyclonedx-npm": "^4.1.1",
     "@types/jasmine": "^5.1.5",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.10.10",
