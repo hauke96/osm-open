@@ -1,23 +1,37 @@
 <div class="details-container">
-	<div class="opening-bar" [ngClass]="{ green: isOpen, red: isOpen === false, grey: isOpen === undefined }"></div>
-	<div class="content">
-		<h3 *ngIf="name">{{ name }}</h3>
-		<h3 *ngIf="!name"><i>{{"poi.no-name" | translate}}</i></h3>
-		<p>
-			@if (isOpen !== undefined) {
-			<span *ngIf="openingCheckTimeIsNow" [innerHTML]="'poi.open-now-notice' | translate"></span>
-			<span *ngIf="!openingCheckTimeIsNow" [innerHTML]="'poi.open-notice' | translate"></span>
-			<span> {{ isOpen ? ('yes' | translate) : ('no' | translate) }}</span>
-			} @else {
-			<span *ngIf="!openingCheckTimeIsNow" [innerHTML]="'poi.unknown-opening-hours' | translate"></span>
-			}
-		</p>
-		<p class="website-osm-row">
-			<a *ngIf="!!website" [href]="website" target="_blank">{{ "poi.website" | translate }}</a>
-			<span *ngIf="!!website"> | </span>
-			<a [href]="osmWebsite" target="_blank">{{ "poi.view-on-osm-org" | translate }}</a>
-		</p>
+  <div class="opening-bar" [ngClass]="{ green: isOpen, red: isOpen === false, grey: isOpen === undefined }"></div>
+  <div class="content">
+    @if (name) {
+      <h3>{{ name }}</h3>
+    }
+    @if (!name) {
+      <h3><i>{{"poi.no-name" | translate}}</i></h3>
+    }
+    <p>
+      @if (isOpen !== undefined) {
+        @if (openingCheckTimeIsNow) {
+          <span [innerHTML]="'poi.open-now-notice' | translate"></span>
+        }
+        @if (!openingCheckTimeIsNow) {
+          <span [innerHTML]="'poi.open-notice' | translate"></span>
+        }
+        <span> {{ isOpen ? ('yes' | translate) : ('no' | translate) }}</span>
+      } @else {
+        @if (!openingCheckTimeIsNow) {
+          <span [innerHTML]="'poi.unknown-opening-hours' | translate"></span>
+        }
+      }
+    </p>
+    <p class="website-osm-row">
+      @if (!!website) {
+        <a [href]="website" target="_blank">{{ "poi.website" | translate }}</a>
+      }
+      @if (!!website) {
+        <span> | </span>
+      }
+      <a [href]="osmWebsite" target="_blank">{{ "poi.view-on-osm-org" | translate }}</a>
+    </p>
 
-		<app-poi-details [selectedFeature]="selectedFeature"></app-poi-details>
-	</div>
+    <app-poi-details [selectedFeature]="selectedFeature"></app-poi-details>
+  </div>
 </div>

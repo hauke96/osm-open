@@ -2,8 +2,10 @@
 <app-tag-filter></app-tag-filter>
 <app-load-data></app-load-data>
 <hr />
-<app-poi *ngIf="selectedFeature" [selectedFeature]="selectedFeature" [selectedDateTime]="selectedDateTime"> </app-poi>
+@if (selectedFeature) {
+  <app-poi [selectedFeature]="selectedFeature" [selectedDateTime]="selectedDateTime"> </app-poi>
+}
 <span class="footer-label">
-	{{ "OSM Open v" + version }} | {{ "sidebar.view-on" | translate }}
-	<a [href]="sourceRepoUrl" target="_blank">GitHub</a>
+  {{ "OSM Open v" + version }} | {{ "sidebar.view-on" | translate }}
+  <a [href]="sourceRepoUrl" target="_blank">GitHub</a>
 </span>
