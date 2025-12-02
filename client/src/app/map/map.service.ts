@@ -11,7 +11,6 @@ export class MapService {
   get currentMapViewChanged(): Observable<[number, Extent]> {
     return this.$currentMapViewChanged.asObservable();
   }
-
   mapViewChanged(zoomLevel: number, extent: Extent): void {
     this.$currentMapViewChanged.next([zoomLevel, extent]);
   }

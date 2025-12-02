@@ -88,7 +88,7 @@
           {
             "printWidth": 120,
             "useTabs": true,
-            "parser": "html"
+            "parser": "angular"
           }
         ]
       }

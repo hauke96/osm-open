@@ -1,11 +1,11 @@
 <div class="notification-container">
 	@if (hasError()) {
-	<div class="error-container">
-		<div>
-			<b>{{ "notification.error" | translate }}</b>
-			<span class="error-text">{{ errorText() }}</span>
+		<div class="error-container">
+			<div>
+				<b>{{ "notification.error" | translate }}</b>
+				<span class="error-text">{{ errorText() }}</span>
+			</div>
+			<button class="error-button" (click)="onOkButtonClicked()">{{ "notification.ok" | translate }}</button>
 		</div>
-		<button class="error-button" (click)="onOkButtonClicked()">{{ "notification.ok" | translate }}</button>
-	</div>
 	}
 </div>

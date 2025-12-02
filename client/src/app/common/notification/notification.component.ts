@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
 import { NotificationService } from '../notification.service';
-import {TranslatePipe} from "@ngx-translate/core";
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
-  imports: [
-    TranslatePipe
-  ]
+  imports: [TranslatePipe],
 })
 export class NotificationComponent {
   constructor(private notificationService: NotificationService) {}

@@ -3,11 +3,11 @@
 	[(ngModel)]="filterExpression"
 	(ngModelChange)="onTagFieldChanged()"
 	class="tag-selection"
-	[ngClass]="{'placeholder': !filterExpression || filterExpression === ''}"
+	[ngClass]="{ placeholder: !filterExpression || filterExpression === '' }"
 >
-	<option value="" disabled selected hidden>{{"tag-filter.template-placeholder"|translate}}</option>
+	<option value="" disabled selected hidden>{{ "tag-filter.template-placeholder" | translate }}</option>
 	@for (t of tagTemplates; track t.name) {
-	<option [ngValue]="t.tag">{{t.name | translate}}</option>
+		<option [ngValue]="t.tag">{{ t.name | translate }}</option>
 	}
 </select>
 
@@ -18,9 +18,9 @@
 		[class.reset-enabled]="'' !== filterExpression"
 		[(ngModel)]="filterExpression"
 		(ngModelChange)="onTagFieldChanged()"
-		[placeholder]='"tag-filter.tag-placeholder" | translate'
+		[placeholder]="'tag-filter.tag-placeholder' | translate"
 	/>
-	@if ('' !== filterExpression) {
-	<i class="icon-close close-button" (click)="reset()" [class.invisible]="filterExpression === ''"></i>
+	@if ("" !== filterExpression) {
+		<i class="icon-close close-button" (click)="reset()" [class.invisible]="filterExpression === ''"></i>
 	}
 </div>

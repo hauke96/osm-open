@@ -1,17 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { Geometry } from 'ol/geom';
 import { Feature } from 'ol';
-import {DatePipe} from "@angular/common";
-import {TranslatePipe} from "@ngx-translate/core";
+import { DatePipe } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-poi-details',
   templateUrl: './poi-details.component.html',
   styleUrls: ['./poi-details.component.scss'],
-  imports: [
-    DatePipe,
-    TranslatePipe
-  ]
+  imports: [DatePipe, TranslatePipe],
 })
 export class PoiDetailsComponent {
   @Input()

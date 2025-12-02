@@ -4,17 +4,14 @@ import { Unsubscriber } from '../../common/unsubscriber';
 import { PoiService } from '../../map/poi.service';
 import { Extent } from 'ol/extent';
 import { NotificationService } from '../../common/notification.service';
-import {TranslatePipe} from "@ngx-translate/core";
-import {LoadingSpinnerComponent} from "../../common/loading-spinner/loading-spinner.component";
+import { TranslatePipe } from '@ngx-translate/core';
+import { LoadingSpinnerComponent } from '../../common/loading-spinner/loading-spinner.component';
 
 @Component({
   selector: 'app-load-data',
   templateUrl: './load-data.component.html',
   styleUrls: ['./load-data.component.scss'],
-  imports: [
-    TranslatePipe,
-    LoadingSpinnerComponent
-  ]
+  imports: [TranslatePipe, LoadingSpinnerComponent],
 })
 export class LoadDataComponent extends Unsubscriber {
   canLoadData: boolean = false;
