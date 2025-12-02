@@ -5,6 +5,7 @@ import { NotificationService } from '../notification.service';
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
+  standalone: false,
 })
 export class NotificationComponent {
   constructor(private notificationService: NotificationService) {}

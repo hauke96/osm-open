@@ -14,6 +14,7 @@ import TileLayer from 'ol/layer/Tile';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   providers: [{ provide: LayerService, useExisting: forwardRef(() => MapComponent) }],
+  standalone: false,
 })
 export class MapComponent implements AfterViewInit, LayerService {
   map: Map;

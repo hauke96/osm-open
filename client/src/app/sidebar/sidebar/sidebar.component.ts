@@ -11,6 +11,7 @@ import { DateTimeSelectionService } from '../../common/date-time-selection.servi
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
+  standalone: false,
 })
 export class SidebarComponent extends Unsubscriber {
   version = packageInfo.version;

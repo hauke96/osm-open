@@ -6,6 +6,7 @@ import { Feature } from 'ol';
   selector: 'app-poi-details',
   templateUrl: './poi-details.component.html',
   styleUrls: ['./poi-details.component.scss'],
+  standalone: false,
 })
 export class PoiDetailsComponent {
   @Input()

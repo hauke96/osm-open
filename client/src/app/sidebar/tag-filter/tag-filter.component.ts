@@ -11,6 +11,7 @@ interface TagTemplate {
   selector: 'app-tag-filter',
   templateUrl: './tag-filter.component.html',
   styleUrls: ['./tag-filter.component.scss'],
+  standalone: false,
 })
 export class TagFilterComponent {
   tagTemplates: TagTemplate[] = [];
