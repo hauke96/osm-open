@@ -7,7 +7,6 @@ import { OpeningHoursService } from '../../common/opening-hours.service';
   selector: 'app-poi',
   templateUrl: './poi.component.html',
   styleUrls: ['./poi.component.scss'],
-  standalone: false,
 })
 export class PoiComponent {
   name: string;

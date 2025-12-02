@@ -1,30 +1,26 @@
 <h3 class="title">{{ "tag-filter.title" | translate }}</h3>
 <select
-  [(ngModel)]="filterExpression"
-  (ngModelChange)="onTagFieldChanged()"
-  class="tag-selection"
-  [ngClass]="{'placeholder': !filterExpression || filterExpression === ''}"
-  >
-  <option value="" disabled selected hidden>{{"tag-filter.template-placeholder"|translate}}</option>
-  @for (t of tagTemplates; track t) {
-    <option [ngValue]="t.tag">{{t.name | translate}}</option>
-  }
+	[(ngModel)]="filterExpression"
+	(ngModelChange)="onTagFieldChanged()"
+	class="tag-selection"
+	[ngClass]="{'placeholder': !filterExpression || filterExpression === ''}"
+>
+	<option value="" disabled selected hidden>{{"tag-filter.template-placeholder"|translate}}</option>
+	@for (t of tagTemplates; track t) {
+	<option [ngValue]="t.tag">{{t.name | translate}}</option>
+	}
 </select>
 
 <!-- TODO Extract this resetable-input into own component if its used again -->
 <div>
-  <input
-    class="resettable-input"
-    [class.reset-enabled]="'' !== filterExpression"
-    [(ngModel)]="filterExpression"
-    (ngModelChange)="onTagFieldChanged()"
-    [placeholder]='"tag-filter.tag-placeholder" | translate'
-    />
-  @if ('' !== filterExpression) {
-    <i
-      class="icon-close close-button"
-      (click)="reset()"
-      [class.invisible]="filterExpression === ''"
-    ></i>
-  }
+	<input
+		class="resettable-input"
+		[class.reset-enabled]="'' !== filterExpression"
+		[(ngModel)]="filterExpression"
+		(ngModelChange)="onTagFieldChanged()"
+		[placeholder]='"tag-filter.tag-placeholder" | translate'
+	/>
+	@if ('' !== filterExpression) {
+	<i class="icon-close close-button" (click)="reset()" [class.invisible]="filterExpression === ''"></i>
+	}
 </div>

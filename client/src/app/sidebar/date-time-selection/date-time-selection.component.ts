@@ -6,7 +6,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   selector: 'app-date-time-selection',
   templateUrl: './date-time-selection.component.html',
   styleUrls: ['./date-time-selection.component.scss'],
-  standalone: false,
 })
 export class DateTimeSelectionComponent {
   date: string;

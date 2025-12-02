@@ -1,12 +1,12 @@
 <h3 class="title">{{ "load-data.load-data" | translate }}</h3>
 <div class="control-container">
-  <button [disabled]="!canLoadData || isLoading" (click)="onLoadDataClicked()" class="load-data-button">
-    {{ "load-data.load-data" | translate }}
-  </button>
-  @if (isLoading) {
-    <app-loading-spinner></app-loading-spinner>
-  }
+	<button [disabled]="!canLoadData || isLoading" (click)="onLoadDataClicked()" class="load-data-button">
+		{{ "load-data.load-data" | translate }}
+	</button>
+	@if (isLoading) {
+	<app-loading-spinner></app-loading-spinner>
+	}
 </div>
 @if (!canLoadData) {
-  <span class="zoom-in-notice">{{ "load-data.zoom" | translate }}</span>
+<span class="zoom-in-notice">{{ "load-data.zoom" | translate }}</span>
 }

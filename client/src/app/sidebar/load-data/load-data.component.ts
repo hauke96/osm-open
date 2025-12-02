@@ -9,7 +9,6 @@ import { NotificationService } from '../../common/notification.service';
   selector: 'app-load-data',
   templateUrl: './load-data.component.html',
   styleUrls: ['./load-data.component.scss'],
-  standalone: false,
 })
 export class LoadDataComponent extends Unsubscriber {
   canLoadData: boolean = false;

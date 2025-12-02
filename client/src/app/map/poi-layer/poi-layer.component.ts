@@ -16,7 +16,6 @@ import { Unsubscriber } from '../../common/unsubscriber';
   selector: 'app-poi-layer',
   templateUrl: './poi-layer.component.html',
   styleUrls: ['./poi-layer.component.scss'],
-  standalone: false,
 })
 export class PoiLayerComponent extends Unsubscriber implements OnInit {
   public readonly layer: VectorLayer<VectorSource<Feature<Point>>>;

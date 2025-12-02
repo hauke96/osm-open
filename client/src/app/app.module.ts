@@ -45,9 +45,6 @@ const routes: Routes = [{ path: '', component: AppComponent }];
     }),
     FormsModule,
   ],
-  providers: [
-    provideHttpClient(withInterceptorsFromDi()),
-    provideRouter(routes)
-  ],
+  providers: [provideHttpClient(withInterceptorsFromDi()), provideRouter(routes)],
 })
 export class AppModule {}
