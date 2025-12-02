@@ -1,13 +1,12 @@
 import { LoadingSpinnerComponent } from './loading-spinner.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppConfig } from '../../app.config';
 
 describe(LoadingSpinnerComponent.name, () => {
   let component: LoadingSpinnerComponent;
   let fixture: MockedComponentFixture<LoadingSpinnerComponent>;
 
   beforeEach(() => {
-    return MockBuilder(LoadingSpinnerComponent, AppConfig);
+    return MockBuilder(LoadingSpinnerComponent);
   });
 
   beforeEach(() => {

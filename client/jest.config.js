@@ -11,11 +11,14 @@ module.exports = {
   transformIgnorePatterns: [
     "<rootDir>/node_modules/(?!ol|@angular|@ngx-translate|color-space|color-rgba|color-parse|rbush|quickselect).+\.js$"
   ],
-  globals: {
-    "ts-jest": {
-      tsconfig: "<rootDir>/tsconfig.spec.json",
-      stringifyContentPathRegex: "\\.html$"
-    }
+  transform: {
+    '^.+\\.(ts|js|html)$': [
+      'jest-preset-angular',
+      {
+        tsconfig: "<rootDir>/tsconfig.spec.json",
+        stringifyContentPathRegex: "\\.html$"
+      }
+    ],
   },
   modulePaths: [
     "<rootDir>"

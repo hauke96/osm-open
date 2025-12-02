@@ -1,6 +1,5 @@
 import { PoiDetailsComponent } from './poi-details.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppConfig } from '../../app.config';
 import { Feature } from 'ol';
 
 describe(PoiDetailsComponent.name, () => {
@@ -8,7 +7,7 @@ describe(PoiDetailsComponent.name, () => {
   let fixture: MockedComponentFixture<PoiDetailsComponent>;
 
   beforeEach(() => {
-    return MockBuilder(PoiDetailsComponent, AppConfig);
+    return MockBuilder(PoiDetailsComponent);
   });
 
   beforeEach(() => {

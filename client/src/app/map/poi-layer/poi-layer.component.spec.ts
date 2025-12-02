@@ -1,6 +1,5 @@
 import { PoiLayerComponent } from './poi-layer.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppConfig } from '../../app.config';
 import { LayerService } from '../layer.service';
 import { PoiService } from '../poi.service';
 import { OpeningHoursService } from '../../common/opening-hours.service';
@@ -19,10 +18,12 @@ describe(PoiLayerComponent.name, () => {
   let dateTimeSelectionService: DateTimeSelectionService;
 
   let poiDataChangedSubject: Subject<Feature<Point>[]>;
+  let poiSelectedSubject: Subject<Feature<Point> | undefined>;
   let dateTimeSelectedSubject: Subject<Date | undefined>;
 
   beforeEach(() => {
     poiDataChangedSubject = new Subject();
+    poiSelectedSubject = new Subject();
     dateTimeSelectedSubject = new Subject();
 
     layerService = {
@@ -31,13 +32,14 @@ describe(PoiLayerComponent.name, () => {
     } as LayerService;
     poiService = {
       dataChanged: poiDataChangedSubject.asObservable(),
+      poiSelected: poiSelectedSubject.asObservable(),
     } as unknown as PoiService;
     openingHoursService = {} as OpeningHoursService;
     dateTimeSelectionService = {
       dateTimeSelected: dateTimeSelectedSubject.asObservable(),
     } as unknown as DateTimeSelectionService;
 
-    return MockBuilder(PoiLayerComponent, AppConfig)
+    return MockBuilder(PoiLayerComponent)
       .provide({ provide: LayerService, useFactory: () => layerService })
       .provide({ provide: PoiService, useFactory: () => poiService })
       .provide({ provide: OpeningHoursService, useFactory: () => openingHoursService })
@@ -122,15 +124,16 @@ describe(PoiLayerComponent.name, () => {
     beforeEach(() => {
       poiService.selectPoi = jest.fn();
       selectedFeature = new Feature<Point>(new Point([1, 2]));
-      component.select.dispatchEvent(new SelectEvent('select', [selectedFeature], [], {} as MapBrowserEvent<never>));
     });
 
-    it('should set selected feature', () => {
+    it('should set selected feature on poi service event', () => {
+      poiSelectedSubject.next(selectedFeature);
       expect(component.selectedFeature).toEqual(selectedFeature);
     });
 
-    it('should call poi service', () => {
-      expect(poiService.selectPoi).toHaveBeenCalledWith(component.selectedFeature);
+    it('should call poi service on select interaction', () => {
+      component.select.dispatchEvent(new SelectEvent('select', [selectedFeature], [], {} as MapBrowserEvent<never>));
+      expect(poiService.selectPoi).toHaveBeenCalledWith(selectedFeature);
     });
   });
 

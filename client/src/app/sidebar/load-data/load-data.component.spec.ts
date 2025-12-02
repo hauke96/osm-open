@@ -1,6 +1,5 @@
 import { LoadDataComponent } from './load-data.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppConfig } from '../../app.config';
 import { PoiService } from '../../map/poi.service';
 import { MapService } from '../../map/map.service';
 import { NotificationService } from '../../common/notification.service';
@@ -25,7 +24,7 @@ describe(LoadDataComponent.name, () => {
     } as MapService;
     notificationService = {} as NotificationService;
 
-    return MockBuilder(LoadDataComponent, AppConfig)
+    return MockBuilder(LoadDataComponent)
       .provide({ provide: PoiService, useFactory: () => poiService })
       .provide({ provide: MapService, useFactory: () => mapService })
       .provide({ provide: NotificationService, useFactory: () => notificationService });
