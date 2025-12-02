@@ -1,6 +1,6 @@
 import { AppComponent } from './app.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppModule } from './app.module';
+import { AppConfig } from './app.config';
 import { TranslateService } from '@ngx-translate/core';
 import { of, Subject } from 'rxjs';
 import { Title } from '@angular/platform-browser';
@@ -26,7 +26,7 @@ import { Title } from '@angular/platform-browser';
 
       title = {} as Title;
 
-      return MockBuilder(AppComponent, AppModule)
+      return MockBuilder(AppComponent, AppConfig)
         .provide({ provide: TranslateService, useFactory: () => translateService })
         .provide({ provide: Title, useFactory: () => title });
     });

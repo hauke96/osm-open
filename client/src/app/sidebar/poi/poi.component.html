@@ -4,7 +4,7 @@
 		@if (name) {
 		<h3>{{ name }}</h3>
 		} @if (!name) {
-		<h3><i>{{"poi.no-name" | translate}}</i></h3>
+		<h3><i>{{ "poi.no-name" | translate }}</i></h3>
 		}
 		<p>
 			@if (isOpen !== undefined) { @if (openingCheckTimeIsNow) {

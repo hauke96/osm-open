@@ -1,6 +1,6 @@
 import { DateTimeSelectionComponent } from './date-time-selection.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppModule } from '../../app.module';
+import { AppConfig } from '../../app.config';
 import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -23,7 +23,7 @@ describe('DateTimeSelectionComponent', () => {
       queryParams: queryParamSubject.asObservable(),
     } as unknown as ActivatedRoute;
 
-    return MockBuilder(DateTimeSelectionComponent, AppModule)
+    return MockBuilder(DateTimeSelectionComponent, AppConfig)
       .provide({
         provide: DateTimeSelectionService,
         useFactory: () => dateTimeSelectionService,

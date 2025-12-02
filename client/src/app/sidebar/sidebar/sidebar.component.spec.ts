@@ -1,6 +1,6 @@
 import { SidebarComponent } from './sidebar.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppModule } from '../../app.module';
+import { AppConfig } from '../../app.config';
 import { PoiService } from '../../map/poi.service';
 import { Subject } from 'rxjs';
 import { Point } from 'ol/geom';
@@ -27,7 +27,7 @@ describe('SidebarComponent', () => {
       dateTimeSelected: dateTimeSelectedSubject.asObservable(),
     } as unknown as DateTimeSelectionService;
 
-    return MockBuilder(SidebarComponent, AppModule)
+    return MockBuilder(SidebarComponent, AppConfig)
       .provide({ provide: PoiService, useFactory: () => poiService })
       .provide({ provide: DateTimeSelectionService, useFactory: () => dateTimeSelectionService });
   });

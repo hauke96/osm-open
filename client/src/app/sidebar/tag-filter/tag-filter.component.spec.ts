@@ -1,6 +1,6 @@
 import { TagFilterComponent } from './tag-filter.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppModule } from '../../app.module';
+import { AppConfig } from '../../app.config';
 import { FilterService } from '../../common/filter.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
@@ -23,7 +23,7 @@ describe(TagFilterComponent.name, () => {
       queryParams: queryParamSubject.asObservable(),
     } as unknown as ActivatedRoute;
 
-    return MockBuilder(TagFilterComponent, AppModule)
+    return MockBuilder(TagFilterComponent, AppConfig)
       .provide({
         provide: FilterService,
         useFactory: () => filterService,

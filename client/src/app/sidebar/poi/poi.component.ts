@@ -2,11 +2,15 @@ import { Component, Input } from '@angular/core';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
 import { OpeningHoursService } from '../../common/opening-hours.service';
+import { NgClass } from '@angular/common';
+import { TranslatePipe } from '@ngx-translate/core';
+import { PoiDetailsComponent } from '../poi-details/poi-details.component';
 
 @Component({
   selector: 'app-poi',
   templateUrl: './poi.component.html',
   styleUrls: ['./poi.component.scss'],
+  imports: [NgClass, TranslatePipe, PoiDetailsComponent],
 })
 export class PoiComponent {
   name: string;

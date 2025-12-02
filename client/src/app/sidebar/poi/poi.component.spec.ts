@@ -1,6 +1,6 @@
 import { PoiComponent } from './poi.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppModule } from '../../app.module';
+import { AppConfig } from '../../app.config';
 import { OpeningHoursService } from '../../common/opening-hours.service';
 import { Feature } from 'ol';
 import { Point } from 'ol/geom';
@@ -13,7 +13,7 @@ describe(PoiComponent.name, () => {
   beforeEach(() => {
     openingHoursService = {} as OpeningHoursService;
 
-    return MockBuilder(PoiComponent, AppModule).provide({
+    return MockBuilder(PoiComponent, AppConfig).provide({
       provide: OpeningHoursService,
       useFactory: () => openingHoursService,
     });

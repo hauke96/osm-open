@@ -1,6 +1,6 @@
 import { PoiLayerComponent } from './poi-layer.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppModule } from '../../app.module';
+import { AppConfig } from '../../app.config';
 import { LayerService } from '../layer.service';
 import { PoiService } from '../poi.service';
 import { OpeningHoursService } from '../../common/opening-hours.service';
@@ -37,7 +37,7 @@ describe(PoiLayerComponent.name, () => {
       dateTimeSelected: dateTimeSelectedSubject.asObservable(),
     } as unknown as DateTimeSelectionService;
 
-    return MockBuilder(PoiLayerComponent, AppModule)
+    return MockBuilder(PoiLayerComponent, AppConfig)
       .provide({ provide: LayerService, useFactory: () => layerService })
       .provide({ provide: PoiService, useFactory: () => poiService })
       .provide({ provide: OpeningHoursService, useFactory: () => openingHoursService })

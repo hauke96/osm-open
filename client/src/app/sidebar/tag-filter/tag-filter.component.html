@@ -6,7 +6,7 @@
 	[ngClass]="{'placeholder': !filterExpression || filterExpression === ''}"
 >
 	<option value="" disabled selected hidden>{{"tag-filter.template-placeholder"|translate}}</option>
-	@for (t of tagTemplates; track t) {
+	@for (t of tagTemplates; track t.name) {
 	<option [ngValue]="t.tag">{{t.name | translate}}</option>
 	}
 </select>

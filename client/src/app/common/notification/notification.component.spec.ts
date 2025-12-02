@@ -1,6 +1,6 @@
 import { NotificationComponent } from './notification.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppModule } from '../../app.module';
+import { AppConfig } from '../../app.config';
 import { NotificationService } from '../notification.service';
 
 describe('NotificationComponent', () => {
@@ -19,7 +19,7 @@ describe('NotificationComponent', () => {
     notificationService.getError = jest.fn().mockReturnValue(errorString);
     notificationService.hasError = jest.fn().mockReturnValue(hasError);
 
-    return MockBuilder(NotificationComponent, AppModule).provide({
+    return MockBuilder(NotificationComponent, AppConfig).provide({
       provide: NotificationService,
       useFactory: () => notificationService,
     });
