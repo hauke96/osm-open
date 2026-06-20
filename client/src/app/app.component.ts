@@ -19,7 +19,7 @@ export class AppComponent {
     title: Title
   ) {
     translate.addLangs(['en']);
-    translate.setDefaultLang('en');
+    translate.setFallbackLang('en');
 
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang?.match(/en/) ? browserLang : 'en');

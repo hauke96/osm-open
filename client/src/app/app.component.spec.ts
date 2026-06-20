@@ -19,7 +19,7 @@ import { Title } from '@angular/platform-browser';
         onLangChange: langChangedSubject.asObservable(),
       } as unknown as TranslateService;
       translateService.addLangs = jest.fn();
-      translateService.setDefaultLang = jest.fn();
+      translateService.setFallbackLang = jest.fn();
       translateService.getBrowserLang = jest.fn().mockReturnValue(language);
       translateService.use = jest.fn();
 
@@ -45,7 +45,7 @@ import { Title } from '@angular/platform-browser';
     });
 
     it('should set default language', () => {
-      expect(translateService.setDefaultLang).toHaveBeenCalledWith('en');
+      expect(translateService.setFallbackLang).toHaveBeenCalledWith('en');
     });
 
     it('should set used language', () => {
