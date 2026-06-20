@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Geometry } from 'ol/geom';
 import { Feature } from 'ol';
 import { DatePipe } from '@angular/common';
@@ -8,6 +8,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-poi-details',
   templateUrl: './poi-details.component.html',
   styleUrls: ['./poi-details.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [DatePipe, TranslatePipe],
 })
 export class PoiDetailsComponent {

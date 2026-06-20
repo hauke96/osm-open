@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
 import { NotificationComponent } from './common/notification/notification.component';
@@ -10,6 +10,7 @@ import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NotificationComponent, MapComponent, PoiLayerComponent, SidebarComponent],
 })
 export class AppComponent {

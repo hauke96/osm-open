@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, forwardRef } from '@angular/core';
+import { AfterViewInit, Component, forwardRef, ChangeDetectionStrategy } from '@angular/core';
 import { Map, MapEvent, View } from 'ol';
 import { Attribution } from 'ol/control';
 import OSM from 'ol/source/OSM';
@@ -13,6 +13,7 @@ import TileLayer from 'ol/layer/Tile';
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [{ provide: LayerService, useExisting: forwardRef(() => MapComponent) }],
 })
 export class MapComponent implements AfterViewInit, LayerService {

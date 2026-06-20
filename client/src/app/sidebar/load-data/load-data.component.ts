@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MapService } from '../../map/map.service';
 import { Unsubscriber } from '../../common/unsubscriber';
 import { PoiService } from '../../map/poi.service';
@@ -11,6 +11,7 @@ import { LoadingSpinnerComponent } from '../../common/loading-spinner/loading-sp
   selector: 'app-load-data',
   templateUrl: './load-data.component.html',
   styleUrls: ['./load-data.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TranslatePipe, LoadingSpinnerComponent],
 })
 export class LoadDataComponent extends Unsubscriber {

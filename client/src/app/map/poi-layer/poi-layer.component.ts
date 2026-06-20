@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { LayerService } from '../layer.service';
 import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
@@ -15,6 +15,7 @@ import { Unsubscriber } from '../../common/unsubscriber';
 @Component({
   selector: 'app-poi-layer',
   templateUrl: './poi-layer.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./poi-layer.component.scss'],
 })
 export class PoiLayerComponent extends Unsubscriber implements OnInit {

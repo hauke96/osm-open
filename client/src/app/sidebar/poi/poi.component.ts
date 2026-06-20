@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Point } from 'ol/geom';
 import { Feature } from 'ol';
 import { OpeningHoursService } from '../../common/opening-hours.service';
@@ -10,6 +10,7 @@ import { PoiDetailsComponent } from '../poi-details/poi-details.component';
   selector: 'app-poi',
   templateUrl: './poi.component.html',
   styleUrls: ['./poi.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [NgClass, TranslatePipe, PoiDetailsComponent],
 })
 export class PoiComponent {

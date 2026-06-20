@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { NotificationService } from '../notification.service';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -6,6 +6,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TranslatePipe],
 })
 export class NotificationComponent {

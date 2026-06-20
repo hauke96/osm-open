@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FilterService } from '../../common/filter.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -14,6 +14,7 @@ interface TagTemplate {
   selector: 'app-tag-filter',
   templateUrl: './tag-filter.component.html',
   styleUrls: ['./tag-filter.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [TranslatePipe, FormsModule, NgClass],
 })
 export class TagFilterComponent {

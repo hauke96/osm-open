@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import packageInfo from '../../../../package.json';
 import { environment } from '../../../environments/environment';
 import { PoiService } from '../../map/poi.service';
@@ -16,6 +16,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [DateTimeSelectionComponent, TagFilterComponent, LoadDataComponent, PoiComponent, TranslatePipe],
 })
 export class SidebarComponent extends Unsubscriber {
