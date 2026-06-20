@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DateTimeSelectionService } from '../../common/date-time-selection.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-date-time-selection',
   templateUrl: './date-time-selection.component.html',
   styleUrls: ['./date-time-selection.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [TranslatePipe, FormsModule],
 })
 export class DateTimeSelectionComponent {
   date: string;

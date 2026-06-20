@@ -1,11 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Title } from '@angular/platform-browser';
+import { NotificationComponent } from './common/notification/notification.component';
+import { MapComponent } from './map/map/map.component';
+import { PoiLayerComponent } from './map/poi-layer/poi-layer.component';
+import { SidebarComponent } from './sidebar/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  imports: [NotificationComponent, MapComponent, PoiLayerComponent, SidebarComponent],
 })
 export class AppComponent {
   constructor(
@@ -13,7 +19,7 @@ export class AppComponent {
     title: Title
   ) {
     translate.addLangs(['en']);
-    translate.setDefaultLang('en');
+    translate.setFallbackLang('en');
 
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang?.match(/en/) ? browserLang : 'en');

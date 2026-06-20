@@ -6,7 +6,6 @@ import VectorSource from 'ol/source/Vector';
 import { Point } from 'ol/geom';
 import { Interaction, Select } from 'ol/interaction';
 import { MapService } from '../map.service';
-import { AppModule } from '../../app.module';
 
 import Worker from '../../../../jest/worker-mock';
 // @ts-ignore
@@ -34,7 +33,7 @@ describe(MapComponent.name, () => {
 
     mapService = {} as MapService;
 
-    return MockBuilder(MapComponent, AppModule).provide({ provide: MapService, useFactory: () => mapService });
+    return MockBuilder(MapComponent).provide({ provide: MapService, useFactory: () => mapService });
   });
 
   beforeEach(() => {

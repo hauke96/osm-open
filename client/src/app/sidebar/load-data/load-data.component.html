@@ -3,6 +3,10 @@
 	<button [disabled]="!canLoadData || isLoading" (click)="onLoadDataClicked()" class="load-data-button">
 		{{ "load-data.load-data" | translate }}
 	</button>
-	<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+	@if (isLoading) {
+		<app-loading-spinner></app-loading-spinner>
+	}
 </div>
-<span class="zoom-in-notice" *ngIf="!canLoadData">{{ "load-data.zoom" | translate }}</span>
+@if (!canLoadData) {
+	<span class="zoom-in-notice">{{ "load-data.zoom" | translate }}</span>
+}

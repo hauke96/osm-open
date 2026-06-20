@@ -1,6 +1,5 @@
 import { AppComponent } from './app.component';
 import { MockBuilder, MockedComponentFixture, MockRender } from 'ng-mocks';
-import { AppModule } from './app.module';
 import { TranslateService } from '@ngx-translate/core';
 import { of, Subject } from 'rxjs';
 import { Title } from '@angular/platform-browser';
@@ -20,13 +19,13 @@ import { Title } from '@angular/platform-browser';
         onLangChange: langChangedSubject.asObservable(),
       } as unknown as TranslateService;
       translateService.addLangs = jest.fn();
-      translateService.setDefaultLang = jest.fn();
+      translateService.setFallbackLang = jest.fn();
       translateService.getBrowserLang = jest.fn().mockReturnValue(language);
       translateService.use = jest.fn();
 
       title = {} as Title;
 
-      return MockBuilder(AppComponent, AppModule)
+      return MockBuilder(AppComponent)
         .provide({ provide: TranslateService, useFactory: () => translateService })
         .provide({ provide: Title, useFactory: () => title });
     });
@@ -46,7 +45,7 @@ import { Title } from '@angular/platform-browser';
     });
 
     it('should set default language', () => {
-      expect(translateService.setDefaultLang).toHaveBeenCalledWith('en');
+      expect(translateService.setFallbackLang).toHaveBeenCalledWith('en');
     });
 
     it('should set used language', () => {
